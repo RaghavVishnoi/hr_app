@@ -1,0 +1,2 @@
+$("tbody").append("<%= escape_javascript(render partial: 'subjects/subject', locals: { subject: @subject }) %>");
+$("#add-subject-form").html("<%= escape_javascript(render partial: 'subjects/form', locals: { subject: Subject.new }) %>");

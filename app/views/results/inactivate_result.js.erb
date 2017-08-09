@@ -1,0 +1,1 @@
+$("#result-status-<%= params[:exam_id] %>").html("<%= escape_javascript(link_to 'Declare', activate_result_path(params[:exam_id]), remote: true) %>")

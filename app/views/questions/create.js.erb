@@ -1,0 +1,7 @@
+<% unless @question.errors.present? %>
+  $("#exam-questions").append("<%= escape_javascript(render  partial: 'questions/question', locals: { question: @question }) %>")
+  $("#question-count").text("(<%= @questions.count %>)");
+  $("#exam-question-form").html("<%= escape_javascript( render 'questions/form', question: Question.new, exam: @question.exam ) %>");
+<% else %>
+  alert('Fill proper details');
+<% end %>

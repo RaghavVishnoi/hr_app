@@ -1,0 +1,26 @@
+<h3>User: <%= @employee.fullname %></h3>
+<table class="table table-bordered table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Exam</th>
+      <th>Question</th>
+      <th>Users ans</th>
+      <th>Correct ans</th>
+      <th>Options</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @responses.each do |res| %>
+      <tr>
+        <td><%= res.question.exam.title %></td>
+        <td><%= res.question.question %></td>
+        <td><%= res.answer %></td>
+        <td><%= res.question.answer %></td>
+        <td><%= res.question.options.gsub(/(\{|\}|")/, "").gsub(/=>/, ". ").split(",").join("  &nbsp;<br/>").html_safe if res.question.question_type == "Choices" %></td>
+        <td id="response_<%= res.id %>"><%= link_to "Mark as Correct", save_ans_by_teacher_path(res.question, @employee), remote: true, data: { confirm: "Are you sure you want to Make this Ans as correct Answer?" } if res.question.question_type != "Choices"  %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr/>

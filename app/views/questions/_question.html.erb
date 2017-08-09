@@ -1,0 +1,12 @@
+<tr>
+  <td><%= question.question %></td>
+  <td><%= question.description %></td>
+  <td><%= question.question_type %></td>
+  <td><%= question.options.gsub(/(\{|\}|")/, "").gsub(/=>/, ". ").split(",").join("  &nbsp;<br/>").html_safe %></td>
+  <td><%= question.answer %></td>
+  <td class="exam-qiestion-options">
+    <%= link_to '<i class="fa fa-external-link fa-lg" aria-hidden="true"></i>'.html_safe, question %> | 
+    <%= link_to '<i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>'.html_safe, edit_question_path(question), remote: true %> |
+    <%= link_to '<i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>'.html_safe, question, method: :delete, remote: true,  data: { confirm: 'Are you sure?' } %>
+  </td>
+</tr>

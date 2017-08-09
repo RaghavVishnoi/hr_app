@@ -1,0 +1,2 @@
+$("#member-list table.table tbody").html("<%= escape_javascript(render @team.team_members, team: @team) %>");
+$("#user-list table.table tbody").html("<%= escape_javascript(render Employee.includes(:teams, :role).where.not(id: @team.team_members.pluck(:employee_id)).where( roles: {role: 'employee'} ), team: @team) %>");

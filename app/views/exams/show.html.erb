@@ -1,0 +1,36 @@
+<div class="row exam-view">
+  <div class="col-xs-12">
+    <h3>
+    <p id="notice"><%= notice %></p>
+    <div class="col-xs-12">
+      <strong>Exam:</strong>
+      <%= @exam.title %>
+    </div>
+    
+    <div class=" col-md-4 col-sm-6 col-xs-12">
+      <strong>Marks:</strong>
+      <%= @exam.marks %>
+    </div>
+    <div class=" col-md-4 col-sm-6 col-xs-12">
+      <strong>Time:</strong>
+      <%= @exam.time %>  Minutes
+    </div>
+
+    <div class=" col-md-4 col-sm-6 col-xs-12">
+      <strong>State:</strong>
+      <%= @exam.state %>
+    </div>
+    </h3>
+  </div>
+</div>
+
+<%= render "questions/index" %>
+<div class="clearfix mt20"></div>
+<div class="row">
+  <div class="col-xs-12" id="exam-question-form">
+    <%= render 'questions/form', question: @question, exam: @exam %>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_exam_path(@exam) %> |
+<%= link_to 'Back', exams_path %>

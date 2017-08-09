@@ -1,0 +1,7 @@
+<% if params[:commit] != 'Save' %>
+  $("#question_<%= @question.id %>_<%= @question.exam_id %>").animate({ width: 'hide' }, 500).addClass("hidden").show();
+  $("#question_<%= @question.id %>_<%= @question.exam_id %>").next().removeClass("hidden");
+<% end %>
+<% if @redirect.present? %>
+  window.location.replace("/dashboard")
+<% end %>

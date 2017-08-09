@@ -18,7 +18,7 @@ class Employee < ApplicationRecord
 
   has_many :leave, as: :applicable
 
-  scope :employees, -> { joins(:role).where(roles: { role: "employees" }) }
+  scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
   scope :team_exams, -> { }
 
   def user_role

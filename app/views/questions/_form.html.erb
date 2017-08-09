@@ -1,0 +1,72 @@
+<%= form_for(question, remote: true ) do |f| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.hidden_field :exam_id, value: exam.id %>
+  </div>
+  
+  <div class="col-sm-6 col-xs-12">
+    <div class="field form-group">
+      <%= f.label :question %>
+      <%= f.text_field :question, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :question_type %>
+      <%= f.select :question_type, options_for_select(['Choices', 'Discriptive']), {}, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+
+    <div id="choices">
+      <%= f.fields_for :options do |option| %>
+        <div class="field form-group">
+          <%= label_tag "Options A" %>
+          <%= option.text_field :A, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag "Options B" %>
+          <%= option.text_field :B, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag "Options C" %>
+          <%= option.text_field :C, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= label_tag "Options D" %>
+          <%= option.text_field :D, class: "form-control" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="field form-group" id="choices-answer">
+      <%= f.label :answer %>
+      <%= f.select :answer, options_for_select(['A', 'B', 'C', 'D']), {}, class: "form-control" %>
+    </div>
+
+    <div class="field form-group" id="descriptive-answer" style="display: none;">
+      <%= f.label :answer %>
+      <%= f.text_area :answer, class: "form-control", disabled: true %>
+    </div>
+  </div>
+
+  <div class="actions align-right">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,6 +1,7 @@
 class Employees::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
+  
   layout 'authentication'
 
   # GET /resource/sign_up
@@ -44,7 +45,7 @@ class Employees::RegistrationsController < Devise::RegistrationsController
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :mobile, :address, :city, :state, :country, :zipcode, :role_id])
   end
 
-  If you have extra params to permit, append them to the sanitizer.
+  # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
     devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :mobile, :address, :city, :state, :country, :zipcode, :role_id])
   end

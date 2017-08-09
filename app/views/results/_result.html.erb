@@ -1,0 +1,45 @@
+<h3>Team: <%= team.name %></h3>
+  <% exams.select { |a| a.results.present? }.each do |exam| %>
+  <div class="col-xs-12">
+    <div class="col-sm-6 col-xs-12">
+      <h4>Exam: <%= exam.title %> </h4>
+    </div>
+    <div class="col-sm-6 col-xs-12" id="result-status-<%= exam.id %>">
+      <strong>
+      <% unless exam.results.map(&:status).reduce(&:&) %>
+        <%= link_to 'Declare', activate_result_path(exam.id), remote: true if visible %>
+      <% else %>
+        <%= link_to 'Revoke', inactivate_result_path(exam.id), remote: true if visible %>
+      <% end %>
+      </strong>
+    </div>
+  </div>
+  <div class="col-xs-12">
+    <div class="col-sm-6 col-xs-12">
+      <p>Subject: <%= exam.subject.title %></p>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <span class="pull-tighr">Cut Off: <%= exam.cut_off_marks %></span>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Correct ans</th>
+        <th>Incorrect ans</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% exam.results.each do |result| %>
+        <tr>
+          <td><%= result.employee.name %></td>
+          <td><%= result.correct_ans %></td>
+          <td><%= result.incorrect_ans %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <hr/>
+<% end %>

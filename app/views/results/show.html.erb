@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2 col-xs-12">
+    <div class="col-xs-12">
+      <h1 class="pul">Result of <%= @result.user.fullname %> for <%= @result.exam.title %> <%= link_to '<i class="fa fa-print" aria-hidden="true"></i>'.html_safe, print_path(@result), class: 'pull-right', title: "In Porgress" %></h1>
+    </div>
+    <div class="col-xs-12">
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Exam</th>
+              <th>Total Marks</th>
+              <th>Cut Off Marks</th>
+              <th>Obtained marks</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><%= @result.exam.title %></td>
+              <td><%= @result.exam.marks %></td>
+              <td><%= @result.exam.cut_off_marks %></td>
+              <td><%= @result.correct_ans %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>

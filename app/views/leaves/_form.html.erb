@@ -31,14 +31,14 @@
     <%= f.datetime_select :to_date %>
   </div>
 
-  <div class="field">
-    <%= f.label :acceptable_type %>
-    <%= f.text_field :acceptable_type %>
-  </div>
+  <!-- <div class="field"> -->
+    <%#= f.label :acceptable_type %>
+    <%#= f.text_field :acceptable_type %>
+  <!-- </div> -->
 
   <div class="field">
     <%= f.label :acceptable_id %>
-    <%= f.number_field :acceptable_id %>
+    <%= f.select :acceptable, Employee.employees.collect {|s| [ s.name, s.id ] }  %>
   </div>
 
   <div class="actions">

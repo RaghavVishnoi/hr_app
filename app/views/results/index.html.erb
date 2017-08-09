@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<div class="row mt20">
+  <div class="col-xs-12">
+    <h1>Results</h1>
+    <div class="table-responsive">
+      <% @team_results.each do |tr| %>
+        <% next unless tr.exams.present? || tr.exams.map(&:state).reduce(&:|) %>
+        <span class="pull-right"> <%= link_to 'Print results for this team', print_team_result_path(tr, format: :pdf) %></span>
+        <%= render partial: 'result', locals: { team: tr, exams: tr.exams, visible: true } %>
+      <% end %>
+    </div>
+    <br>
+  </div>
+</div>

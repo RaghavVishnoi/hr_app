@@ -6,7 +6,7 @@ class LeavesController < ApplicationController
   def index
     @my_leaves = current_employee.leave
     if current_employee.role == 'team_leader' || current_employee.role == 'hr' || current_employee.role == 'president'
-      @leaves = Leave.where.not(applicable_id: current_user.id)
+      @leaves = Leave.where.not(applicable_id: current_employee.id)
     end
   end
 

@@ -1,0 +1,60 @@
+<% content_for :head do %>
+  <style type="text/css" media="screen">
+    #wrapper { padding: 0 !important; }
+  </style>
+<% end %>
+
+<div class="row">
+  <div class="col-sm-8 col-xs-12">
+    <% @questions.each_with_index do |question, index| %>
+      <%= render partial: "questions/attempt", locals: { question: question, index: index } %>
+    <% end %>
+  </div>
+</div>
+<%= hidden_field_tag :time, @result.completed_at - DateTime.now %>
+<%= hidden_field_tag :start_time, @result.started_at%>
+<%= hidden_field_tag :end_time, @result.completed_at %>
+
+<div class="row">
+  <div class="col-sm-8 col-xs-12">
+    <div id='timer'> 
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+     function toHHMMSS(seconds) {
+
+      var sec_num = parseInt(seconds, 10); // don't forget the second param
+      var hours   = Math.floor(sec_num / 3600);
+      var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+      var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+      if (hours   < 10) {hours   = "0"+hours;}
+      if (minutes < 10) {minutes = "0"+minutes;}
+      if (seconds < 10) {seconds = "0"+seconds;}
+      return hours+':'+minutes+':'+seconds;
+    }
+
+    var seconds_left = parseInt($("#time").val()) ;
+    var interval = setInterval(function() {
+      --seconds_left;
+      $('#timer').html(toHHMMSS(seconds_left.toString()));
+      if (seconds_left <= 0)
+      {
+        $('#timer').html("Completed");
+        clearInterval(interval);
+        var exam_id = "<%= @exam.id%>";
+        $.ajax({
+          type:'POST',
+          url:'/questions/complete',
+          data:{
+            exam_id: exam_id
+          }
+        });
+      }
+    }, 1000);
+  });
+</script>

@@ -1,0 +1,52 @@
+<%= form_for(exam) do |f| %>
+  <% if exam.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(exam.errors.count, "error") %> prohibited this exam from being saved:</h2>
+
+      <ul>
+      <% exam.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :subject %>
+    <%= f.select :subject_id, Subject.all.collect {|s| [ s.title, s.id ] }, {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :team %>
+    <%= f.select :team_id, Team.all.collect {|s| [ s.name, s.id ] }, {}, class: "form-control" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :marks %>
+    <%= f.number_field :marks, class: "form-control", min: "0" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :cut_off_marks %>
+    <%= f.number_field :cut_off_marks, class: "form-control", min: "0" %>
+  </div>
+  
+  <div class="field form-group">
+    <%= f.label :time %> (in minutes)
+    <%= f.number_field :time, class: "form-control", min: "0" %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :state %>
+    <%= f.check_box :state %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Create Exam", class: "btn btn-primary" %>
+  </div>
+<% end %>
