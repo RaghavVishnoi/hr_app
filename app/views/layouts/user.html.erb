@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Examination</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'user/user', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'user/user', 'data-turbolinks-track': 'reload' %>
+    <%= yield :head %>
+
+    <script>
+      
+    </script>
+
+    <script src='//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false'></script>
+
+  </head>
+
+  <body class="<%= params[:action] == 'index' ? 'index' : params[:action] == 'about' ? 'index-2' : 'index-4' %>">
+    <div class="page"> 
+      <%= render partial: 'layouts/user_header' %>
+      <section id="content">
+        <%= yield %>
+      </section>
+    </div>
+    <footer id="footer" class="color_9">
+      <div class="container">
+        <div class="row">
+          <div class="grid_12">
+            <p class="info text_4 color_4">
+              © <span id="copyright-year"></span> | <a href="#">Privacy Policy</a> <br/>
+              Website designed by <a href="http://www.templatemonster.com/" rel="nofollow">TemplateMonster.com</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <%#= javascript_include_tag src="user/script.js" %>
+  </body>
+</html>

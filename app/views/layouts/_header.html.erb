@@ -1,0 +1,114 @@
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">Smart Evaluation</a>
+  </div>
+  <!-- Top Menu Items -->
+  <ul class="nav navbar-right top-nav">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user"></i> <%= current_employee.name %> <b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li>
+          <%= link_to '<i class="fa fa-fw fa-user"></i> Profile'.html_safe, edit_employee_registration_path %>
+        </li>
+        <li class="divider"></li>
+        <li>
+          <%= link_to '<i class="fa fa-fw fa-power-off"></i> Log Out'.html_safe, destroy_employee_session_path, method: :delete %>
+        </li>
+      </ul>
+    </li>
+  </ul>
+  <% if params[:action] != 'start' %>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <ul class="nav navbar-nav side-nav">
+        <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
+          <%= link_to '<i class="fa fa-fw fa-dashboard"></i> Dashboard'.html_safe, dashboard_path %>
+        </li>
+        <li class="<%= 'active' if params[:controller] == 'exams' %>">
+          <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil" aria-hidden="true"></i> Exam <i class="fa fa-fw fa-caret-down"></i></a>
+          <ul id="demo" class="collapse">
+            <% if current_employee.user_role != 'employee' %>
+              <li>
+                <%= link_to '<i class="fa fa-plus"></i> Add Exam'.html_safe, new_exam_path %>
+              </li>
+            <% end %>
+            <li>
+              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Exam List'.html_safe, exams_path %>
+            </li>
+          </ul>
+        </li>
+        
+        <% if current_employee.user_role != 'employee' %>
+          <li class="<%= 'active' if params[:controller] == 'subjects' %>">
+            <a href="javascript:;" data-toggle="collapse" data-target="#subject">
+              <i class="fa fa-book" aria-hidden="true"></i>
+              Subject <i class="fa fa-fw fa-caret-down"></i>
+            </a>
+            <ul id="subject" class="collapse">
+              <!-- <li>
+                <%#= link_to '<i class="fa fa-plus"></i> Add Subject'.html_safe, new_subject_path %>
+              </li> -->
+              <li>
+                <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Subject List'.html_safe, subjects_path %>
+              </li>
+            </ul>
+          </li>
+
+          <li class="<%= 'active' if params[:controller] == 'teams' %>">
+            <a href="javascript:;" data-toggle="collapse" data-target="#team">
+              <i class="fa fa-users" aria-hidden="true"></i>
+              Team <i class="fa fa-fw fa-caret-down"></i>
+            </a>
+            <ul id="team" class="collapse">
+              <li>
+                <%= link_to '<i class="fa fa-plus"></i> Add Team'.html_safe, new_team_path %>
+              </li>
+              <li>
+                <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Teams'.html_safe, teams_path %>
+              </li>
+            </ul>
+          </li>
+
+          <li class="<%= 'active' if params[:controller] == 'reports' %>">
+            <a href="javascript:;" data-toggle="collapse" data-target="#reports">
+              <i class="fa fa-users" aria-hidden="true"></i>
+              Reports <i class="fa fa-fw fa-caret-down"></i>
+            </a>
+            <ul id="reports" class="collapse">
+              <!-- <li>
+                <%#= link_to 'Inter Team', team_comparision_path %>
+              </li> -->
+              <li>
+                <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true %>
+              </li>
+              <li>
+                <%= link_to 'Passed Ratio', attemted_vs_passed_path %>
+              </li>
+              <li>
+                <%= link_to "Employees With Exams", report_employee_list_path %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+
+        <li class="<%= 'active' if params[:controller] == 'result' %>">
+          <% if current_employee.user_role != 'employee' %>
+            <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Results'.html_safe, results_path %>
+          <% else %>
+            <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Results'.html_safe, employee_result_path %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "Leaves", leaves_path %>
+        </li>
+
+      </ul>
+    </div>
+  <% end %>
+</nav>

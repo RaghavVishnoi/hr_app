@@ -1,0 +1,47 @@
+<%= form_for(leafe) do |f| %>
+  <% if leafe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(leafe.errors.count, "error") %> prohibited this leafe from being saved:</h2>
+
+      <ul>
+      <% leafe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :subject %>
+    <%= f.text_field :subject %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_field :body %>
+  </div>
+
+  <div class="field">
+    <%= f.label :from_date %>
+    <%= f.datetime_select :from_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :to_date %>
+    <%= f.datetime_select :to_date %>
+  </div>
+
+  <div class="field">
+    <%= f.label :acceptable_type %>
+    <%= f.text_field :acceptable_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :acceptable_id %>
+    <%= f.number_field :acceptable_id %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

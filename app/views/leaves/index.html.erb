@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Leaves</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Body</th>
+      <th>From date</th>
+      <th>To date</th>
+      <th>Acceptable type</th>
+      <th>Acceptable</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leaves ||= [] %>
+    <% @leaves.each do |leafe| %>
+      <tr>
+        <td><%= leafe.subject %></td>
+        <td><%= leafe.body %></td>
+        <td><%= leafe.from_date %></td>
+        <td><%= leafe.to_date %></td>
+        <td><%= leafe.acceptable_type %></td>
+        <td><%= leafe.acceptable_id %></td>
+        <td><%= link_to 'Show', leafe %></td>
+        <td><%= link_to 'Edit', edit_leafe_path(leafe) %></td>
+        <td><%= link_to 'Destroy', leafe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Leafe', new_leafe_path %>
