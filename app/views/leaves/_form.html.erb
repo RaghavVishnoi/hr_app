@@ -11,24 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :subject %>
-    <%= f.text_field :subject %>
+    <%= f.text_field :subject, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :body %>
-    <%= f.text_field :body %>
+    <%= f.text_field :body, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group form-date-select">
     <%= f.label :from_date %>
-    <%= f.datetime_select :from_date %>
+    <%= f.text_field :from_date, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group form-date-select">
     <%= f.label :to_date %>
-    <%= f.datetime_select :to_date %>
+    <%= f.text_field :to_date, class: "form-control" %>
   </div>
 
   <!-- <div class="field"> -->
@@ -36,9 +36,9 @@
     <%#= f.text_field :acceptable_type %>
   <!-- </div> -->
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :acceptable_id %>
-    <%= f.select :acceptable, Employee.employees.collect {|s| [ s.name, s.id ] }  %>
+    <%= f.select :acceptable, Employee.employees.collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
   </div>
 
   <div class="actions">

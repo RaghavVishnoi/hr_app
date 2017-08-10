@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 
 
@@ -49,4 +51,6 @@ $(document).ready(function(){
       $("#descriptive-answer").show();
     }
   });
+
+  $(".form-date-select input[id^='leave_']").datetimepicker();
 });
