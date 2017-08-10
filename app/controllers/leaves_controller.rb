@@ -1,5 +1,5 @@
 class LeavesController < ApplicationController
-  before_action :set_leafe, only: [:show, :edit, :update, :destroy]
+  before_action :set_leave, only: [:show, :edit, :update, :destroy]
 
   # GET /leaves
   # GET /leaves.json
@@ -17,7 +17,7 @@ class LeavesController < ApplicationController
 
   # GET /leaves/new
   def new
-    @leafe = Leave.new
+    @leave = Leave.new
   end
 
   # GET /leaves/1/edit
@@ -27,15 +27,15 @@ class LeavesController < ApplicationController
   # POST /leaves
   # POST /leaves.json
   def create
-    @leafe = Leave.new(leafe_params)
+    @leave = Leave.new(leave_params)
 
     respond_to do |format|
-      if @leafe.save
-        format.html { redirect_to @leafe, notice: 'Leave was successfully created.' }
-        format.json { render :show, status: :created, location: @leafe }
+      if @leave.save
+        format.html { redirect_to @leave, notice: 'Leave was successfully created.' }
+        format.json { render :show, status: :created, location: @leave }
       else
         format.html { render :new }
-        format.json { render json: @leafe.errors, status: :unprocessable_entity }
+        format.json { render json: @leave.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -44,12 +44,12 @@ class LeavesController < ApplicationController
   # PATCH/PUT /leaves/1.json
   def update
     respond_to do |format|
-      if @leafe.update(leafe_params)
-        format.html { redirect_to @leafe, notice: 'Leave was successfully updated.' }
-        format.json { render :show, status: :ok, location: @leafe }
+      if @leave.update(leave_params)
+        format.html { redirect_to @leave, notice: 'Leave was successfully updated.' }
+        format.json { render :show, status: :ok, location: @leave }
       else
         format.html { render :edit }
-        format.json { render json: @leafe.errors, status: :unprocessable_entity }
+        format.json { render json: @leave.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -57,7 +57,7 @@ class LeavesController < ApplicationController
   # DELETE /leaves/1
   # DELETE /leaves/1.json
   def destroy
-    @leafe.destroy
+    @leave.destroy
     respond_to do |format|
       format.html { redirect_to leaves_url, notice: 'Leave was successfully destroyed.' }
       format.json { head :no_content }
@@ -66,12 +66,12 @@ class LeavesController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_leafe
-      @leafe = Leave.find(params[:id])
+    def set_leave
+      @leave = Leave.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def leafe_params
-      params.require(:leafe).permit(:subject, :body, :from_date, :to_date, :acceptable_type, :acceptable_id)
+    def leave_params
+      params.require(:leave).permit(:subject, :body, :from_date, :to_date, :acceptable_type, :acceptable_id)
     end
 end

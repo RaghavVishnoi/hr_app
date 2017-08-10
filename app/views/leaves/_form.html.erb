@@ -23,12 +23,12 @@
 
   <div class="field form-group form-date-select">
     <%= f.label :from_date %>
-    <%= f.text_field :from_date, class: "form-control" %>
+    <%= f.datetime_select :from_date, class: "form-control" %>
   </div>
 
   <div class="field form-group form-date-select">
     <%= f.label :to_date %>
-    <%= f.text_field :to_date, class: "form-control" %>
+    <%= f.datetime_select :to_date, class: "form-control" %>
   </div>
 
   <!-- <div class="field"> -->
@@ -38,7 +38,8 @@
 
   <div class="field form-group">
     <%= f.label :acceptable_id %>
-    <%= f.select :acceptable, Employee.employees.collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
+    <%= f.hidden_field :acceptable_type, value: current_employee.user_role.caplitalize %>
+    <%= f.select :acceptable_id, Employee.send(current_employee.user_role+"s").collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
   </div>
 
   <div class="actions">
