@@ -11,25 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :description %>
     <%= f.text_field :description %>
   </div>
 
-  <div class="field">
-    <%= f.label :creator_id %>
-    <%= f.number_field :creator_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :solved_by %>
-    <%= f.number_field :solved_by %>
-  </div>
+  <%= f.hidden_field :creator_id, value:current_employee.id %>
 
   <div class="actions">
     <%= f.submit %>

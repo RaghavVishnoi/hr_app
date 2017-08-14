@@ -118,6 +118,19 @@
           <% end %>
         </li>
 
+        <li class="<%= 'active' if params[:controller] == 'issues' %>">
+          <a href="javascript:;" data-toggle="collapse" data-target="#issues"><i class="fa fa-pencil" aria-hidden="true"></i> Issues <i class="fa fa-fw fa-caret-down"></i></a>
+          <ul id="issues" class="collapse">
+            <% unless current_employee.president? %>
+              <li>
+                <%= link_to '<i class="fa fa-plus"></i> Add Issue'.html_safe, new_issue_path %>
+              </li>
+            <% end %>
+            <li>
+              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Issue List'.html_safe, issues_path %>
+            </li>
+          </ul>
+        </li>
         
         <li>
           <%= link_to "Leaves", leaves_path %>

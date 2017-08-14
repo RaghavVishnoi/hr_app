@@ -11,6 +11,7 @@ class Employee < ApplicationRecord
 
   has_many :exams, through: :teams
   has_many :results
+  has_many :issues, class_name: "Issue", foreign_key: "creator_id"
   has_many :responses
   belongs_to :role
   has_many :teams, through: :team_members
