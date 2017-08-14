@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :set_employee, only: [:show, :edit, :update, :destroy, :upload_document]
   def index
     if current_employee.president?
       @employees = Employee.all
@@ -10,20 +11,33 @@ class EmployeesController < ApplicationController
   end
 
   def show
-    @employee = Employee.find(params[:id])
   end
 
   def edit
-    @employee = Employee.find(params[:id])
+  end
+
+  def destroy
+    @employee.destroy
+    respond_to do |format|
+      format.html { redirect_to employees_url, notice: 'Employee was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   def update
-    @employee = Employee.find(params[:id])
-    
     if @employee.update(employee_params)
       flash[:notice] = 'Exam was successfully updated.'
     end
     redirect_to employees_path
+  end
+
+  def upload_document
+    if params[:documents]
+      params[:documents].each { |document|
+        @employee.documents.create(document: document)
+      }
+    end
+    redirect_to employee_profile_path(@employee)
   end
 
   private

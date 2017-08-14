@@ -19,9 +19,8 @@
                 <td><%= employee.name %></td>
                 <td><%= employee.email %></td>
                 <td><%= employee.user_role %></td>
-               
                 <% if current_employee.user_role != 'employee' %>
-                  <td><%= link_to 'Show', employee %></td>
+                  <td><%= link_to 'Show', employee_profile_path(employee) %></td>
                   <td><%= link_to 'Edit', edit_employee_path(employee
                   ) %></td>
                   <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>

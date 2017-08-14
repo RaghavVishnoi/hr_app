@@ -16,8 +16,8 @@ class Employee < ApplicationRecord
   belongs_to :role
   has_many :teams, through: :team_members
   has_many :team_members
-
   has_many :leave, as: :applicable
+  has_many :documents, :dependent => :destroy
 
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
   scope :team_members, -> { joins(:role).where(roles: { role: "team_member" }) }
