@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  
+
+
   root 'home#index'
 
   resources :trackers
@@ -7,6 +8,7 @@ Rails.application.routes.draw do
   resources :leaves
   resources :issues
   resources :experiences
+  resources :employees
 
   resources :roles
 

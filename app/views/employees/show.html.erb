@@ -1,0 +1,27 @@
+<div class="row employee-view">
+  <div class="col-xs-12">
+    <h3>
+    <p id="notice"><%= notice %></p>
+    <div class="col-xs-12">
+      <strong>employee:</strong>
+      <%= @employee.name %>
+    </div>
+    
+    <div class=" col-md-4 col-sm-6 col-xs-12">
+      <strong>Email:</strong>
+      <%= @employee.email %>
+    </div>
+    <div class=" col-md-4 col-sm-6 col-xs-12">
+      <strong>Role:</strong>
+      <%= @employee.user_role %>
+    </div>
+
+    
+    </h3>
+  </div>
+</div>
+
+
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

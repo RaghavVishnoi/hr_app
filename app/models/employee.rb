@@ -29,6 +29,22 @@ class Employee < ApplicationRecord
     role.role
   end
 
+  def president?
+    user_role == 'president'
+  end
+
+  def hr?
+    user_role == "hr"
+  end
+
+  def team_leader?
+    user_role == "team_leader"
+  end
+
+  def employee?
+    user_role == "employee"
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
