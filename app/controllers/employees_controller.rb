@@ -11,6 +11,7 @@ class EmployeesController < ApplicationController
   end
 
   def show
+    @experience = Experience.new
   end
 
   def edit
