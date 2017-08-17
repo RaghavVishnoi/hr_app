@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :leaves
   resources :issues
   resources :experiences
-  resources :employees, except: [:show]
+  resources :employees, except: [:show], path: '/users'
 
   resources :roles
 

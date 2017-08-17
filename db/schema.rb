@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823112824) do
+ActiveRecord::Schema.define(version: 20170823112826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "documents", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.index ["employee_id"], name: "index_documents_on_employee_id", using: :btree
+  end
 
   create_table "employees", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -63,17 +74,20 @@ ActiveRecord::Schema.define(version: 20170823112824) do
     t.datetime "to_date"
     t.string   "title"
     t.string   "description"
+    t.integer  "employee_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.index ["employee_id"], name: "index_experiences_on_employee_id", using: :btree
   end
 
   create_table "issues", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
     t.integer  "creator_id"
+    t.integer  "status",      default: 1
     t.integer  "solved_by"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "leaves", force: :cascade do |t|
@@ -199,10 +213,12 @@ ActiveRecord::Schema.define(version: 20170823112824) do
     t.index ["project_id"], name: "index_trackers_on_project_id", using: :btree
   end
 
+  add_foreign_key "documents", "employees"
   add_foreign_key "employees", "roles"
   add_foreign_key "exams", "employees"
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "teams"
+  add_foreign_key "experiences", "employees"
   add_foreign_key "questions", "exams"
   add_foreign_key "responses", "employees"
   add_foreign_key "responses", "questions"
