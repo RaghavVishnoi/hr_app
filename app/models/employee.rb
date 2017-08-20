@@ -19,6 +19,7 @@ class Employee < ApplicationRecord
   has_many :leave, as: :applicable
   has_many :documents, dependent: :destroy
   has_many :experiences, dependent: :destroy
+  has_one :project_team_member, dependent: :destroy
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
   scope :team_members, -> { joins(:role).where(roles: { role: "team_member" }) }
   scope :hr, -> { joins(:role).where(roles: { role: "hr" }) }
@@ -36,6 +37,10 @@ class Employee < ApplicationRecord
 
   def hr?
     user_role == "hr"
+  end
+
+  def team_manager?
+    user_role == "team_manager"
   end
 
   def team_leader?

@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-
+  
 
   root 'home#index'
-
+  resources :project_team_members
+  resources :project_teams
   resources :trackers
   resources :projects
   resources :leaves
@@ -17,7 +18,7 @@ Rails.application.routes.draw do
     registrations: 'employees/registrations',
     passwords: 'employees/passwords',
   }
-
+  get 'leave_requests' => "leave_requests#index"
   get 'home/index'
 
   get 'home/about'

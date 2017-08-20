@@ -1,19 +1,57 @@
-<p id="notice"><%= notice %></p>
+<div class="row exam-view">
+  <div class="col-xs-12">
+    <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+    <p>
+      <strong>Name:</strong>
+      <%= @project.name %>
+    </p>
 
-<p>
-  <strong>Assigned to:</strong>
-  <%= @project.assigned_to %>
-</p>
+    <p>
+      <strong>Assigned to:</strong>
+      <%= @project.assigned_to %>
+    </p>
 
-<p>
-  <strong>Client:</strong>
-  <%= @project.client %>
-</p>
+    <p>
+      <strong>Client:</strong>
+      <%= @project.client %>
+    </p>
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+    <%= link_to 'Edit', edit_project_path(@project) %> |
+    <%= link_to 'Back', projects_path %>
+  </div>
+</div>
+<hr>
+<div class="row exam-view">
+  <div class="col-xs-12">
+    <h4>Project Team</h4>
+    <%if @project.project_team.present?%>
+      <%@project_team = @project.project_team%>
+      <p>
+        <strong>Name:</strong>
+        <%= @project_team.name %>
+      </p>
+      <%= link_to "Add Team Member",  new_project_team_member_path %>
+      <h4>Project Team Members</h4>
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <td> Member Name </td>
+            <td> Member Role </td>
+          </tr>
+        </thead>
+        <tbody>
+          <%@project_team.project_team_members.each do |member| %>
+
+            <tr>
+              <td><%= member.employee.name %></td>
+              <td><%= member.employee.user_role %></td>
+            </tr>
+          <%end%>
+        </tbody>
+      </table>
+    <%else%>
+      <%= link_to "New Project Team",  new_project_team_path %>
+    <%end%>
+  </div>
+</div>
