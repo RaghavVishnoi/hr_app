@@ -5,8 +5,9 @@ class LeavesController < ApplicationController
   # GET /leaves.json
   def index
     @my_leaves = current_employee.leave
-    if current_employee.role == 'team_leader' || current_employee.role == 'hr' || current_employee.role == 'president'
-      @leaves = Leave.where.not(applicable_id: current_employee.id)
+
+    if current_employee.user_role == 'team_leader' || current_employee.user_role == 'hr' || current_employee.user_role == 'president'
+      @leaves = Leave.all
     end
   end
 
@@ -18,17 +19,27 @@ class LeavesController < ApplicationController
   # GET /leaves/new
   def new
     @leave = Leave.new
+    if current_employee.employee?
+      @team_members = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: 5).where.not(id: current_employee.id)
+    elsif current_employee.team_leader?
+      @assigned_to = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: 3).where.not(id: current_employee.id)
+    elsif current_employee.team_manager?
+      @assigned_to = Employee.where(role_id: 2).first.id
+    elsif current_employee.hr?
+      @assigned_to = Employee.where(role_id: 1).first.id
+    end
   end
 
   # GET /leaves/1/edit
   def edit
+    @team_members = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: 5).where.not(id: current_employee.id)
   end
 
   # POST /leaves
   # POST /leaves.json
   def create
     @leave = Leave.new(leave_params)
-
+    @leave.employee_id = leave_params[:assigned_to] if current_employee.employee?
     respond_to do |format|
       if @leave.save
         format.html { redirect_to @leave, notice: 'Leave was successfully created.' }
@@ -72,6 +83,6 @@ class LeavesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def leave_params
-      params.require(:leave).permit(:subject, :body, :from_date, :to_date, :acceptable_type, :acceptable_id)
+      params.require(:leave).permit(:subject, :body, :from_date, :to_date, :assigned_to, :employee_accepted_at, :tl_accepted_at, :tm_accepted_at, :hr_accepted_at, :president_accepted_at)
     end
 end

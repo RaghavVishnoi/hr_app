@@ -20,5 +20,21 @@
   <%= @issue.solved_by %>
 </p>
 
+<p>
+  <strong>issue_status:</strong>
+
+  <% if current_employee.president? || current_employee.hr? %>
+    <%if @issue.status == 1 %>
+      <%= link_to "In Progress", issue_path(@issue, issue: { status: 2, solved_by: current_employee.id }), method: :patch %>
+    <% elsif @issue.status == 2 %>
+      <%= link_to "Complete", issue_path(@issue, issue: {status: 3, solved_by: current_employee.id}), method: :patch %>
+    <% else %>
+      <%= @issue.issue_status %>
+    <% end %>    
+  <% else %>
+    <%= @issue.issue_status %>
+  <%end%>
+</p>
+
 <%= link_to 'Edit', edit_issue_path(@issue) %> |
 <%= link_to 'Back', issues_path %>

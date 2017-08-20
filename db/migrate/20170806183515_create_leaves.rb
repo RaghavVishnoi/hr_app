@@ -5,9 +5,14 @@ class CreateLeaves < ActiveRecord::Migration[5.0]
       t.string :body
       t.datetime :from_date
       t.datetime :to_date
-      t.string :acceptable_type
-      t.integer :acceptable_id
-
+      t.datetime :employee_accepted_at
+      t.datetime :tl_accepted_at
+      t.datetime :tm_accepted_at
+      t.datetime :hr_accepted_at
+      t.datetime :president_accepted_at
+      t.integer :assigned_to
+      t.integer :employee_id
+      t.string :status
       t.timestamps
     end
   end

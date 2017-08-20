@@ -1,0 +1,139 @@
+<div class="row employee-view">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <h3>
+    <p id="notice"><%= notice %></p>
+    <div class="col-xs-12">
+      <strong>Employee:</strong>
+      <%= @employee.name %>
+    </div>
+    <div class=" col-md-6 col-sm-6 col-xs-12">
+      <strong>Email:</strong>
+      <%= @employee.email %>
+    </div>
+    <div class=" col-md-6 col-sm-6 col-xs-12">
+      <strong>Role:</strong>
+      <%= @employee.user_role %>
+    </div>
+    </h3>
+  </div>
+</div>
+
+<hr/>
+<hr/>
+
+<div class="row ">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <h2 class='text-center'>Document Upload</h2>
+    <%= form_for(@employee, url: upload_document_path(@employee), method: :post, html: { multipart: true }) do |f| %>
+      
+      <div class="field form-group">
+        <%= file_field_tag "documents[]", type: :file, multiple: true %>
+      </div>
+      <div class="form-actions">
+        <%= f.submit 'Upload', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="row ">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <div class="table-responsive">
+      <h1>Documents</h1>
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>File Name</th>
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @employee.documents.each do |document| %>
+            <tr>
+              <td><%=  document.document_file_name %></td>
+              <% if current_employee.user_role != 'employee' %>
+                <td><%= link_to 'download', download_document_path(document), target: "blank" %></td>
+                <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<hr/>
+<hr/>
+<div class="row ">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <h2 class='text-center'> Experience </h2>
+    <%= form_for(@experience, url: experiences_path, method: :post) do |f| %>
+      <%= f.hidden_field :employee_id, value: @employee.id %>
+      <div class="field form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "form-control" %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :from_date %>
+        <%= f.text_field :from_date, class: "form-control" %>
+      </div>
+      <div class="field form-group">
+        <%= f.label :to_date %>
+        <%= f.text_field :to_date, class: "form-control" %>
+      </div>
+      
+
+
+
+
+      <div class="form-actions">
+        <%= f.submit 'Add Experience', :class => 'btn btn-primary' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<hr/>
+
+<div class="row ">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <div class="table-responsive">
+      <h1>Experiences</h1>
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>From Date</th>
+            <th>To Date</th>
+
+            <th colspan="2"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @employee.experiences.each do |experience| %>
+            <tr>
+              <td><%= experience.title %></td>
+              <td><%= experience.description %></td>
+              <td><%= experience.from_date %></td>
+              <td><%= experience.to_date %></td>
+              <td><%= link_to 'edit', edit_experience_path(experience) %></td>
+              <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<%= link_to 'Edit', edit_employee_path(@employee) %> |
+<%= link_to 'Back', employees_path %>

@@ -1,0 +1,27 @@
+<%= form_for(project_team_member) do |f| %>
+  <% if project_team_member.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_team_member.errors.count, "error") %> prohibited this exam from being saved:</h2>
+
+      <ul>
+      <% project_team_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group">
+    <%= f.label :employee_id %>
+    <%= f.select :employee_id, Employee.all.collect {|e| [ e.name, e.id ] }, {}, class: "form-control"   %>
+  </div>
+
+  <div class="field form-group">
+    <%= f.label :project_team_id, "Project" %>
+    <%= f.select :project_team_id, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save Project Team", class: "btn btn-primary" %>
+  </div>
+<% end %>

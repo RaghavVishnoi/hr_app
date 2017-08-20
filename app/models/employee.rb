@@ -11,13 +11,15 @@ class Employee < ApplicationRecord
 
   has_many :exams, through: :teams
   has_many :results
+  has_many :issues, class_name: "Issue", foreign_key: "creator_id"
   has_many :responses
   belongs_to :role
   has_many :teams, through: :team_members
   has_many :team_members
-
   has_many :leave, as: :applicable
-
+  has_many :documents, dependent: :destroy
+  has_many :experiences, dependent: :destroy
+  has_one :project_team_member, dependent: :destroy
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
   scope :team_members, -> { joins(:role).where(roles: { role: "team_member" }) }
   scope :hr, -> { joins(:role).where(roles: { role: "hr" }) }
@@ -27,6 +29,26 @@ class Employee < ApplicationRecord
 
   def user_role
     role.role
+  end
+
+  def president?
+    user_role == 'president'
+  end
+
+  def hr?
+    user_role == "hr"
+  end
+
+  def team_manager?
+    user_role == "team_manager"
+  end
+
+  def team_leader?
+    user_role == "team_leader"
+  end
+
+  def employee?
+    user_role == "employee"
   end
 
   def name

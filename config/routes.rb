@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
   
-  root 'home#index'
 
+  root 'home#index'
+  resources :project_team_members
+  resources :project_teams
   resources :trackers
   resources :projects
   resources :leaves
   resources :issues
   resources :experiences
+  resources :employees, except: [:show], path: '/users'
 
   resources :roles
 
@@ -15,7 +18,7 @@ Rails.application.routes.draw do
     registrations: 'employees/registrations',
     passwords: 'employees/passwords',
   }
-
+  get 'leave_requests' => "leave_requests#index"
   get 'home/index'
 
   get 'home/about'
@@ -56,5 +59,9 @@ Rails.application.routes.draw do
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
   get '/question/save_ans_by_teacher/:q_id/:user_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher
   
+  resources :documents
+  get '/profile/:id' => "employees#show", as: :employee_profile
+  post '/upload_document/:id' => "employees#upload_document", as: :upload_document
+  get 'download/:id' => "documents#download", as: :download_document
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

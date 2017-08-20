@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <div class="table-responsive">
+      <p id="notice"><%= notice %></p>
+
+      <h1>Leave Requesrs</h1>
+
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Body</th>
+            <th>From date</th>
+            <th>To date</th>
+            <th>assigned_to type</th>
+            <th>Correge</th>
+            <th> Approve </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @leave_requests.each do |leave_request| %>
+            <tr>
+              <td><%= leave_request.subject %></td>
+              <td><%= leave_request.body %></td>
+              <td><%= leave_request.from_date %></td>
+              <td><%= leave_request.to_date %></td>
+              <td><%= leave_request.assigned_to %></td>
+              <td><%= leave_request.employee_id %></td>
+              <td>
+                <%if current_employee.employee? %>
+                  <%= link_to "Approve", leafe_path(leave_request, leave: { employee_accepted_at: DateTime.now, assigned_to: find_assigned_to }), method: :patch %>
+
+                <%elsif current_employee.team_leader? %>
+                  <%= link_to "Approve", leafe_path(leave_request, leave: { tl_accepted_at: DateTime.now, assigned_to: find_assigned_to }), method: :patch %>
+
+                <%elsif current_employee.team_manager? %>
+                  <%= link_to "Approve", leafe_path(leave_request, leave: { tm_accepted_at: DateTime.now, assigned_to: find_assigned_to }), method: :patch %>
+                  
+
+                <% elsif current_employee.hr? %>
+                  <%= link_to "Approve", leafe_path(leave_request, leave: { hr_accepted_at: DateTime.now, assigned_to: find_assigned_to }), method: :patch %>
+
+                <% elsif current_employee.president?%>
+                  <%= link_to "Approve", leafe_path(leave_request, leave: { president_accepted_at: DateTime.now }), method: :patch %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <br>
+    </div>
+  </div>
+</div>

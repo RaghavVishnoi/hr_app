@@ -1,10 +1,10 @@
-<%= form_for(leafe) do |f| %>
-  <% if leafe.errors.any? %>
+<%= form_for(leave) do |f| %>
+  <% if leave.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(leafe.errors.count, "error") %> prohibited this leafe from being saved:</h2>
+      <h2><%= pluralize(leave.errors.count, "error") %> prohibited this leave from being saved:</h2>
 
       <ul>
-      <% leafe.errors.full_messages.each do |message| %>
+      <% leave.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -35,12 +35,15 @@
     <%#= f.label :acceptable_type %>
     <%#= f.text_field :acceptable_type %>
   <!-- </div> -->
-
-  <div class="field form-group">
-    <%= f.label :acceptable_id %>
-    <%= f.hidden_field :acceptable_type, value: current_employee.user_role.caplitalize %>
-    <%= f.select :acceptable_id, Employee.send(current_employee.user_role+"s").collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
-  </div>
+  <%if current_employee.employee? %>
+    <div class="field form-group">
+      <%= f.label :assigned_to %>
+      
+      <%= f.select :assigned_to, @team_members.collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
+    </div>
+  <% elsif current_employee.team_leader? || current_employee.team_manager? || current_employee.hr? %>
+    <%= f.hidden_field :assigned_to, value: @assigned_to %>
+  <%end%>
 
   <div class="actions">
     <%= f.submit %>

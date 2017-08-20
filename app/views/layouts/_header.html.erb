@@ -30,6 +30,19 @@
         <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
           <%= link_to '<i class="fa fa-fw fa-dashboard"></i> Dashboard'.html_safe, dashboard_path %>
         </li>
+
+        
+        <% if current_employee.user_role != 'employee' %>
+          <li class="<%= 'active' if params[:controller] == 'employees' %>">
+            <a href="javascript:;" data-toggle="collapse" data-target="#employee"><i class="fa fa-pencil" aria-hidden="true"></i> Employees <i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="employee" class="collapse">
+              <li>
+                <%= link_to '<i class="fa fa-plus"></i> List Employees'.html_safe, employees_path %>
+              </li>
+            </ul>
+          </li>
+        <% end %>
+
         <li class="<%= 'active' if params[:controller] == 'exams' %>">
           <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil" aria-hidden="true"></i> Exam <i class="fa fa-fw fa-caret-down"></i></a>
           <ul id="demo" class="collapse">
@@ -104,8 +117,26 @@
             <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Results'.html_safe, employee_result_path %>
           <% end %>
         </li>
+
+        <li class="<%= 'active' if params[:controller] == 'issues' %>">
+          <a href="javascript:;" data-toggle="collapse" data-target="#issues"><i class="fa fa-pencil" aria-hidden="true"></i> Issues <i class="fa fa-fw fa-caret-down"></i></a>
+          <ul id="issues" class="collapse">
+            <% unless current_employee.president? %>
+              <li>
+                <%= link_to '<i class="fa fa-plus"></i> Add Issue'.html_safe, new_issue_path %>
+              </li>
+            <% end %>
+            <li>
+              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Issue List'.html_safe, issues_path %>
+            </li>
+          </ul>
+        </li>
+        
         <li>
           <%= link_to "Leaves", leaves_path %>
+        </li>
+        <li>
+          <%= link_to "Leave Requests", leave_requests_path %>
         </li>
 
       </ul>

@@ -21,7 +21,7 @@ gem "font-awesome-rails"
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap-datetimepicker-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
-
+gem "paperclip"
 gem 'devise'
 gem 'acts-as-taggable-on', '~> 4.0'
 
