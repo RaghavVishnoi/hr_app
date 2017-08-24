@@ -14,6 +14,24 @@ class EmployeesController < ApplicationController
     @experience = Experience.new
   end
 
+  def attendance_logs
+
+    logs=current_employee.employee_usage_logs.where("DATE(created_at) = ?", Date.today)
+
+    start_time = logs.where(entry_type: "IN").first.created_at.to_time
+
+    end_time = logs.where(entry_type: "OUT").last.created_at.to_time
+
+      if start_time.present? && end_time.present?
+        @minutes = time_diff(start_time, end_time).abs
+      end
+
+         total_seconds = @minutes * 60
+         @hours = total_seconds / (60 * 60)
+         @minutes = (total_seconds / 60) % 60
+         @seconds = total_seconds % 60
+  end
+
   def edit
   end
 
@@ -50,6 +68,10 @@ class EmployeesController < ApplicationController
 
     def employee_params
       params.require(:employee).permit(:first_name, :last_name, :email, :role_id)
+    end
+
+    def time_diff(start_time, end_time)
+        (start_time -  end_time) / 60
     end
 
 end

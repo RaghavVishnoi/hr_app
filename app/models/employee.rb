@@ -13,6 +13,8 @@ class Employee < ApplicationRecord
   has_many :results
   has_many :issues, class_name: "Issue", foreign_key: "creator_id"
   has_many :responses
+  has_many :employee_usage_logs
+
   belongs_to :role
   has_many :teams, through: :team_members
   has_many :team_members
