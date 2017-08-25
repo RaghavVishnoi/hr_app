@@ -1,6 +1,15 @@
 class ProjectTeamMembersController < ApplicationController
   def new
     @project_team_member = ProjectTeamMember.new
+    if ProjectTeam.find(params[:pt]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_leader") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_manager"]).not_added
+    elsif ProjectTeam.find(params[:pt]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_manager") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_leader"]).not_added
+    else
+      @emp_team = Employee.members.not_added
+    end
+
+    @team = ProjectTeam.find(params[:pt]).project_team_members
   end
 
   def edit
@@ -17,15 +26,46 @@ class ProjectTeamMembersController < ApplicationController
 
   def create
     @project_team_member = ProjectTeamMember.new(project_team_member_params)
-    binding.pry
     @project_team_member.save
-    redirect_to project_team_members_path
+
+    if ProjectTeam.find(params[:project_team_member][:project_team_id]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_leader") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_manager"]).not_added
+    elsif ProjectTeam.find(params[:project_team_member][:project_team_id]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_manager") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_leader"]).not_added
+    else
+      @emp_team = Employee.members.not_added
+    end
+
+    @team = ProjectTeam.find(params[:project_team_member][:project_team_id]).project_team_members
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def update
     @project_team_member = ProjectTeamMember.find(params[:id])
     @project_team_member.update(project_team_member_params)
     redirect_to project_team_members_path
+  end
+
+  def destroy
+    @project_team_member = ProjectTeamMember.find_by(employee_id: params[:employee_id], project_team_id: params[:project_team_id])
+    @project_team_member.destroy
+
+    if ProjectTeam.find(params[:project_team_id]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_leader") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_manager"]).not_added
+    elsif ProjectTeam.find(params[:project_team_id]).project_team_members.includes(:employee).where(employees: { role_id: Role.find_by(role: "team_manager") }).present?
+      @emp_team = Employee.joins(:role).where("roles.role in (?)", ["employee", "team_leader"]).not_added
+    else
+      @emp_team = Employee.members.not_added
+    end
+
+    @team = ProjectTeam.find(params[:project_team_id]).project_team_members
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def org_team_chart

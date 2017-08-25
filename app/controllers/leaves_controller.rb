@@ -20,13 +20,13 @@ class LeavesController < ApplicationController
   def new
     @leave = Leave.new
     if current_employee.employee?
-      @team_members = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: 5).where.not(id: current_employee.id)
+      @team_members = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: Role.find_by(role: 'employee')).where.not(id: current_employee.id)
     elsif current_employee.team_leader?
-      @assigned_to = Employee.where(id: current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)).where(role_id: 3).where.not(id: current_employee.id)
+      @team_members = Employee.where(role_id: Role.find_by(role: 'team_leader')).where.not(id: current_employee.id)
     elsif current_employee.team_manager?
-      @assigned_to = Employee.where(role_id: 2).first.id
+      @team_members = Employee.where(role_id: Role.find_by(role: 'team_manager'))
     elsif current_employee.hr?
-      @assigned_to = Employee.where(role_id: 1).first.id
+      @assigned_to = Employee.where(role_id: 2).first.id
     end
   end
 

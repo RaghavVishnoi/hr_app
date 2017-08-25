@@ -31,7 +31,7 @@
         <strong>Name:</strong>
         <%= @project_team.name %>
       </p>
-      <%= link_to "Add Team Member",  new_project_team_member_path %>
+      <%= link_to "Add Team Member", new_project_team_member_path(pt: @project_team) %>
       <h4>Project Team Members</h4>
       <table class="table table-bordered table-hover table-striped">
         <thead>

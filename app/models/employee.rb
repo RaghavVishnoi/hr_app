@@ -31,7 +31,7 @@ class Employee < ApplicationRecord
   scope :president, -> { joins(:role).where(roles: { role: "president" }) }
   scope :team_exams, -> { }
   
-  scope :members, -> { joins(:role).where("roles.role = (?)", ["employee", "team_manager", "team_leader"]) }
+  scope :members, -> { joins(:role).where("roles.role in (?)", ["employee", "team_manager", "team_leader"]) }
 
   def self.not_added()
     includes(:project_team_member).where(project_team_members: { employee_id: nil } )

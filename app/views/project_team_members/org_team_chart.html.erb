@@ -16,7 +16,7 @@
         <tbody>
           <% @project_teams.each do |team| %>
             <tr>
-              <td><%= project.name %></td>
+              <td><%= team.name %></td>
               <td><%= project.assigned_to %></td>
               <td><%= project.client %></td>
               <td><%= link_to 'Show', project %></td>

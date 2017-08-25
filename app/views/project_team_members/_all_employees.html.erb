@@ -1,0 +1,7 @@
+<%= link_to project_team_members_path(project_team_member: { employee_id: emp.id, project_team_id: pt_id}), method: :post, remote: true, class: "available-members" do %>
+  <div class="employee-blocks">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <%= emp.name %>
+    <span class="pull-right">(<%= emp.user_role %>)</span>
+  </div>
+<% end %>

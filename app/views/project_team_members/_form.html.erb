@@ -1,4 +1,4 @@
-<%= form_for(project_team_member) do |f| %>
+<%#= form_for(project_team_member) do |f| %>
   <% if project_team_member.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(project_team_member.errors.count, "error") %> prohibited this exam from being saved:</h2>
@@ -12,16 +12,27 @@
   <% end %>
 
   <div class="field form-group">
-    <%= f.label :employee_id %>
-    <%= f.select :employee_id, Employee.members.not_added.collect {|e| [ "#{e.name}  <i>(#{e.user_role})</i>".html_safe, e.id ] }, {}, class: "form-control"   %>
+    <%#= f.label :employee_id %>
+    <%#= f.select :employee_id, Employee.members.not_added.collect {|e| [ "#{e.name}  <i>(#{e.user_role})</i>".html_safe, e.id ] }, {}, class: "form-control"   %>
   </div>
 
   <div class="field form-group">
-    <%= f.label :project_team_id, "Project" %>
-    <%= f.select :project_team_id, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+    <%#= f.label :project_team_id, "Project" %>
+    <%#= f.select :project_team_id, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
   </div>
 
   <div class="actions">
-    <%= f.submit "Save Project Team", class: "btn btn-primary" %>
+    <%#= f.submit "Save Project Team", class: "btn btn-primary" %>
   </div>
-<% end %>
+<%# end %>
+<div class="row">
+  <div class="col-xs-12 align-center">
+    >>>
+  </div>
+  <div class="col-sm-6 box-with-all-emp">
+    <%= render partial: "all_employees", collection: @emp_team, as: :emp, locals: { pt_id: params[:pt]} %>
+  </div>
+  <div class="col-sm-6 box-with-selected-emp">
+    <%= render partial: "team_employees", collection: @team, as: :emp, locals: { pt_id: params[:pt]} %>
+  </div>
+</div>

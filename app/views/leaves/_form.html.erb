@@ -35,13 +35,13 @@
     <%#= f.label :acceptable_type %>
     <%#= f.text_field :acceptable_type %>
   <!-- </div> -->
-  <%if current_employee.employee? %>
+  <% if current_employee.employee? || current_employee.team_leader? || current_employee.team_manager? %>
     <div class="field form-group">
       <%= f.label :assigned_to %>
       
       <%= f.select :assigned_to, @team_members.collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
     </div>
-  <% elsif current_employee.team_leader? || current_employee.team_manager? || current_employee.hr? %>
+  <% elsif  current_employee.hr? %>
     <%= f.hidden_field :assigned_to, value: @assigned_to %>
   <%end%>
 
