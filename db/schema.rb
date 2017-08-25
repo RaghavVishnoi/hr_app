@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(version: 20170824041347) do
     t.index ["employee_id"], name: "index_documents_on_employee_id", using: :btree
   end
 
+  create_table "employee_usage_logs", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.string   "logs_time"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "entry_type"
+    t.index ["employee_id"], name: "index_employee_usage_logs_on_employee_id", using: :btree
+  end
+
   create_table "employees", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -236,6 +245,7 @@ ActiveRecord::Schema.define(version: 20170824041347) do
   end
 
   add_foreign_key "documents", "employees"
+  add_foreign_key "employee_usage_logs", "employees"
   add_foreign_key "employees", "roles"
   add_foreign_key "exams", "employees"
   add_foreign_key "exams", "subjects"

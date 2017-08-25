@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_employee!
 
-  def after_sign_in_path_for(resource)
+  def after_sign_in_path_for(resource)	
     dashboard_path
   end
 

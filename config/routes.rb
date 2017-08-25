@@ -19,6 +19,13 @@ Rails.application.routes.draw do
     registrations: 'employees/registrations',
     passwords: 'employees/passwords',
   }
+
+  devise_for :employee, :controllers => {:sessions => 'sessions'}, :skip => [:sessions] do
+    get '/employee/sign_in' => 'sessions#new', :as => :new_emoloyee_session
+    post '/employee/sign_in' => 'sessions#create', :as => :employee_session
+    get '/employee/sign_out' => 'sessions#destroy', :as => :destroy_employee_session
+  end
+
   get 'leave_requests' => "leave_requests#index"
   get 'home/index'
 
@@ -56,6 +63,7 @@ Rails.application.routes.draw do
   resources :questions
   resources :exams
 
+  get '/attendance' => "employees#attendance_logs", as: :attendance_logs
   get '/exam/questions/:exam_id' => "questions#start", as: :exam_start
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
   get '/question/save_ans_by_teacher/:q_id/:user_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher
