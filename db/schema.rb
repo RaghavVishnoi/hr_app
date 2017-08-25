@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170823112826) do
+ActiveRecord::Schema.define(version: 20170824041347) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,8 +84,8 @@ ActiveRecord::Schema.define(version: 20170823112826) do
     t.string   "title"
     t.string   "description"
     t.integer  "creator_id"
-    t.integer  "status",      default: 1
     t.integer  "solved_by"
+    t.integer  "status",      default: 1
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
   end
@@ -95,13 +95,35 @@ ActiveRecord::Schema.define(version: 20170823112826) do
     t.string   "body"
     t.datetime "from_date"
     t.datetime "to_date"
-    t.string   "acceptable_type"
-    t.integer  "acceptable_id"
+    t.datetime "employee_accepted_at"
+    t.datetime "tl_accepted_at"
+    t.datetime "tm_accepted_at"
+    t.datetime "hr_accepted_at"
+    t.datetime "president_accepted_at"
+    t.integer  "assigned_to"
+    t.integer  "employee_id"
+    t.string   "status"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "project_team_members", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.integer  "project_team_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "status"
-    t.integer  "applicable_id"
-    t.string   "applicable"
+    t.index ["employee_id"], name: "index_project_team_members_on_employee_id", using: :btree
+    t.index ["project_team_id"], name: "index_project_team_members_on_project_team_id", using: :btree
+  end
+
+  create_table "project_teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "project_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "team_leader_id"
+    t.integer  "team_manager_id"
+    t.index ["project_id"], name: "index_project_teams_on_project_id", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -219,6 +241,8 @@ ActiveRecord::Schema.define(version: 20170823112826) do
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "teams"
   add_foreign_key "experiences", "employees"
+  add_foreign_key "project_team_members", "employees"
+  add_foreign_key "project_team_members", "project_teams"
   add_foreign_key "questions", "exams"
   add_foreign_key "responses", "employees"
   add_foreign_key "responses", "questions"

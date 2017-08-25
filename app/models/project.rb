@@ -1,3 +1,3 @@
 class Project < ApplicationRecord
-  has_one :project_team
+  belongs_to :project_team, foreign_key: :assigned_to
 end

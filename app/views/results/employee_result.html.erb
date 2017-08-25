@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+  <div class="col-xs-12">
+
+    <h1>Results</h1>
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Exam</th>
+            <th>Subject</th>
+            <th>Obtained marks</th>
+            <th>Correct ans</th>
+            <th>Incorrect ans</th>
+            <th colspan="<%= '2' if current_employee.user_role != 'employee' %>"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @results.each do |result| %>
+            <tr>
+              <td><%= result.employee.name %></td>
+              <td><%= result.exam.title %></td>
+              <td><%= result.exam.subject.try(:title) %></td>
+              <td><%= result.obtained_marks %></td>
+              <td><%= result.correct_ans %></td>
+              <td><%= result.incorrect_ans %></td>
+              <% if current_employee.user_role != 'employee' %>
+                <td> <%= link_to 'Show', result %> </td>
+                <td id="result-status-<%=result.id%>"> 
+                  <% unless result.status %>
+                    <%= link_to 'Declare', activate_result_path(result), remote: true %> 
+                  <% else %>
+                    <%= link_to 'Revoke', inactivate_result_path(result), remote: true %> 
+                  <% end %>
+                </td>
+              <% else %>
+                <td><%= link_to 'Print', print_path(result, format: :pdf) %></td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <br>
+   
+  </div>
+</div>

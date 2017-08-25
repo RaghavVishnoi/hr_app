@@ -15,10 +15,10 @@
     <%= f.label :name %>
     <%= f.text_field :name, class: "form-control" %>
   </div>
-
+  
   <div class="field form-group">
-    <%= f.label :project_id, "Project" %>
-    <%= f.select :project_id, Project.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control"  %>
+    <%#= f.label :project_id, "Project" %>
+    <%#= f.select :project_id, Project.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control", multiple: true  %>
   </div>
 
   <div class="actions">

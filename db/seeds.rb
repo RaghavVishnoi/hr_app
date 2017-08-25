@@ -8,6 +8,7 @@
 # ['president', 'hr', 'team_leader', 'employee'].each do |role|
 role_president = Role.find_or_create_by(role: "president")
 role_hr = Role.find_or_create_by(role: "hr")
+role_team_manager = Role.find_or_create_by(role: "team_manager")
 role_team_leader = Role.find_or_create_by(role: "team_leader")
 role_employee = Role.find_or_create_by(role: "employee")
 

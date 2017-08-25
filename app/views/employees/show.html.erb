@@ -137,3 +137,9 @@
 
 <%= link_to 'Edit', edit_employee_path(@employee) %> |
 <%= link_to 'Back', employees_path %>
+
+<% content_for :page_script do %>
+  <script type="text/javascript">
+    $("#experience_from_date, #experience_to_date").datepicker()
+  </script>
+<% end %>

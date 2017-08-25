@@ -1,0 +1,13 @@
+<tr>
+  <td><%= link_to leave.subject, leave %></td>
+  <td><%= leave.body %></td>
+  <td><%= leave.from_date %></td>
+  <td><%= leave.to_date %></td>
+  <td><%= leave.acceptable_type %></td>
+  <td><%= leave.acceptable_id %></td>
+  <% if leave.status.nil? %>
+    <td><%= link_to 'Accept', leave_accept_reject_path(status: "accepted") %></td>
+    <td><%= link_to 'Reject', leave_accept_reject_path(status: "rejected") %></td>
+  <% end %>
+  <td> <%= leave.status %></td>
+</tr>

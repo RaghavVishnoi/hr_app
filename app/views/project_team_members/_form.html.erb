@@ -13,7 +13,7 @@
 
   <div class="field form-group">
     <%= f.label :employee_id %>
-    <%= f.select :employee_id, Employee.all.collect {|e| [ e.name, e.id ] }, {}, class: "form-control"   %>
+    <%= f.select :employee_id, Employee.members.not_added.collect {|e| [ "#{e.name}  <i>(#{e.user_role})</i>".html_safe, e.id ] }, {}, class: "form-control"   %>
   </div>
 
   <div class="field form-group">

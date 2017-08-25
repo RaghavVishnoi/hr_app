@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
   resources :project_team_members
+  get "/org_team_chart" => "project_team_members#org_team_chart", as: :org_team_chart
   resources :project_teams
   resources :trackers
   resources :projects

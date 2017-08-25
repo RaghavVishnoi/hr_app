@@ -1,5 +1,5 @@
 class ProjectTeamMembersController < ApplicationController
-    def new
+  def new
     @project_team_member = ProjectTeamMember.new
   end
 
@@ -17,6 +17,7 @@ class ProjectTeamMembersController < ApplicationController
 
   def create
     @project_team_member = ProjectTeamMember.new(project_team_member_params)
+    binding.pry
     @project_team_member.save
     redirect_to project_team_members_path
   end
@@ -25,6 +26,10 @@ class ProjectTeamMembersController < ApplicationController
     @project_team_member = ProjectTeamMember.find(params[:id])
     @project_team_member.update(project_team_member_params)
     redirect_to project_team_members_path
+  end
+
+  def org_team_chart
+    @project_teams = ProjectTeam.all
   end
 
   private

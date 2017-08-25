@@ -5,7 +5,7 @@ class EmployeesController < ApplicationController
       @employees = Employee.all
     elsif current_employee.hr?
       @employees = Employee.where.not(role_id: Role.where(role: 'president').ids)
-    elsif current_employee.team_lead?
+    elsif current_employee.team_leader?
       @employees = Employee.where.not(role_id: Role.where(role: ['president', 'hr']).ids)
     end
   end

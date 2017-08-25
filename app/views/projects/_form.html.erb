@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %>
-    <%= f.text_field :name %>
+    <%= f.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :assigned_to %>
-    <%= f.number_field :assigned_to %>
+    <%= f.select :assigned_to, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :client %>
-    <%= f.text_field :client %>
+    <%= f.text_field :client, class: "form-control" %>
   </div>
 
   <div class="actions">

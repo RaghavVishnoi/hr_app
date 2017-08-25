@@ -22,17 +22,17 @@
 $(document).ready(function () {
 
 
-  // $('#camera_wrap').camera({
-  //   height: '68.125%',
-  //   thumbnails: false,
-  //   pagination: true,
-  //   fx: 'simpleFade',
-  //   loader: 'none',
-  //   hover: false,
-  //   navigation: false,
-  //   playPause: false,
-  //   minHeight: "975px",
-  // });
+  $('#camera_wrap').camera({
+    height: '68.125%',
+    thumbnails: false,
+    pagination: true,
+    fx: 'simpleFade',
+    loader: 'none',
+    hover: false,
+    navigation: false,
+    playPause: false,
+    minHeight: "975px",
+  });
 });
 
 $(document).ready(function(){
@@ -52,5 +52,5 @@ $(document).ready(function(){
     }
   });
 
-  $(".form-date-select input[id^='leave_']").datetimepicker();
+  // $(".form-date-select input[id^='leave_']").datetimepicker();
 });
