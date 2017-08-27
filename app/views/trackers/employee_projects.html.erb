@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-6 col-sm-offset-0">
+    <h1>My Project</h1>
+	<%= render 'form', tracker: @tracker %>
+  </div>
+</div>
+<hr class="style13">
+<div class="row">
+<div class="container">
+    <div class="row col-md-12 col-md-offset-0 custyle">
+    <table class="table table-striped custab">
+    <thead class="add_task_list">
+        <tr>
+            <th>Task id</th>
+            <th>Title </th>
+            <th>Project</th>
+            <th>Time spend</th>
+
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+       <%= render partial: "task_list" , collection: @task_list ,as: :task %>
+    </table>
+    </div>
+</div>
+
+</div>

@@ -1,9 +1,32 @@
 <div class="row">
   <div class="col-sm-offset-2 col-sm-6">
     <h1>New Project Team</h1>
-
-    <%= render 'form', project_team: @project_team %>
-
-    <%= link_to 'Back', project_teams_path %>
+      <%= form_for(project) do |f| %>
+        <% if project.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+            <ul>
+              <% project.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="field form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :assigned_to %>
+          <%= f.select :assigned_to, ProjectTeam.all.collect.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :client %>
+          <%= f.text_field :client, class: "form-control" %>
+        </div>
+        <div class="actions">
+          <%= f.submit %>
+        </div>
+      <% end %>
   </div>
 </div>

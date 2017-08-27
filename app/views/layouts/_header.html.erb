@@ -47,6 +47,16 @@
           </li>
         <% end %>
 
+        <% if current_employee.user_role == 'employee' || current_employee.user_role == 'team_leader' %>
+          <li class="<%= 'active' if params[:controller] == 'result' %>">
+            <% if current_employee.user_role == 'employee' %>
+              <%= link_to '<i class="fa fa-book" aria-hidden="true"></i> My Project'.html_safe, employee_projects_path %>
+            <% else %>
+              <%= link_to '<i class="fa fa-book" aria-hidden="true"></i> My Team Projects'.html_safe, employee_result_path %>
+            <% end %>
+          </li>
+        <% end %>
+
         <li class="<%= 'active' if params[:controller] == 'exams' %>">
           <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil" aria-hidden="true"></i> Exam <i class="fa fa-fw fa-caret-down"></i></a>
           <ul id="demo" class="collapse">

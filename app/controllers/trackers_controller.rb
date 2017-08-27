@@ -25,9 +25,10 @@ class TrackersController < ApplicationController
   # POST /trackers.json
   def create
     @tracker = Tracker.new(tracker_params)
-
+   
     respond_to do |format|
       if @tracker.save
+        format.js
         format.html { redirect_to @tracker, notice: 'Tracker was successfully created.' }
         format.json { render :show, status: :created, location: @tracker }
       else
@@ -35,7 +36,15 @@ class TrackersController < ApplicationController
         format.json { render json: @tracker.errors, status: :unprocessable_entity }
       end
     end
+    TrackerLog.create(tracker_id: @tracker.id,status: "START")
   end
+
+
+  def employee_projects
+  @tracker = Tracker.new
+  @task_list =current_employee.trackers if current_employee.trackers.present? 
+  end
+
 
   # PATCH/PUT /trackers/1
   # PATCH/PUT /trackers/1.json
@@ -48,6 +57,26 @@ class TrackersController < ApplicationController
         format.html { render :edit }
         format.json { render json: @tracker.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def start_tracker_timer
+   @tracker_id = params[:t_id]
+    @tracker = Tracker.find(@tracker_id)
+    TrackerLog.create(tracker_id: @tracker_id,status: "START")
+   
+     respond_to do |format|
+      format.js
+    end
+  end
+
+  def stop_tracker_timer
+    @tracker_id = params[:t_id]
+    @tracker = Tracker.find(@tracker_id)
+    TrackerLog.create(tracker_id: @tracker_id,status: "STOP")
+   
+     respond_to do |format|
+      format.js
     end
   end
 

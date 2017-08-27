@@ -1,0 +1,13 @@
+<tr>
+	<td><%=task.id%></td>
+	<td><%=task.title%></td>
+	<td><%= task.project.name%></td>
+
+	<td class="text-center" id="timer_link_<%= task.id %>">
+	<% if task.tracker_logs.last.status == "START"%>
+		<%= link_to "Stop" ,stop_tracker_timer_path(t_id: task.id), remote: true, :class => "btn btn-danger" %>	
+	<% else %>
+		<%= link_to "Start" ,start_tracker_timer_path(t_id: task.id), remote: true,:class => "btn btn-success" %>
+	<% end %>
+	</td>
+</tr>

@@ -18,7 +18,7 @@
 
   <div class="field form-group">
     <%= f.label :assigned_to %>
-    <%= f.select :assigned_to, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+    <%= f.select :assigned_to, ProjectTeam.all.collect.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
   </div>
 
   <div class="field form-group">

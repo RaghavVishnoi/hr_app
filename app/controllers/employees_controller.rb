@@ -18,10 +18,13 @@ class EmployeesController < ApplicationController
 
     logs=current_employee.employee_usage_logs.where("DATE(created_at) = ?", Date.today)
 
-    start_time = logs.where(entry_type: "IN").first.created_at.to_time
-
-    end_time = logs.where(entry_type: "OUT").last.created_at.to_time
-
+    if logs.where(entry_type: "IN").first.present? && logs.where(entry_type: "OUT").last.present?
+	    start_time = logs.in_log
+	    end_time =  logs.out_log
+    else
+       start_time = 0
+       end_time = 0 
+    end
       if start_time.present? && end_time.present?
         @minutes = time_diff(start_time, end_time).abs
       end

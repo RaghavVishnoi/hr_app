@@ -14,6 +14,7 @@ class Employee < ApplicationRecord
   has_many :issues, class_name: "Issue", foreign_key: "creator_id"
   has_many :responses
   has_many :employee_usage_logs
+  has_many :trackers, class_name: "Tracker", foreign_key: "employee_id"
 
   belongs_to :role
   has_many :teams, through: :team_members

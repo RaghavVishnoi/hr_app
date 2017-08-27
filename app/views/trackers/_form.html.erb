@@ -1,4 +1,4 @@
-<%= form_for(tracker) do |f| %>
+<%= form_for(tracker,html: { class: "form-horizontal"},remote: true) do |f| %>
   <% if tracker.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tracker.errors.count, "error") %> prohibited this tracker from being saved:</h2>
@@ -11,27 +11,31 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  <div class="form-group">
+  <label class="col-md-4 control-label" for="Nom22">Task Title</label>  
+  <div class="col-md-8">
+    <%= f.text_field :title,class: "form-control input-md" %> 
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Nom22">Description</label>  
+  <div class="col-md-8">
+    <%= f.text_field :description ,class: "form-control input-md" %> 
+  </div>
+</div>
+
+<div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Project Title</label>
+  <div class="col-md-8">
+    <%= f.select :project_id, current_employee.project_team_member.project_team.projects.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+  </div>
+</div>
+
+  <%= f.hidden_field :employee_id, :value =>current_employee.id %>
+  
+  <div class="form-group text-center">
+    <%= f.button "Start task",type: "submit", class: "btn" %>
   </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
-  </div>
-
-  <div class="field">
-    <%= f.label :project_id %>
-    <%= f.text_field :project_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :employee_id %>
-    <%= f.text_field :employee_id %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
 <% end %>

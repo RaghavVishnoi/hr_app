@@ -1,0 +1,1 @@
+$("#timer_link_<%= @tracker.id%>").html("<%= escape_javascript(render partial: 'start_link' , locals: { task: @tracker } )%>");

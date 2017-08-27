@@ -63,6 +63,9 @@ Rails.application.routes.draw do
   resources :questions
   resources :exams
 
+  get '/start_tracker_timer' => "trackers#start_tracker_timer", as: :start_tracker_timer
+  get '/stop_tracker_timer' => "trackers#stop_tracker_timer", as: :stop_tracker_timer
+  get '/employee_projects' => "trackers#employee_projects", as: :employee_projects
   get '/attendance' => "employees#attendance_logs", as: :attendance_logs
   get '/exam/questions/:exam_id' => "questions#start", as: :exam_start
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
