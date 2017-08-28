@@ -1,0 +1,1 @@
+$(".add_report_list").html("<%= escape_javascript(render partial: 'employee_review', collection: @project_team_members, as: :project_team_member,locals: { team: @project_team,member: @project_team_members, project: @project, selected_start_date: @selected_start_date, selected_end_date: @selected_end_date }) %>");

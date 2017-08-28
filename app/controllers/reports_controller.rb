@@ -7,6 +7,24 @@ class ReportsController < ApplicationController
   def team_comparision
   end
 
+  def employee_report
+  end
+
+  def employee_report_show
+    @project_id = params[:report][:project_id]
+    @selected_start_date =  params[:start_date][:start_date].to_date.beginning_of_day if params[:start_date][:start_date].present?
+    @selected_end_date =  params[:end_date][:end_date].to_date.end_of_day if params[:end_date][:end_date].present?
+    @project = Project.find(@project_id)
+    @project_team_id = @project.assigned_to
+    @project_team = ProjectTeam.find(@project_team_id)
+    @project_team_members = @project_team.project_team_members
+
+    respond_to do |format|
+      format.js 
+    end
+
+  end
+
   def team_highest_score
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Exam & Team')

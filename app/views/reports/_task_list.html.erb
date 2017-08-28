@@ -1,0 +1,35 @@
+<%
+
+    logs=tracker.tracker_logs
+    if tracker.tracker_logs.count >= 2 
+      start_time = tracker.created_at.to_time
+      end_time =  tracker.tracker_logs.where(status: "STOP").last.created_at.to_time
+    else
+      start_time = 0
+      end_time  = 0
+    end
+      if start_time.present? && end_time.present?
+        @minutes = (start_time -  end_time) / 60.abs
+
+      end
+
+         total_seconds = @minutes * 60
+         @hours = total_seconds / (60 * 60)
+         @minutes = (total_seconds / 60) % 60
+         @seconds = total_seconds % 60
+%>
+
+<tr>
+  <td><%=tracker.created_at%></td>
+  <td><%=tracker.title%></td>
+
+  <td>
+  <%if tracker.tracker_logs.count.even?%>
+    <span class="label label-warning">Stopped</span>
+    <% else %>
+    <span class="label label-info">In Progress</span>
+    <% end %>
+  </td>
+
+  <td><%=  @hours.floor.positive? ? @hours.floor : "00"%> : <%=  @minutes.floor.positive? ? @minutes.floor : "00"%> : <%=  @seconds.floor.positive? ? @seconds.floor : "00"%>  </td>
+</tr>

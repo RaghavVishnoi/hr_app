@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   resources :questions
   resources :exams
 
+  post '/employee_report_show' => "reports#employee_report_show", as: :employee_report_show
+  get '/employee_report' => "reports#employee_report", as: :employee_report
   get '/start_tracker_timer' => "trackers#start_tracker_timer", as: :start_tracker_timer
   get '/stop_tracker_timer' => "trackers#stop_tracker_timer", as: :stop_tracker_timer
   get '/employee_projects' => "trackers#employee_projects", as: :employee_projects

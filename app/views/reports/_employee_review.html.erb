@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+	<div class="panel-heading clearfix">
+	<div class="row col-md-12 col-md-offset-0 custyle">
+	<table class="table table-striped ">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Total Task</th>
+        <th>Team</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> <%=project_team_member.employee.first_name%>  <%=project_team_member.employee.last_name%></td>
+        <% if selected_start_date && selected_end_date %>
+    	    <% @trackers = project_team_member.employee.trackers.where(:created_at => selected_start_date..selected_end_date) %>
+        <%else%>
+        	<% @trackers = project_team_member.employee.trackers %>
+        <% end %>
+        <td><%=@trackers.count rescue 0 %></td>
+        <td><%=team.name%></td>
+      </tr>
+      </tbody>
+      
+  </table>
+		</div>
+		<div class="pull-right">
+			<button class="btn btn-default collapsed" type="button" data-toggle="collapse" data-target="#collapse<%=project_team_member.employee_id%>" aria-expanded="false" aria-controls="collapse<%=project_team_member.employee_id%>"><i class="fa fa-bars"></i></button>
+		</div>
+	</div>
+	<div class="panel-body collapse" id="collapse<%=project_team_member.employee_id%>" aria-expanded="false" style="height: 30px;">
+	<% if project_team_member.employee.trackers.present? %>
+		<table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>Date : </th>
+	        <th>Task Title :</th>
+	        <th>Status</th>
+	        <th>Total Time(hh:mm:ss)</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <%= render partial: "task_list", collection:@trackers, as: :tracker %>
+	    </tbody>
+	  </table>
+	  <% else %>
+	  <h4> No Task(s) Found ! </h4>
+	  <% end %>
+	</div>
+</div>
+    

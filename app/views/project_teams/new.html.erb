@@ -1,29 +1,41 @@
 <div class="row">
   <div class="col-sm-offset-2 col-sm-6">
     <h1>New Project Team</h1>
-      <%= form_for(project) do |f| %>
-        <% if project.errors.any? %>
+      <%= form_for(@project_team) do |f| %>
+        <% if @project_team.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+            <h2><%= pluralize(@project_team.errors.count, "error") %> prohibited this project from being saved:</h2>
             <ul>
-              <% project.errors.full_messages.each do |message| %>
+              <% @project_team.errors.full_messages.each do |message| %>
               <li><%= message %></li>
               <% end %>
             </ul>
           </div>
         <% end %>
+        
         <div class="field form-group">
           <%= f.label :name %>
           <%= f.text_field :name, class: "form-control" %>
         </div>
         <div class="field form-group">
-          <%= f.label :assigned_to %>
-          <%= f.select :assigned_to, ProjectTeam.all.collect.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+          <%= f.label :project_id %>
+          <%= f.text_field :project_id, class: "form-control" %>
         </div>
         <div class="field form-group">
-          <%= f.label :client %>
-          <%= f.text_field :client, class: "form-control" %>
+          <%= f.label :team_leader_id %>
+          <%= f.text_field :team_leader_id, class: "form-control" %>
         </div>
+        <div class="field form-group">
+          <%= f.label :team_manager_id %>
+          <%= f.text_field :team_manager_id, class: "form-control" %>
+        </div>
+        
+        <div class="field form-group">
+          <%#= f.label :project_id %>
+          <%#= f.select :project_id, Project.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+        </div>
+        
+
         <div class="actions">
           <%= f.submit %>
         </div>
