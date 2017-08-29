@@ -187,9 +187,22 @@
         <li>
           <%= link_to "Leaves", leaves_path %>
         </li>
-        <li>
-          <%= link_to "Attendance", attendance_logs_path %>
+        
+         <li class="<%= 'active' if params[:controller] == 'employee' %>">
+          <a href="javascript:;" data-toggle="collapse" data-target="#attendance"><i class="fa fa-pencil" aria-hidden="true"></i> Attandance <i class="fa fa-fw fa-caret-down"></i></a>
+          <ul id="attendance" class="collapse">
+              <li>
+                <%= link_to '<i class="fa fa-folder"></i> attendance_logs '.html_safe, attendance_logs_path %>
+              </li>
+            <li>
+              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i>Switch day'.html_safe, switch_days_path%>
+            </li>
+          </ul>
         </li>
+
+        <!-- <li> -->
+          <%#= link_to "Attendance", attendance_logs_path %>
+        <!-- </li> -->
         <li>
           <%= link_to "Leave Requests", leave_requests_path %>
         </li>

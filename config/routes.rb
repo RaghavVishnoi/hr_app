@@ -62,6 +62,8 @@ Rails.application.routes.draw do
   resources :results
   resources :questions
   resources :exams
+  resources :switch_days
+ 
 
   post '/employee_report_show' => "reports#employee_report_show", as: :employee_report_show
   get '/employee_report' => "reports#employee_report", as: :employee_report
@@ -69,6 +71,7 @@ Rails.application.routes.draw do
   get '/stop_tracker_timer' => "trackers#stop_tracker_timer", as: :stop_tracker_timer
   get '/employee_projects' => "trackers#employee_projects", as: :employee_projects
   get '/attendance' => "employees#attendance_logs", as: :attendance_logs
+  #get '/switch_day' => "employees#switch_day", as: :switch_day
   get '/exam/questions/:exam_id' => "questions#start", as: :exam_start
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
   get '/question/save_ans_by_teacher/:q_id/:user_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher

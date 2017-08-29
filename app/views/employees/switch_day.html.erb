@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row col-md-8 col-md-offset-0 custyle">
+
+  <%= form_for(:employee, :url =>switch_day_info_path,html: { class: "form-horizontal"},remote: true) do |f| %>
+
+   <div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Project Title</label>
+  <div class="col-md-8">
+    <%= f.select :project_id, Project.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
+  </div>
+  </div>
+  
+   <div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">Start Date</label>
+  <div class="col-md-4">
+    <%= date_field(:start_date,:start_date)	%>
+  </div>
+  </div>
+
+  <div class="form-group">
+  <label class="col-md-4 control-label" for="selectbasic">End Date</label>
+  <div class="col-md-4">
+    <%= date_field(:end_date,:end_date)	%>
+  </div>
+  </div>
+
+   <div class="form-group text-center">
+    <%= f.button "Show Report",type: "submit", class: "btn" %>
+  </div>	
+  <% end %>
+  </div>
+  </div>

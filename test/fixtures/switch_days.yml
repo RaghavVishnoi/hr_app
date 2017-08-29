@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  employee: one
+  real_date: 2017-08-29
+  replace_date: 2017-08-29
+
+two:
+  employee: two
+  real_date: 2017-08-29
+  replace_date: 2017-08-29

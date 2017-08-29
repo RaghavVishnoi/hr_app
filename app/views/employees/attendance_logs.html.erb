@@ -4,6 +4,7 @@
       <th>#</th>
       <th>Date</th>
       <th>Hours : Minutes : Second </th>
+      <th>Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
       <th scope="row">1</th>
       <td><%=Date.today-1%></td>
       <td><%= @hours.floor%>:<%=@minutes.floor%>:<%=@seconds.floor%></td>
+      <td><%= @remark %></td>
     </tr>
   </tbody>
 </table>

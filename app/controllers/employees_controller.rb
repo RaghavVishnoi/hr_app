@@ -16,8 +16,10 @@ class EmployeesController < ApplicationController
 
   def attendance_logs
 
+    # _month_report = []
+    swith_dates = current_employee.switch_days.map(&:real_date)  
     logs=current_employee.employee_usage_logs.where("DATE(created_at) = ?", Date.today)
-
+    @remark = logs.where(entry_type: "IN").first.logs_time
     if logs.where(entry_type: "IN").first.present? && logs.where(entry_type: "OUT").last.present?
 	    start_time = logs.in_log
 	    end_time =  logs.out_log

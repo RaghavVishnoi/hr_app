@@ -1,0 +1,28 @@
+<%= form_for(@switch_day) do |f| %>
+  <% if @switch_day.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@switch_day.errors.count, "error") %> prohibited this @switch_day from being saved:</h2>
+
+      <ul>
+      <% @switch_day.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <%= f.label :real_date %>
+    <%= f.date_field(:real_date) %>
+
+     <%#= f.date_select  %>
+  
+  
+    <%= f.label :replace_date %>
+    <%= f.date_field(:replace_date) %>
+  
+  <%= f.hidden_field :employee_id, value:current_employee.id %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

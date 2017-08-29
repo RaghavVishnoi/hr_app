@@ -1,0 +1,38 @@
+	<div class="row">
+  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
+    <div class="table-responsive">
+      <p id="notice"><%= notice %></p>
+      <h1>Switch Days List</h1>
+      <% if @switch_days.present? %>
+        <table class="table table-bordered table-hover table-striped">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Real Date</th>
+              <th>Replace Date</th>
+              <% if current_employee.user_role != 'employee' %>
+                <th colspan="3"></th>
+              <%end%>
+            </tr>
+          </thead>
+          <tbody>
+            <% @switch_days.each do |issue| %>
+              <tr>
+                <td><%= issue.id %></td>
+                <td><%= issue.real_date %></td>
+                <td><%= issue.replace_date %></td>
+                
+                 </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        You don't have any swich days.
+      <% end %>
+      <br>
+      
+    </div>
+  </div>
+</div>
+
+<%= link_to 'New switch day',new_switch_day_path %>

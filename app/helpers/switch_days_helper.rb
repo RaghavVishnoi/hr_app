@@ -1,0 +1,2 @@
+module SwitchDaysHelper
+end
