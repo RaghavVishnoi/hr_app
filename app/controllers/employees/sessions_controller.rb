@@ -15,11 +15,10 @@ class Employees::SessionsController < Devise::SessionsController
     if @@employee.employee_usage_logs.present? 
       if @@employee.employee_usage_logs.last.entry_type != "IN" 
        EmployeeUsageLog.create(employee_id: @@employee.id,entry_type: "IN" )
-      end
      else
        EmployeeUsageLog.create(employee_id: @@employee.id,entry_type: "IN" )
      end
-  
+   end
    end
 
   # DELETE /resource/sign_out
