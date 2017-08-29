@@ -69,6 +69,8 @@ class ProjectTeamMembersController < ApplicationController
   end
 
   def org_team_chart
+    @team_managers = Employee.team_managers
+    @team_leaders = Employee.team_leaders
     @project_teams = ProjectTeam.all
   end
 

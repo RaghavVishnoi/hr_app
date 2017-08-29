@@ -12,14 +12,17 @@
   <% end %>
 
   <div class="col-sm-6 col-xs-12">
-    <div class="field form-group">
-      <%= f.label :title %>
-      <%= f.text_field :title, class: "form-control" %>
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.text_field :title, class: "form-control" %>
+        <%= f.label :title, class: "form-label" %>
+      </div>
     </div>
+
   </div>
   <div class="col-sm-6 col-xs-12">
     <div class="actions">
-      <%= f.submit "Add", class: "btn btn-primary" %>
+      <%= f.submit "Add Subject", class: "btn btn-primary waves-effect" %>
     </div>
   </div>
 <% end %>

@@ -15,27 +15,39 @@
 //= require bootstrap-sprockets
 //= require moment
 //= require bootstrap-datetimepicker
+//= require admin
+//= require cable
+//= require demo
+//= require helpers
+//= require jquery.dataTables
+//= require dataTables.bootstrap
+//= require dataTables.buttons.min
+//= require jquery.inputmask.bundle
+//= require jquery-datatable
+//= require materialize
+//= require script
 //= require_tree .
 
 
 
-$(document).ready(function () {
+// $(document).ready(function () {
 
 
-  $('#camera_wrap').camera({
-    height: '68.125%',
-    thumbnails: false,
-    pagination: true,
-    fx: 'simpleFade',
-    loader: 'none',
-    hover: false,
-    navigation: false,
-    playPause: false,
-    minHeight: "975px",
-  });
-});
+//   $('#camera_wrap').camera({
+//     height: '68.125%',
+//     thumbnails: false,
+//     pagination: true,
+//     fx: 'simpleFade',
+//     loader: 'none',
+//     hover: false,
+//     navigation: false,
+//     playPause: false,
+//     minHeight: "975px",
+//   });
+// });
 
 $(document).ready(function(){
+
   $(document).on("change", "#question_question_type", function(){
     if($(this).val() == 'Choices'){
       $("#choices").show("slow");

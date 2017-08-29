@@ -1,0 +1,214 @@
+<section>
+  <!-- Left Sidebar -->
+  <aside id="leftsidebar" class="sidebar">
+    <!-- User Info -->
+    <div class="user-info">
+      <div class="info-container">
+        <% if current_employee %>
+          <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_employee.name  %></div>
+          <div class="email"><%= current_employee.email %></div>
+        <% end %>
+        <div class="btn-group user-helper-dropdown">
+          <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+          <ul class="dropdown-menu pull-right">
+            <li>
+              <%= link_to edit_employee_path(current_employee), class: "waves-effect waves-block" do %>
+              <i class="material-icons">person</i> Profile
+              <% end %>
+            </li>
+            <li role="seperator" class="divider"></li>
+            <li>
+              <%= link_to employee_profile_path(current_employee), class: " waves-effect waves-block" do %>
+              <i class="material-icons">person_outline</i> Details
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_employee_session_path, method: :delete, class: " waves-effect waves-block" do %>
+              <i class="material-icons">power_settings_new</i> LogOut
+              <% end %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="menu">
+      <% if params[:action] != 'start' %>
+        <ul class="list" style="overflow: hidden; width: auto; height: 377px;">
+          <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
+            <%= link_to dashboard_path, class: "toggled waves-effect waves-block" do %>
+            <i class="material-icons">layers</i>
+            <span>Dashboard</span>
+            <% end %>
+          </li>
+          
+          <% if current_employee.user_role != 'employee' %>
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">supervisor_account</i>
+                <span>Employees</span>
+              </a>
+              <ul class="ml-menu">
+                <li>
+                  <%= link_to 'List Employees', employees_path, class: " waves-effect waves-block" %>
+                </li>
+                <!-- <li>
+                  <a href="pages/forms/advanced-form-elements.html" class=" waves-effect waves-block">Advanced Form Elements</a>
+                </li>
+                -->
+              </ul>
+            </li>
+          <% end %>
+          
+          <li class="<%= 'active' if params[:controller] == 'exams' || params[:controller] == 'subjects' %>">
+            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+              <i class="material-icons">assignment</i>
+              <span>Exams</span>
+            </a>
+            <ul class="ml-menu">
+              <li>
+                <%= link_to 'Subject List', subjects_path %>
+              </li>
+              <% if current_employee.user_role != 'employee' %>
+                <li>
+                  <%= link_to 'Add Exam', new_exam_path, class: " waves-effect waves-block" %>
+                </li>
+              <% end %>
+              <li>
+                <%= link_to 'Exam List', exams_path, class: " waves-effect waves-block" %>
+              </li>
+
+              <li class="<%= 'active' if params[:controller] == 'result' %>">
+                <% if current_employee.user_role != 'employee' %>
+                  <%= link_to 'Results', results_path, class: " waves-effect waves-block" %>
+                <% else %>
+                  <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
+                <% end %>
+            </li>
+            </ul>
+          </li>
+          
+          <% if current_employee.user_role != 'employee' && current_employee.user_role != 'team_leader' %>
+            <li class="<%= 'active' if params[:controller] == 'projects' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Projects</span>
+              </a>
+              <ul class="ml-menu">
+                <li>
+                  <% if current_employee.user_role != 'employee' %>
+                    <%= link_to 'Project Tracker', trackers_path, class: " waves-effect waves-block" %>
+                  <% else %>
+                    <%#= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker', employee_trackers_path  %>
+                  <% end %>
+                </li>
+                <% if current_employee.user_role == 'employee' || current_employee.user_role == 'team_leader' %>
+                  <li class="<%= 'active' if params[:controller] == 'result' %>">
+                    <% if current_employee.user_role == 'employee' %>
+                      <%= link_to employee_projects_path, class: "toggled waves-effect waves-block" do %>
+                        My Project
+                      <% end %>
+                    <% else %>
+                      <%= link_to employee_result_path, class: "toggled waves-effect waves-block" do %>
+                        My Team Projects
+                      <% end %>
+                    <% end %>
+                  </li>
+                <% end %>
+                <li>
+                  <%= link_to 'Add Project', new_project_path, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to 'Project List', projects_path, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to "Add Project Team", new_project_team_path, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to "List Project Team", project_teams_path, class: " waves-effect waves-block" %>
+                </li>
+                <!-- <li> -->
+                <%#= link_to "<i class='fa fa-plus'></i> Add Team Member", new_project_team_path, class: " waves-effect waves-block" %>
+                <!-- </li> -->
+                <li>
+                  <%= link_to 'Org Team Chart', org_team_chart_path, class: " waves-effect waves-block" %>
+                </li>
+              </ul>
+            </li>
+            <li class="<%= 'active' if params[:controller] == 'teams' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Exam Team</span>
+              </a>
+              <ul class="ml-menu">
+                <li>
+                  <%= link_to 'Add Team', new_team_path, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to 'Teams', teams_path, class: " waves-effect waves-block" %>
+                </li>
+              </ul>
+            </li>
+            <li class="<%= 'active' if params[:controller] == 'reports' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Reports</span>
+              </a>
+              <ul class="ml-menu">
+                <li>
+                  <%= link_to 'Project Review', employee_report_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to 'Passed Ratio', attemted_vs_passed_path, class: " waves-effect waves-block" %>
+                </li>
+                <li>
+                  <%= link_to "Employees With Exams", report_employee_list_path, class: " waves-effect waves-block" %>
+                </li>
+              </ul>
+            </li>
+          <% end %>
+
+          <li class="<%= 'active' if params[:controller] == 'issues' %>">
+            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+              <i class="material-icons">assignment</i>
+              <span>Iassues</span>
+            </a>
+            <ul class="ml-menu">
+              <% unless current_employee.president? %>
+              <li>
+                <%= link_to 'Add Issue', new_issue_path, class: " waves-effect waves-block" %>
+              </li>
+              <% end %>
+              <li>
+                <%= link_to 'Issue List', issues_path, class: " waves-effect waves-block" %>
+              </li>
+            </ul>
+          </li>
+          
+          <li>
+            <%= link_to leaves_path do %>
+              <i class="material-icons">event</i>
+              <span> Leaves </span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to attendance_logs_path do %>
+              <i class="material-icons">spellcheck</i>
+              <span>
+                Attendance
+              </span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to leave_requests_path do %>
+              <i class="material-icons">query_builder</i>
+              <span> Leave Requests</span>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </aside>
+</section>

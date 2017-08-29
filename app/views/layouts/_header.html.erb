@@ -1,212 +1,143 @@
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <!-- Brand and toggle get grouped for better mobile display -->
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-    <span class="sr-only">Toggle navigation</span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    </button>
-    <a class="navbar-brand" href="index.html">Smart Evaluation</a>
+<div class="overlay"></div>
+
+<!-- <div class="search-bar">
+  <div class="search-icon">
+    <i class="material-icons">search</i>
   </div>
-  <!-- Top Menu Items -->
-  <ul class="nav navbar-right top-nav">
-    <li class="dropdown">
-      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-user"></i> <%= current_employee.name %> <b class="caret"></b></a>
-      <ul class="dropdown-menu">
-        <li>
-          <%= link_to '<i class="fa fa-fw fa-user"></i> Details'.html_safe, edit_employee_path(current_employee) %>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <%= link_to '<i class="fa fa-fw fa-user"></i> Profile'.html_safe, employee_profile_path(current_employee) %>
-        </li>
-        <li class="divider"></li>
-        <li>
-          <%= link_to '<i class="fa fa-fw fa-power-off"></i> Log Out'.html_safe, destroy_employee_session_path, method: :delete %>
-        </li>
-      </ul>
-    </li>
-  </ul>
-  <% if params[:action] != 'start' %>
-    <div class="collapse navbar-collapse navbar-ex1-collapse">
-      <ul class="nav navbar-nav side-nav">
-        <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
-          <%= link_to '<i class="fa fa-fw fa-dashboard"></i> Dashboard'.html_safe, dashboard_path %>
-        </li>
+  <input type="text" placeholder="START TYPING...">
+  <div class="close-search">
+    <i class="material-icons">close</i>
+  </div>
+</div> -->
 
-        
-        <% if current_employee.user_role != 'employee' %>
-          <li class="<%= 'active' if params[:controller] == 'employees' %>">
-            <a href="javascript:;" data-toggle="collapse" data-target="#employee"><i class="fa fa-pencil" aria-hidden="true"></i> Employees <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="employee" class="collapse">
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> List Employees'.html_safe, employees_path %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
-
-        <% if current_employee.user_role == 'employee' || current_employee.user_role == 'team_leader' %>
-          <li class="<%= 'active' if params[:controller] == 'result' %>">
-            <% if current_employee.user_role == 'employee' %>
-              <%= link_to '<i class="fa fa-book" aria-hidden="true"></i> My Project'.html_safe, employee_projects_path %>
-            <% else %>
-              <%= link_to '<i class="fa fa-book" aria-hidden="true"></i> My Team Projects'.html_safe, employee_result_path %>
-            <% end %>
-          </li>
-        <% end %>
-
-        <li class="<%= 'active' if params[:controller] == 'exams' %>">
-          <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-pencil" aria-hidden="true"></i> Exam <i class="fa fa-fw fa-caret-down"></i></a>
-          <ul id="demo" class="collapse">
-            <% if current_employee.user_role != 'employee' %>
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> Add Exam'.html_safe, new_exam_path %>
-              </li>
-            <% end %>
-            <li>
-              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Exam List'.html_safe, exams_path %>
+<nav class="navbar">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
+      <a href="javascript:void(0);" class="bars" style="display: none;"></a>
+      <%= link_to 'MATERIAL DESIGN', signed_in? ? dashboard_path : root_path, class: "navbar-brand" %>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <!-- Call Search -->
+        <!-- <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li> -->
+        <!-- #END# Call Search -->
+        <!-- Notifications -->
+        <li class="dropdown">
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false" type="button">
+            <i class="material-icons">notifications</i>
+            <span class="label-count">7</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li class="header">NOTIFICATIONS</li>
+            <li class="body">
+              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;"><ul class="menu" style="overflow: hidden; width: auto; height: 254px;">
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-light-green">
+                      <i class="material-icons">person_add</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4>12 new members joined</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 14 mins ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-cyan">
+                      <i class="material-icons">add_shopping_cart</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4>4 sales made</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 22 mins ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-red">
+                      <i class="material-icons">delete_forever</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4><b>Nancy Doe</b> deleted account</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 3 hours ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-orange">
+                      <i class="material-icons">mode_edit</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4><b>Nancy</b> changed name</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 2 hours ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-blue-grey">
+                      <i class="material-icons">comment</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4><b>John</b> commented your post</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 4 hours ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-light-green">
+                      <i class="material-icons">cached</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4><b>John</b> updated status</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> 3 hours ago
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="javascript:void(0);" class=" waves-effect waves-block">
+                    <div class="icon-circle bg-purple">
+                      <i class="material-icons">settings</i>
+                    </div>
+                    <div class="menu-info">
+                      <h4>Settings updated</h4>
+                      <p>
+                        <i class="material-icons">access_time</i> Yesterday
+                      </p>
+                    </div>
+                  </a>
+                </li>
+                <div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.498039); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 0px; z-index: 99; right: 1px;">
+                </div>
+                <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
+                </div>
+              </div>
+            </li>
+            <li class="footer">
+              <a href="javascript:void(0);" class=" waves-effect waves-block">View All Notifications</a>
             </li>
           </ul>
         </li>
-        
-        <% if current_employee.user_role != 'employee' && current_employee.user_role != 'team_leader' %>
-          <li class="<%= 'active' if params[:controller] == 'projects' %>">
-            <a href="javascript:;" data-toggle="collapse" data-target="#subject">
-              <i class="fa fa-book" aria-hidden="true"></i>
-              Project <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="subject" class="collapse">
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> Add Project'.html_safe, new_project_path %>
-              </li>
-              <li>
-                <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Project List'.html_safe, projects_path %>
-              </li>
-              <li>
-                <%= link_to "<i class='fa fa-plus'></i> Add Project Team".html_safe, new_project_team_path %>
-              </li>
-              <li>
-                <%= link_to "<i class='fa fa-th-list'></i> List Project Team".html_safe, project_teams_path %>
-              </li>
-              <!-- <li> -->
-                <%#= link_to "<i class='fa fa-plus'></i> Add Team Member".html_safe, new_project_team_path %>
-              <!-- </li> -->
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> Org Team Chart'.html_safe, org_team_chart_path %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'subjects' %>">
-            <a href="javascript:;" data-toggle="collapse" data-target="#subject">
-              <i class="fa fa-book" aria-hidden="true"></i>
-              Subject <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="subject" class="collapse">
-              <!-- <li>
-                <%#= link_to '<i class='fa fa-plus'></i> Add Subject'.html_safe, new_subject_path %>
-              </li> -->
-              <li>
-                <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Subject List'.html_safe, subjects_path %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'teams' %>">
-            <a href="javascript:;" data-toggle="collapse" data-target="#team">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              Exam Team <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="team" class="collapse">
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> Add Team'.html_safe, new_team_path %>
-              </li>
-              <li>
-                <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Teams'.html_safe, teams_path %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'reports' %>">
-            <a href="javascript:;" data-toggle="collapse" data-target="#reports">
-              <i class="fa fa-users" aria-hidden="true"></i>
-              Reports <i class="fa fa-fw fa-caret-down"></i>
-            </a>
-            <ul id="reports" class="collapse">
-              <!-- <li>
-                <%#= link_to 'Inter Team', team_comparision_path %>
-              </li> -->
-              <li>
-                <%= link_to 'Project Review', employee_report_path, "data-no-turbolink" => true %>
-              </li>
-              <li>
-                <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true %>
-              </li>
-              <li>
-                <%= link_to 'Passed Ratio', attemted_vs_passed_path %>
-              </li>
-              <li>
-                <%= link_to "Employees With Exams", report_employee_list_path %>
-              </li>
-            </ul>
-          </li>
-        <% end %>
-
-        <li class="<%= 'active' if params[:controller] == 'trackers' %>">
-          <% if current_employee.user_role != 'employee' %>
-            <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker'.html_safe, trackers_path %>
-          <% else %>
-            <%#= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker'.html_safe, employee_trackers_path  %>
-          <% end %>
-        </li>
-
-        <li class="<%= 'active' if params[:controller] == 'result' %>">
-          <% if current_employee.user_role != 'employee' %>
-            <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Results'.html_safe, results_path %>
-          <% else %>
-            <%= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Results'.html_safe, employee_result_path %>
-          <% end %>
-        </li>
-
-        <li class="<%= 'active' if params[:controller] == 'issues' %>">
-          <a href="javascript:;" data-toggle="collapse" data-target="#issues"><i class="fa fa-pencil" aria-hidden="true"></i> Issues <i class="fa fa-fw fa-caret-down"></i></a>
-          <ul id="issues" class="collapse">
-            <% unless current_employee.president? %>
-              <li>
-                <%= link_to '<i class="fa fa-plus"></i> Add Issue'.html_safe, new_issue_path %>
-              </li>
-            <% end %>
-            <li>
-              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i> Issue List'.html_safe, issues_path %>
-            </li>
-          </ul>
-        </li>
-        
-        <li>
-          <%= link_to "Leaves", leaves_path %>
-        </li>
-        
-         <li class="<%= 'active' if params[:controller] == 'employee' %>">
-          <a href="javascript:;" data-toggle="collapse" data-target="#attendance"><i class="fa fa-pencil" aria-hidden="true"></i> Attandance <i class="fa fa-fw fa-caret-down"></i></a>
-          <ul id="attendance" class="collapse">
-              <li>
-                <%= link_to '<i class="fa fa-folder"></i> attendance_logs '.html_safe, attendance_logs_path %>
-              </li>
-            <li>
-              <%= link_to '<i class="fa fa-th-list" aria-hidden="true"></i>Switch day'.html_safe, switch_days_path%>
-            </li>
-          </ul>
-        </li>
-
-        <!-- <li> -->
-          <%#= link_to "Attendance", attendance_logs_path %>
-        <!-- </li> -->
-        <li>
-          <%= link_to "Leave Requests", leave_requests_path %>
+        <li class="pull-right">
+          <a href="javascript:void(0);" class="js-right-sidebar" data-close="true"><i class="material-icons">more_vert</i></a>
         </li>
       </ul>
     </div>
-  <% end %>
+  </div>
 </nav>

@@ -29,6 +29,6 @@ class ProjectTeamsController < ApplicationController
 
   private
     def project_team_params
-      params.require(:project_team).permit(:name, :project_id,:team_leader_id, :team_manager_id)
+      params.require(:project_team).permit(:name)
     end
 end

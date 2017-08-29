@@ -55,15 +55,15 @@
 
 
 .box-with-all-emp, .box-with-selected-emp { 
-  border: 1px solid #999; 
+  border: 1px solid #bbb; 
   padding: 0px !important;
   min-height: 250px; 
 }
 .box-with-all-emp .available-members, .box-with-selected-emp .available-members {
   padding: 0px;
-  color: #678;
+  color: #68a;
   display: flex;
-  width: 100%
+  width: 100%;
 }
 
 .employee-blocks { 
@@ -73,10 +73,10 @@
   float: left; 
   padding: 7px 15px; 
   background: #eee;
-  background: -webkit-linear-gradient(#eee, #ddd); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(#eee, #ddd); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(#eee, #ddd); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(#eee, #ddd);
+  background: -webkit-linear-gradient(#efefef, #ddd); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#efefef, #ddd); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#efefef, #ddd); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#efefef, #ddd);
 }
 .align-center { text-align: center; }
 
@@ -84,3 +84,6 @@
   height: 10px;
   border: 0;
   box-shadow: 0 10px 10px -10px #8c8b8b inset;}
+
+.box-shade { padding: 3px 7px; background: #00BCD4; box-shadow: -1px -1px 5px 0px #ddd; margin-bottom: 5px; }
+.box-shade:hover { box-shadow: -1px 2px 3px 1px #ccc; }

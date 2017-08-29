@@ -10,16 +10,19 @@
       </ul>
     </div>
   <% end %>
-
-  <div class="col-sm-offset-3 col-sm-6 col-xs-12">
-    <div class="field form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.text_field :name, class: "form-control" %>
+        <%= f.label :name, class: "form-label" %>
+      </div>
     </div>
   </div>
-  <div class="col-sm-offset-3 col-sm-6 col-xs-12">
+
+
+  <div class="col-sm-6 col-xs-12">
     <div class="actions">
-      <%= f.submit "Add", class: "btn btn-primary" %>
+      <%= f.submit "Add Team", class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>

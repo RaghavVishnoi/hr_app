@@ -28,6 +28,9 @@ class Employee < ApplicationRecord
   has_one :project_team
 
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
+  scope :team_managers, -> { joins(:role).where(roles: { role: "team_member" }) }
+  scope :team_leaders, -> { joins(:role).where(roles: { role: "team_leader" }) }
+
   scope :team_members, -> { joins(:role).where(roles: { role: "team_member" }) }
   scope :hr, -> { joins(:role).where(roles: { role: "hr" }) }
   scope :president, -> { joins(:role).where(roles: { role: "president" }) }

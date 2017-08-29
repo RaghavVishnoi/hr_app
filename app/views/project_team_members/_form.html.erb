@@ -1,33 +1,8 @@
-<%#= form_for(project_team_member) do |f| %>
-  <% if project_team_member.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project_team_member.errors.count, "error") %> prohibited this exam from being saved:</h2>
-
-      <ul>
-      <% project_team_member.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field form-group">
-    <%#= f.label :employee_id %>
-    <%#= f.select :employee_id, Employee.members.not_added.collect {|e| [ "#{e.name}  <i>(#{e.user_role})</i>".html_safe, e.id ] }, {}, class: "form-control"   %>
-  </div>
-
-  <div class="field form-group">
-    <%#= f.label :project_team_id, "Project" %>
-    <%#= f.select :project_team_id, ProjectTeam.all.collect {|p| [ p.name, p.id ] }, {}, class: "form-control" %>
-  </div>
-
-  <div class="actions">
-    <%#= f.submit "Save Project Team", class: "btn btn-primary" %>
-  </div>
-<%# end %>
+Click on Available member to add in Team
 <div class="row">
   <div class="col-xs-12 align-center">
-    >>>
+    <div class='col-sm-6'> Available Members</div>
+    <div class='col-sm-6'> Team Members</div>
   </div>
   <div class="col-sm-6 box-with-all-emp">
     <%= render partial: "all_employees", collection: @emp_team, as: :emp, locals: { pt_id: params[:pt]} %>

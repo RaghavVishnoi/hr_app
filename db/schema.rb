@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170824042205) do
+ActiveRecord::Schema.define(version: 20170826124625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -233,6 +233,14 @@ ActiveRecord::Schema.define(version: 20170824042205) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "tracker_logs", force: :cascade do |t|
+    t.integer  "tracker_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tracker_id"], name: "index_tracker_logs_on_tracker_id", using: :btree
+  end
+
   create_table "trackers", force: :cascade do |t|
     t.string   "title"
     t.string   "description"
@@ -260,6 +268,7 @@ ActiveRecord::Schema.define(version: 20170824042205) do
   add_foreign_key "results", "exams"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
+  add_foreign_key "tracker_logs", "trackers"
   add_foreign_key "trackers", "employees"
   add_foreign_key "trackers", "projects"
 end

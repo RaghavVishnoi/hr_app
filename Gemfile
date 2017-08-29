@@ -25,6 +25,11 @@ gem "paperclip"
 gem 'devise'
 gem 'acts-as-taggable-on', '~> 4.0'
 
+gem 'oauth2'
+gem 'ruby_outlook'
+gem 'microsoft_graph'
+
+
 group :development, :test do
   gem 'pry', platform: :mri
 end

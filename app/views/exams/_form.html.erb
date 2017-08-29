@@ -11,39 +11,67 @@
     </div>
   <% end %>
 
-  <div class="field form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.text_field :title, class: "form-control" %>
+        <%= f.label :title, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :subject %>
-    <%= f.select :subject_id, Subject.all.collect {|s| [ s.title, s.id ] }, {}, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.select :subject_id, Subject.all.collect {|s| [ s.title, s.id ] }, {}, class: "form-control show-tick" %>
+        <%#= f.label :subject, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :team %>
-    <%= f.select :team_id, Team.all.collect {|s| [ s.name, s.id ] }, {}, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.select :team_id, Team.all.collect {|s| [ s.name, s.id ] }, {}, class: "form-control show-tick" %>
+        <%#= f.label :team, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :marks %>
-    <%= f.number_field :marks, class: "form-control", min: "0" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.number_field :marks, class: "form-control", min: "0" %>
+        <%= f.label :marks, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :cut_off_marks %>
-    <%= f.number_field :cut_off_marks, class: "form-control", min: "0" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.number_field :cut_off_marks, class: "form-control", min: "0" %>
+        <%= f.label :cut_off_marks, class: "form-label" %>
+      </div>
+    </div>
   </div>
   
-  <div class="field form-group">
-    <%= f.label :time %> (in minutes)
-    <%= f.number_field :time, class: "form-control", min: "0" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.number_field :time, class: "form-control", min: "0" %>
+        <%= f.label :time, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :state %>
-    <%= f.check_box :state %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.check_box :state, class: " filled-in" %>
+        <%= f.label :state, class: "form-label" %>
+      </div>
+    </div>
   </div>
 
   <div class="actions">

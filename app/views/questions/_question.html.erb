@@ -1,6 +1,6 @@
 <tr>
   <td><%= question.question %></td>
-  <td><%= question.description %></td>
+  <!-- <td><%#= question.description %></td> -->
   <td><%= question.question_type %></td>
   <td><%= question.options.gsub(/(\{|\}|")/, "").gsub(/=>/, ". ").split(",").join("  &nbsp;<br/>").html_safe %></td>
   <td><%= question.answer %></td>

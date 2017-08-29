@@ -30,4 +30,4 @@
 
 <br>
 
-<%= link_to 'New Tracker', new_tracker_path %>
+<%= link_to 'New Tracker', new_tracker_path if current_employee.user_role != "hr" && current_employee.user_role != "president" %>
