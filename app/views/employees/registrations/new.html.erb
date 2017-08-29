@@ -1,72 +1,120 @@
-<div class="row">
-  <div class="col-sm-offset-2 col-sm-8 col-xs-12">
-    <div class="authentication-box">
-      <h2>Sign up</h2>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <%= devise_error_messages! %>
-        <%= f.hidden_field :role_id, value: Role.find_by(role: params[:role] || "employee").id, autofocus: true %>
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :first_name %><br />
-          <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
-        </div>
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :last_name %><br />
-          <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
-        </div>
-        
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, class: "form-control" %>
-        </div>
-        
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :mobile %><br />
-          <%= f.text_field :mobile, autofocus: true, class: "form-control" %>
-        </div>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="bory">
+        <div class="authentication-box">
+          <h2>Sign up</h2>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <%= f.hidden_field :role_id, value: Role.find_by(role: params[:role] || "employee").id, autofocus: true %>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :first_name %><br />
+                  <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :last_name %><br />
+                  <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :email %><br />
+                  <%= f.email_field :email, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :mobile %><br />
+                  <%= f.text_field :mobile, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :password %>
-          <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
-          <% end %><br />
-          <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-        </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :password %>
+                  <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                  <% end %><br />
+                  <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :password_confirmation %><br />
-          <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-        </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :password_confirmation %><br />
+                  <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :address %><br />
-          <%= f.text_field :address, autofocus: true, class: "form-control" %>
-        </div>
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :city %><br />
-          <%= f.text_field :city, autofocus: true, class: "form-control" %>
-        </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :address %><br />
+                  <%= f.text_field :address, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :city %><br />
+                  <%= f.text_field :city, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
 
 
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :state %><br />
-          <%= f.text_field :state, autofocus: true, class: "form-control" %>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :state %><br />
+                  <%= f.text_field :state, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :country %><br />
+                  <%= f.text_field :country, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+              <div class="form-group form-float">
+                <div class="form-line">
+                  <%= f.label :zipcode %><br />
+                  <%= f.text_field :zipcode, autofocus: true, class: "form-control" %>
+                </div>
+              </div>
+            </div>
+            
+            <div class="actions col-sm-6 col-xs-12">
+              <%= f.submit "Sign up", class: 'btn btn-primary pull-right' %>
+            </div>
+          <% end %>
+          
+          <div class="mt20 pull-right">
+            <%= render "employees/shared/links" %>
+          </div>
         </div>
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :country %><br />
-          <%= f.text_field :country, autofocus: true, class: "form-control" %>
-        </div>
-        <div class="field col-md-6 col-xs-12 form-group">
-          <%= f.label :zipcode %><br />
-          <%= f.text_field :zipcode, autofocus: true, class: "form-control" %>
-        </div>
-        
-        <div class="actions col-sm-6 col-xs-12">
-          <%= f.submit "Sign up", class: 'btn btn-primary pull-right' %>
-        </div>
-      <% end %>
-      
-      <div class="mt20 pull-right">
-        <%= render "employees/shared/links" %>
       </div>
     </div>
   </div>
