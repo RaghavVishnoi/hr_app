@@ -1,28 +1,36 @@
 <%= form_for(@switch_day) do |f| %>
   <% if @switch_day.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@switch_day.errors.count, "error") %> prohibited this @switch_day from being saved:</h2>
-
-      <ul>
+  <div id="error_explanation">
+    <h2><%= pluralize(@switch_day.errors.count, "error") %> prohibited this @switch_day from being saved:</h2>
+    <ul>
       <% @switch_day.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+      <li><%= message %></li>
       <% end %>
-      </ul>
-    </div>
+    </ul>
+  </div>
   <% end %>
-
-    <%= f.label :real_date %>
-    <%= f.date_field(:real_date) %>
-
-     <%#= f.date_select  %>
-  
-  
-    <%= f.label :replace_date %>
-    <%= f.date_field(:replace_date) %>
-  
+  <div class="col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :real_date %>
+        <%= f.date_field(:real_date,class: "form-control") %>
+      </div>
+    </div>
+  </div>
+  <%#= f.date_select  %>
+  <div class="col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :replace_date %>
+        <%= f.date_field(:replace_date,class: "form-control" )%>
+      </div>
+    </div>
+  </div>
   <%= f.hidden_field :employee_id, value:current_employee.id %>
-
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions demo-button-sizes">
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+      
+      <%= f.submit "Add", class: "btn bg-cyan waves-effect" %>
+    </div>
   </div>
 <% end %>

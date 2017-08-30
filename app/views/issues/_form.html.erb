@@ -1,29 +1,35 @@
-<%= form_for(issue) do |f| %>
-  <% if issue.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(issue.errors.count, "error") %> prohibited this issue from being saved:</h2>
-
-      <ul>
-      <% issue.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+  <%= form_for(issue) do |f| %>
+      <% if issue.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(issue.errors.count, "error") %> prohibited this issue from being saved:</h2>
+        <ul>
+          <% issue.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
       <% end %>
-      </ul>
-    </div>
+      <div class="col-xs-12">
+        <div class="form-group form-float">
+          <div class="form-line">
+            <%= f.label :title %>
+            <%= f.text_field :title,class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12">
+        <div class="form-group form-float">
+          <div class="form-line">
+            <%= f.label :description %>
+            <%= f.text_area :description,class: "form-control" %>
+          </div>
+        </div>
+      </div>
+      <%= f.hidden_field :creator_id, value:current_employee.id %>
+      <div class="actions demo-button-sizes">
+        <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+          
+          <%= f.submit "Submit", class: "btn bg-cyan waves-effect" %>
+        </div>
+      </div>
   <% end %>
-
-  <div class="field form-group">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field form-group">
-    <%= f.label :description %>
-    <%= f.text_area :description %>
-  </div>
-
-  <%= f.hidden_field :creator_id, value:current_employee.id %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>

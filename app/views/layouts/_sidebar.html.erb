@@ -193,14 +193,23 @@
               <span> Leaves </span>
             <% end %>
           </li>
-          <li>
-            <%= link_to attendance_logs_path do %>
-              <i class="material-icons">spellcheck</i>
-              <span>
-                Attendance
-              </span>
-            <% end %>
+          
+          <li class="<%= 'active' if params[:controller] == 'employee' %>">
+            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+              <i class="material-icons">assignment</i>
+              <span>Attandance</span>
+            </a>
+            <ul class="ml-menu">
+              <li>
+              <%= link_to 'Attendance Logs', attendance_logs_path ,class: " waves-effect waves-block"%>
+              </li>
+              <li>
+              <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
+              </li>
+            </ul>
           </li>
+
+
           <li>
             <%= link_to leave_requests_path do %>
               <i class="material-icons">query_builder</i>

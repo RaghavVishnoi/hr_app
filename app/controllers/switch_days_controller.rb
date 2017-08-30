@@ -19,7 +19,7 @@ class SwitchDaysController < ApplicationController
     @switch_day = SwitchDay.new(switch_day_params)
     EmployeeUsageLog.create(employee_id: current_employee.id, entry_type: "IN",logs_time: "This day is replace by #{switch_day_params[:replace_date]}",created_at: switch_day_params[:real_date].to_date)
       if @switch_day.save
-        render :index
+       redirect_to switch_days_path
       else
         render :new
       end
