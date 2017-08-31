@@ -1,0 +1,38 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Employee - Exams</h2>
+      </div>
+      <div class="body">
+
+        <div class="table-responsive">
+          <p class="pull-right">
+            <%= link_to "Export to CSV", export_to_csv_path(format: :csv) %>
+          </p>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Exam</th>
+                <th>Attemted?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @employees.each do |employee| %>
+                <% employee.exams.each do |exam| %>
+                  <% attemted = exam.is_attemted_by(employee) %>
+                  <tr>
+                    <td> <%= attemted ? link_to(employee.fullname, show_exam_attempte_path(employee)) : employee.fullname %> </td>
+                    <td> <%= exam.title %> </td>
+                    <td> <%= attemted %> </td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

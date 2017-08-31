@@ -85,5 +85,5 @@
   border: 0;
   box-shadow: 0 10px 10px -10px #8c8b8b inset;}
 
-.box-shade { padding: 3px 7px; background: #00BCD4; box-shadow: -1px -1px 5px 0px #ddd; margin-bottom: 5px; }
-.box-shade:hover { box-shadow: -1px 2px 3px 1px #ccc; }
+.box-shade { padding: 3px 7px; background: #00BCD4; box-shadow: -1px -1px 5px 0px #ddd; margin-bottom: 5px; color: #efefef; font-weight: 700; }
+.box-shade:hover { box-shadow: -1px 2px 3px 1px #ccc; color: #fff; }

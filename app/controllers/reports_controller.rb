@@ -37,7 +37,7 @@ class ReportsController < ApplicationController
       data_table.set_cell(index, 1, result.correct_ans)
     end
 
-    opts   = { :width => 400, :height => 240, :title => 'Exams With highest Score', :hAxis => { :title => 'Exam with Team', :titleTextStyle => { :color => '#3377dd' } }, colors: ['#1B9E77', '#D95F02'], vAxis: { title: "Score", :titleTextStyle => { :color => '#44dd88' } } }
+    opts   = { :width => 500, :height => 300, :title => 'Exams With highest Score', :hAxis => { :title => 'Exam with Team', :titleTextStyle => { :color => '#3377dd' } }, colors: ['#1B9E77', '#D95F02'], vAxis: { title: "Score", :titleTextStyle => { :color => '#44dd88' } } }
     @chart = GoogleVisualr::Interactive::ColumnChart.new(data_table, opts)    
   end
 
@@ -54,11 +54,11 @@ class ReportsController < ApplicationController
       data_table.set_cell(index, 2, exam.results.select{ |result| (result.correct_ans >= exam.cut_off_marks.to_f) }.count )
     end
 
-    opts   = { :width => 400, :height => 240, :title => 'Attemted Employees vs Passed Employees', :legend => 'bottom', colors: ["#4285F4", "#169D75"], hAxis: { title: "Exam with Team", :titleTextStyle => { :color => '#3388ff' } }, vAxis: { title: "Employees", :titleTextStyle => { :color => '#44dd88' }  }  }
+    opts   = { :width => 500, :height => 300, :title => 'Attemted Employees vs Passed Employees', :legend => 'bottom', colors: ["#4285F4", "#169D75"], hAxis: { title: "Exam with Team", :titleTextStyle => { :color => '#3388ff' } }, vAxis: { title: "Employees", :titleTextStyle => { :color => '#44dd88' }  }  }
     @chart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
   end
 
-  def result_list
+  def result_employee_list
     # @employees = employee.students.joins([results: :exam], :responses, :teams).group("employees.id")
     # employee.students.includes(:exams, :results).where.not(results: {exam_id: nil}).zip
     # employee.students.includes(:exams, :results).where(results: {exam_id: nil})

@@ -36,8 +36,8 @@
         <ul class="list" style="overflow: hidden; width: auto; height: 377px;">
           <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
             <%= link_to dashboard_path, class: "toggled waves-effect waves-block" do %>
-            <i class="material-icons">layers</i>
-            <span>Dashboard</span>
+              <i class="material-icons">layers</i>
+              <span>Dashboard</span>
             <% end %>
           </li>
           
@@ -76,14 +76,13 @@
               <li>
                 <%= link_to 'Exam List', exams_path, class: " waves-effect waves-block" %>
               </li>
-
               <li class="<%= 'active' if params[:controller] == 'result' %>">
                 <% if current_employee.user_role != 'employee' %>
                   <%= link_to 'Results', results_path, class: " waves-effect waves-block" %>
                 <% else %>
                   <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
                 <% end %>
-            </li>
+              </li>
             </ul>
           </li>
           
@@ -96,23 +95,23 @@
               <ul class="ml-menu">
                 <li>
                   <% if current_employee.user_role != 'employee' %>
-                    <%= link_to 'Project Tracker', trackers_path, class: " waves-effect waves-block" %>
+                  <%= link_to 'Project Tracker', trackers_path, class: " waves-effect waves-block" %>
                   <% else %>
-                    <%#= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker', employee_trackers_path  %>
+                  <%#= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker', employee_trackers_path  %>
                   <% end %>
                 </li>
                 <% if current_employee.user_role == 'employee' || current_employee.user_role == 'team_leader' %>
-                  <li class="<%= 'active' if params[:controller] == 'result' %>">
-                    <% if current_employee.user_role == 'employee' %>
-                      <%= link_to employee_projects_path, class: "toggled waves-effect waves-block" do %>
-                        My Project
-                      <% end %>
-                    <% else %>
-                      <%= link_to employee_result_path, class: "toggled waves-effect waves-block" do %>
-                        My Team Projects
-                      <% end %>
-                    <% end %>
-                  </li>
+                <li class="<%= 'active' if params[:controller] == 'result' %>">
+                  <% if current_employee.user_role == 'employee' %>
+                  <%= link_to employee_projects_path, class: "toggled waves-effect waves-block" do %>
+                  My Project
+                  <% end %>
+                  <% else %>
+                  <%= link_to employee_result_path, class: "toggled waves-effect waves-block" do %>
+                  My Team Projects
+                  <% end %>
+                  <% end %>
+                </li>
                 <% end %>
                 <li>
                   <%= link_to 'Add Project', new_project_path, class: " waves-effect waves-block" %>
@@ -169,7 +168,6 @@
               </ul>
             </li>
           <% end %>
-
           <li class="<%= 'active' if params[:controller] == 'issues' %>">
             <a href="javascript:;" class="menu-toggle waves-effect waves-block">
               <i class="material-icons">assignment</i>
@@ -201,15 +199,13 @@
             </a>
             <ul class="ml-menu">
               <li>
-              <%= link_to 'Attendance Logs', attendance_logs_path ,class: " waves-effect waves-block"%>
+                <%= link_to 'Attendance Logs', attendance_logs_path ,class: " waves-effect waves-block"%>
               </li>
               <li>
-              <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
+                <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
               </li>
             </ul>
           </li>
-
-
           <li>
             <%= link_to leave_requests_path do %>
               <i class="material-icons">query_builder</i>

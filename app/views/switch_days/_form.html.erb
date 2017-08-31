@@ -13,7 +13,7 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :real_date %>
-        <%= f.date_field(:real_date,class: "form-control") %>
+        <%= f.text_field(:real_date,class: "form-control") %>
       </div>
     </div>
   </div>
@@ -22,15 +22,18 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :replace_date %>
-        <%= f.date_field(:replace_date,class: "form-control" )%>
+        <%= f.text_field(:replace_date,class: "form-control" )%>
       </div>
     </div>
   </div>
   <%= f.hidden_field :employee_id, value:current_employee.id %>
   <div class="actions demo-button-sizes">
     <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
-      
       <%= f.submit "Add", class: "btn bg-cyan waves-effect" %>
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  $("input").inputmask('dd/mm/yyyy', { placeholder: '__/__/____' });
+</script>

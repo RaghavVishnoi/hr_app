@@ -12,8 +12,8 @@ class ResultsController < ApplicationController
     render 'index'
   end
 
-  def result
-    if current_employee.employee_role == 'employee'
+  def employee_result
+    if current_employee.user_role == 'employee'
       @results = current_employee.results.where(status: true)
     else
       @results = employee.find(params[:employee_id]).results

@@ -1,35 +1,40 @@
-<div class="row">
-  <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-    <div class="table-responsive">
-      <h1>Projects</h1>
+<div class="row clearfix">
+  <div class="col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>Org Chart</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-xs-12">
 
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <% @project_teams.each do |team| %>
-              <td>
-                <div>
-                  <p><strong> Team: </strong><%= team.name %></p>
-                </div>
-                <div>
-                  <ol>
-                    <% team.project_team_members.includes(:employee).map(&:employee).each do |emp| %>
-                      <li class="box-shade"><%= emp.name %><span class="pull-right">X</span></li>
-                    <% end %>
-                  </ol>
-                </div>
-                <!-- <div>
-                  <%#= team.projects.map(&:name) %>
-                </div> -->
-              </td>
-            <% end %>
-          </tr>
-        </tbody>
-      </table>
-
-      <br>
-
-      <%#= link_to 'New Project', new_project_path %>
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <% @project_teams.each do |team| %>
+                    <td>
+                      <div>
+                        <p><strong> Team: </strong><%= team.name %></p>
+                      </div>
+                      <div>
+                        <ol style="list-style: none;">
+                          <% team.project_team_members.includes(:employee).map(&:employee).each do |emp| %>
+                            <li class="box-shade"><%= emp.name %><span class="pull-right">X</span></li>
+                          <% end %>
+                        </ol>
+                      </div>
+                      <!-- <div>
+                        <%#= team.projects.map(&:name) %>
+                      </div> -->
+                    </td>
+                  <% end %>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <%= link_to 'New Project', new_project_path %>
+      </div>
     </div>
   </div>
 </div>

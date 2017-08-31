@@ -28,7 +28,7 @@ gem 'acts-as-taggable-on', '~> 4.0'
 gem 'oauth2'
 gem 'ruby_outlook'
 gem 'microsoft_graph'
-
+gem "google_visualr", ">= 2.5"
 
 group :development, :test do
   gem 'pry', platform: :mri

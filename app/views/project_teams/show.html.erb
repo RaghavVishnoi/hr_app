@@ -1,16 +1,21 @@
-<div class="row exam-view">
+<div class="row clearfix exam-view">
   <div class="col-xs-12">
-    <div class=" col-md-4 col-sm-6 col-xs-12">
-      <strong>Project Name:</strong>
-      <%= @project_team.name %>
-      
-      <br/><br/>
-      <p><strong>Members: </strong></p>
-      <ol>
-        <% @project_team.project_team_members.each do |member| %>
-          <li><%= member.employee.name %></li>
-        <% end %>
-      </ol>
+    <div class="card">
+      <div class="header">
+        <h2>Org Chart</h2>
+      </div>
+      <div class="body">
+        <strong>Project Name:</strong>
+        <%= @project_team.name %>
+        
+        <br/><br/>
+        <p><strong>Members: </strong></p>
+        <ol>
+          <% @project_team.project_team_members.each do |member| %>
+            <li><%= member.employee.name %></li>
+          <% end %>
+        </ol>
+      </div>
     </div>
   </div>
 </div>

@@ -1,6 +1,17 @@
 <% content_for :head do %>
   <script src='https://www.google.com/jsapi'></script>
 <% end %>
-<%= content_for(:body_attributes, 'data-no-turbolink') %>
-<div id='chart'></div>
-<%= render_chart @chart, 'chart' %>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Employee - Exams</h2>
+      </div>
+      <div class="body">
+        <%= content_for(:body_attributes, 'data-no-turbolink') %>
+        <div id='chart'></div>
+        <%= render_chart @chart, 'chart' %>
+      </div>
+    </div>
+  </div>
+</div> 
