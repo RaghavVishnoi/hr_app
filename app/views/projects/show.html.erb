@@ -14,7 +14,9 @@
 
         <p>
           <strong>Assigned to:</strong>
-          <%= @project.assigned_to %>
+          <% if @project.project_team.present? %>
+            <%= @project.project_team.name %>
+          <% end %>
         </p>
 
         <p>

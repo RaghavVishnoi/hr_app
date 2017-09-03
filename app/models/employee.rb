@@ -25,7 +25,8 @@ class Employee < ApplicationRecord
   has_many :experiences, dependent: :destroy
   has_one :project_team_member, dependent: :destroy
   
-  has_one :project_team
+  # has_one :project_team, through: :project_team_members
+  # has_many :project_team_members
 
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
   scope :team_managers, -> { joins(:role).where(roles: { role: "team_member" }) }

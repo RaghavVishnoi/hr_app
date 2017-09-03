@@ -1,14 +1,19 @@
 <div class="row clearfix">
   <div class="col-sm-12">
     <div class="card">
-      <div class="body">
-        <h1>New Exam</h1>
-
-        <%= render 'form', exam: @exam %>
+      <div class="header">
+        <h2>New Exam</h2>
       </div>
-    </div>
-    <div class="mt20">
-      <%= link_to 'Back', exams_path %>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <%= render 'form', exam: @exam %>
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', exams_path %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

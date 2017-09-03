@@ -1,2 +1,3 @@
 $(".box-with-all-emp").html("<%= escape_javascript(render partial: 'all_employees', collection: @emp_team, as: :emp, locals: { pt_id: params[:project_team_id] }) %>");
 $(".box-with-selected-emp").html("<%= escape_javascript(render partial: 'team_employees', collection: @team, as: :emp, locals: { pt_id: params[:project_team_id] }) %>");
+$("li.team_member_<%= params[:id] %>").hide();

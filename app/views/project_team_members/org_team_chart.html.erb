@@ -7,25 +7,31 @@
       <div class="body">
         <div class="row clearfix">
           <div class="col-xs-12">
-
             <table class="table table-bordered">
               <tbody>
                 <tr>
                   <% @project_teams.each do |team| %>
                     <td>
                       <div>
-                        <p><strong> Team: </strong><%= team.name %></p>
+                        <p class="pull-left">
+                          <strong> Team: </strong><%= team.name %>
+                        </p>
+                        <p class="pull-right">
+                          <%= link_to "Edit", new_project_team_member_path(pt: team), remote: true, class: "btn bg-blue-grey waves-effect" %>
+                        </p>
                       </div>
+                      <div class="clearfix"></div>
                       <div>
-                        <ol style="list-style: none;">
-                          <% team.project_team_members.includes(:employee).map(&:employee).each do |emp| %>
-                            <li class="box-shade"><%= emp.name %><span class="pull-right">X</span></li>
-                          <% end %>
-                        </ol>
+                        <% team.project_team_members.includes(:employee).order("employees.role_id asc").each_with_index do |emp, index| %>
+                          <li class="box-shade <%= 'leader-color' if emp.employee.user_role != 'employee' %> team_member_<%= emp.id %>" style="list-style-type: none;">
+                            <%= emp.employee.name %>
+                            (<%= emp.employee.user_role %>)
+                            <span class="pull-right">
+                              <%= link_to "X", project_team_member_path(emp.id, employee_id: emp.employee.id, project_team_id: team.id), method: :delete, remote: true, class: "white" %>
+                            </span>
+                          </li>
+                        <% end %>
                       </div>
-                      <!-- <div>
-                        <%#= team.projects.map(&:name) %>
-                      </div> -->
                     </td>
                   <% end %>
                 </tr>
@@ -34,6 +40,27 @@
           </div>
         </div>
         <%= link_to 'New Project', new_project_path %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editTeamModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="defaultModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row clearfix">
+          <div class="col-xs-12" id="editBlocks">
+            <%#= render 'form', project_team_member: @project_team_member %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link waves-effect">SAVE CHANGES</button>
+        <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
       </div>
     </div>
   </div>

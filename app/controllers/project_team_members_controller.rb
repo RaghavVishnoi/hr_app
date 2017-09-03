@@ -10,6 +10,11 @@ class ProjectTeamMembersController < ApplicationController
     end
 
     @team = ProjectTeam.find(params[:pt]).project_team_members
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def edit
