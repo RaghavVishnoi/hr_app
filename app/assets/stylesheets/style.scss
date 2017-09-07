@@ -91,3 +91,42 @@
 .box-shade:hover { box-shadow: -1px 2px 3px 1px #ccc; color: #fff; }
 .white { color: #fff; }
 a { text-decoration: none; }
+
+.b_message{
+  z-index: 20;
+  position: fixed;
+  bottom: 100px;
+  left: 200px;
+  padding: 10px;
+  background: rgba(0, 188, 212, 0.85);
+}
+.b_msg_head{
+  border-bottom: 2px solid #f8f8f8;
+  color: #fff;
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+.b_msg_body {
+  height: 70px;
+  width: 180px;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+  .b_message {
+    bottom: 60px;
+    left: 120px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .b_message {
+    bottom: 50px;
+    left: 70px;
+  }
+}

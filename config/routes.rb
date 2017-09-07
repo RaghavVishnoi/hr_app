@@ -80,5 +80,11 @@ Rails.application.routes.draw do
   get '/profile/:id' => "employees#show", as: :employee_profile
   post '/upload_document/:id' => "employees#upload_document", as: :upload_document
   get 'download/:id' => "documents#download", as: :download_document
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html'
+  get '/gen/send_message' => 'general#send_message', as: :general_send_message
+  get '/gen/show_message/:m_id' => 'general#show_message', as: :general_show_message
+  get '/gen/new_message' => 'general#new_message', as: :general_new_message
+  delete '/gen/delete_message/:m_id' => 'general#delete_message', as: :delete_message
+
+  mount ActionCable.server => "/cable"
 end

@@ -26,6 +26,7 @@
 //= require jquery-datatable
 //= require materialize
 //= require script
+//= require cable
 //= require_tree .
 
 
@@ -45,6 +46,10 @@
 //     minHeight: "975px",
 //   });
 // });
+// this.App = {}
+
+// App.cable = ActionCable.createConsumer();
+
 
 $(document).ready(function(){
 

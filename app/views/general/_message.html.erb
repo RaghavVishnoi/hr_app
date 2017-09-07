@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= msg.message %>
+  </td>
+  <td>
+    <%= link_to "Show", general_show_message_path(msg) %>
+  </td>
+  <td>
+    <%= link_to "Delete", delete_message_path(msg), method: :delete %>
+  </td>
+</tr>
