@@ -99,6 +99,7 @@ a { text-decoration: none; }
   left: 200px;
   padding: 10px;
   background: rgba(0, 188, 212, 0.85);
+  box-shadow: -1px 1px 4px 0 #777;
 }
 .b_msg_head{
   border-bottom: 2px solid #f8f8f8;
@@ -108,9 +109,9 @@ a { text-decoration: none; }
   font-weight: bold;
 }
 .b_msg_body {
-  height: 70px;
-  width: 180px;
-  border-radius: 4px;
+  height: 85px;
+  width: 200px;
+  border-radius: 2px;
   color: #fff;
   font-weight: 900;
   font-size: 12px;
