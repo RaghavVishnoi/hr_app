@@ -1,40 +1,51 @@
-<div class="row">
-  <div class="col-xs-12">
-    <h1> <%= @team.name %></h1>
-    <h4 id="team_members_count">Members: <%= @team.team_members.count %></h4>
-  </div>
-  <div class="col-sm-6 col-xs-12">
-    <h3>All Employees <span class="pull-right">>></span></h3>
-    <div class="table-responsive" id="user-list">
-      <table class="table table-bordered table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <%= render Employee.includes(:teams, :role).where.not(id: @team.team_members.pluck(:employee_id)).where( roles: {role: "employee"} ), team: @team %>
-        </tbody>
-      </table>
-    </div>
-  </div>
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <p id="notice"><%= notice %></p>
+      <div class="header">
+        <h2><%= @team.name %></h2>
+        <h4 id="team_members_count">Members: <%= @team.team_members.count %></h4>
+        <p id="notice"><%= notice %></p>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-sm-6 col-xs-12">
+              <h3>All Employees <span class="pull-right">>></span></h3>
+              <div class="table-responsive" id="user-list">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= render Employee.includes(:teams, :role).where.not(id: @team.team_members.pluck(:employee_id)).where( roles: {role: "employee"} ), team: @team %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
 
-  <div class="col-sm-6 col-xs-12">
-    <h3>Members</h3>
-    <div class="table-responsive" id="member-list">
-      <table class="table table-bordered table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <%= render @team_members, team: @team %>
-        </tbody>
-      </table>
+            <div class="col-sm-6 col-xs-12">
+              <h3>Members</h3>
+              <div class="table-responsive" id="member-list">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <%= render @team_members, team: @team %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

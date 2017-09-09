@@ -1,4 +1,4 @@
 <tr>
-  <td><%= employee.last_name if employee.present? %></td>
+  <td><%= employee.name if employee.present? %></td>
   <td><%= link_to 'Add', add_members_path(team, employee), remote: true %></td>
 </tr>

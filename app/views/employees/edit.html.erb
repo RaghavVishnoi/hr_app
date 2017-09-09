@@ -1,6 +1,21 @@
-<h1>Editing Employee</h1>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Editing Employee</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-6 col-sm-offset-2 col-xs-12">
+            <%= render 'form', employee: @employee %>
+          </div>
+        </div>
+        <%= link_to 'Show', @employee %> |
+        <%= link_to 'Back', employees_path %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= render 'form', employee: @employee %>
 
-<%= link_to 'Show', @employee %> |
-<%= link_to 'Back', employees_path %>
+

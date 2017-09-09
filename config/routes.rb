@@ -40,17 +40,17 @@ Rails.application.routes.draw do
   get 'reports/team_highest_score' => "reports#team_highest_score", as: :team_highest_score
   get 'reports/attemted_vs_passed' => "reports#attemted_vs_passed", as: :attemted_vs_passed
   get 'reports/result_employee_list' => "reports#result_employee_list", as: :report_employee_list
-  get 'reports/show_exam_attempte/:user_id' => "reports#show_exam_attempte", as: :show_exam_attempte
+  get 'reports/show_exam_attempte/:employee_id' => "reports#show_exam_attempte", as: :show_exam_attempte
   get 'reports/export_to_csv' => "reports#export_to_csv", as: :export_to_csv
 
-  get 'teams/add_members/:id/:user_id' => "teams#add_members", as: :add_members
-  get 'teams/remove_members/:id/:user_id' => "teams#remove_members", as: :remove_members
+  get 'teams/add_members/:id/:employee_id' => "teams#add_members", as: :add_members
+  get 'teams/remove_members/:id/:employee_id' => "teams#remove_members", as: :remove_members
   resources :teams
 
   resources :subjects
   # get  'results/index' => "results#index", as: :index
   get  'results/exam_result/:exam_id' => "results#exam_result", as: :exam_result
-  get  'results/employee_result(/:user_id)' => "results#employee_result", as: :employee_result
+  get  'results/employee_result(/:employee_id)' => "results#employee_result", as: :employee_result
   post 'results/filter_result' => "results#filter_result", as: :filter_result
   get  'results/print/:result' => "results#print", as: :print
   get  'results/activate_result/:exam_id' => "results#activate_result", as: :activate_result
@@ -74,7 +74,7 @@ Rails.application.routes.draw do
   #get '/switch_day' => "employees#switch_day", as: :switch_day
   get '/exam/questions/:exam_id' => "questions#start", as: :exam_start
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
-  get '/question/save_ans_by_teacher/:q_id/:user_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher
+  get '/question/save_ans_by_teacher/:q_id/:employee_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher
   
   resources :documents
   get '/profile/:id' => "employees#show", as: :employee_profile

@@ -11,11 +11,13 @@
         <div class="btn-group user-helper-dropdown">
           <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
           <ul class="dropdown-menu pull-right">
-            <li>
-              <%= link_to edit_employee_path(current_employee), class: "waves-effect waves-block" do %>
-              <i class="material-icons">person</i> Profile
-              <% end %>
-            </li>
+            <% if current_employee.user_role == "hr" || current_employee.user_role == "president" %>
+              <li>
+                <%= link_to edit_employee_path(current_employee), class: "waves-effect waves-block" do %>
+                <i class="material-icons">person</i> Profile
+                <% end %>
+              </li>
+            <% end %>
             <li role="seperator" class="divider"></li>
             <li>
               <%= link_to employee_profile_path(current_employee), class: " waves-effect waves-block" do %>
@@ -154,7 +156,7 @@
               </a>
               <ul class="ml-menu">
                 <li>
-                  <%= link_to 'Project Review', employee_report_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
+                  <%= link_to 'Performance Review', employee_report_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
                 </li>
                 <li>
                   <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
@@ -185,13 +187,6 @@
             </ul>
           </li>
           
-          <li>
-            <%= link_to leaves_path do %>
-              <i class="material-icons">event</i>
-              <span> Leaves </span>
-            <% end %>
-          </li>
-          
           <li class="<%= 'active' if params[:controller] == 'employee' %>">
             <a href="javascript:;" class="menu-toggle waves-effect waves-block">
               <i class="material-icons">assignment</i>
@@ -205,6 +200,13 @@
                 <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
               </li>
             </ul>
+          </li>
+
+          <li>
+            <%= link_to leaves_path do %>
+              <i class="material-icons">event</i>
+              <span> Leaves </span>
+            <% end %>
           </li>
           <li>
             <%= link_to leave_requests_path do %>

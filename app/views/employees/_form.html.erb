@@ -11,27 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field form-group">
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :email %>
-    <%= f.text_field :email, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :email %>
+        <%= f.text_field :email, class: "form-control", disabled: true %>
+      </div>
+    </div>
   </div>
 
-  <div class="field form-group">
-    <%= f.label :role_id %>
-    <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control" %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :role_id %>
+        <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control" %>
+      </div>
+    </div>
   </div>
 
   <div class="actions">
-    <%= f.submit "Save Employee", class: "btn btn-primary" %>
+    <%= f.submit "Save Employee", class: "btn bg-blue waves-button-input" %>
   </div>
 <% end %>

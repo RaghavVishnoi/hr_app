@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170829015208) do
+ActiveRecord::Schema.define(version: 20170906180055) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,12 @@ ActiveRecord::Schema.define(version: 20170829015208) do
     t.datetime "updated_at",            null: false
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.string   "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "project_team_members", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "project_team_id"
@@ -185,6 +191,15 @@ ActiveRecord::Schema.define(version: 20170829015208) do
     t.string   "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", null: false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
 
   create_table "subjects", force: :cascade do |t|
