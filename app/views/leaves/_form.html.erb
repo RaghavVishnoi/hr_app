@@ -55,12 +55,11 @@
       </div>
     </div>
     <% elsif  current_employee.hr? %>
-
     <%= f.hidden_field :assigned_to, value: @assigned_to %>
     <%end%>
     <div class="actions demo-button-sizes">
       <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
-        
+        <%= f.hidden_field :employee_id, value: current_employee.id %>        
         <%= f.submit "Add", class: "btn bg-cyan waves-effect" %>
       </div>
     </div>
