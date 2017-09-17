@@ -28,8 +28,10 @@
                     <%= link_to template.document.url(:original, false) do %>
                       <i class="material-icons">remove_red_eye</i>
                     <% end %>
-                    <%= link_to template, method: :delete, data: { confirm: 'Are you sure?' } do %>
-                      <i class="material-icons">delete</i>
+                    <% if current_employee.hr? %>
+                      <%= link_to template, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                        <i class="material-icons">delete</i>
+                      <% end %>
                     <% end %>
                     <%= link_to download_template_path(template) do %>
                       <i class="material-icons">file_download</i>
