@@ -28,6 +28,7 @@
 //= require sweetalert.min
 //= require script
 //= require cable
+//= require signature
 //= require_tree .
 
 

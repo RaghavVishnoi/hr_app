@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
 
   root 'home#index'
   resources :project_team_members
@@ -10,7 +9,9 @@ Rails.application.routes.draw do
   resources :leaves
   resources :issues
   resources :experiences
-  resources :employees, except: [:show], path: '/users'
+  resources :employees, except: [:show], path: '/users' do
+    resources :signatures
+  end
 
   resources :roles
 
@@ -34,7 +35,7 @@ Rails.application.routes.draw do
   get 'home/contact'
 
   get '/dashboard' => 'dashboard#index', as: :dashboard
-  
+
   get 'reports/index'
   get 'reports/team_comparision' => "reports#team_comparision", as: :team_comparision
   get 'reports/team_highest_score' => "reports#team_highest_score", as: :team_highest_score
@@ -56,14 +57,14 @@ Rails.application.routes.draw do
   get  'results/activate_result/:exam_id' => "results#activate_result", as: :activate_result
   get  'results/inactivate_result/:exam_id' => "results#inactivate_result", as: :inactivate_result
   get  'results/print_team_result/:team_id' => "results#print_team_result", as: :print_team_result
-  
+
   post 'questions/complete'
 
   resources :results
   resources :questions
   resources :exams
   resources :switch_days
- 
+
 
   post '/employee_report_show' => "reports#employee_report_show", as: :employee_report_show
   get '/employee_report' => "reports#employee_report", as: :employee_report
@@ -75,7 +76,7 @@ Rails.application.routes.draw do
   get '/exam/questions/:exam_id' => "questions#start", as: :exam_start
   post '/question/submit/:q_id' => "questions#save_ans", as: :save_ans
   get '/question/save_ans_by_teacher/:q_id/:employee_id' => "questions#save_ans_by_teacher", as: :save_ans_by_teacher
-  
+
   resources :documents
   get '/profile/:id' => "employees#show", as: :employee_profile
   post '/upload_document/:id' => "employees#upload_document", as: :upload_document
