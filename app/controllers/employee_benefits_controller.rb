@@ -7,7 +7,7 @@ class EmployeeBenefitsController < ApplicationController
     @templates = Document.templates
     @uploaded_docs = current_employee.documents.where("document_type is NOT NULL and template =?", false)
     @template_types = Document.templates.pluck(:document_type)
-    @all_user_docs = Document.where("document_type is NOT NULL and template =?", false)
+    @all_user_docs = Document.where("document_type is NOT NULL and template =? and employee_id !=?", false, current_employee.id)
   end
 
   def upload_template
