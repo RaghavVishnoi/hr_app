@@ -4,7 +4,7 @@
       <p id="notice"><%= notice %></p>
       <div class="header">
         <h2>
-          <div class="row clearfix
+          <div class="row clearfix">
             <div class="col-xs-12">
               <strong>Employee:</strong>
               <%= @employee.name %>
@@ -27,7 +27,7 @@
           <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
             <h2 class='text-center'>Document Upload</h2>
             <%= form_for(@employee, url: upload_document_path(@employee), method: :post, html: { multipart: true }) do |f| %>
-              
+
               <div class="col-xs-12">
                 <div class="form-group form-float">
                   <div class="form-line">
@@ -110,7 +110,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <div class="form-actions">
                 <%= f.submit 'Add Experience', :class => 'btn btn-primary' %>
               </div>
@@ -144,7 +144,7 @@
                       <td><%= experience.to_date %></td>
                       <td><%= link_to 'edit', edit_experience_path(experience) %></td>
                       <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                      
+
                     </tr>
                   <% end %>
                 </tbody>
