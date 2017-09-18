@@ -22,3 +22,8 @@
 
 # Ignore application configuration
 /config/application.yml
+config/database.yml
+
+
+public/documents/*
+public/employee_benefits/*

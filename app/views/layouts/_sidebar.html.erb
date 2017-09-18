@@ -42,7 +42,7 @@
               <span>Dashboard</span>
             <% end %>
           </li>
-          
+
           <% if current_employee.user_role != 'employee' %>
             <li class="<%= 'active' if params[:controller] == 'employees' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
@@ -60,7 +60,13 @@
               </ul>
             </li>
           <% end %>
-          
+          <li class="<%= 'active' if params[:controller] == 'employee_benefits' %>">
+            <%= link_to employee_benefits_path do %>
+              <i class="material-icons">assignment</i>
+              <span> Employee Benefits </span>
+            <% end %>
+          </li>
+
           <li class="<%= 'active' if params[:controller] == 'exams' || params[:controller] == 'subjects' %>">
             <a href="javascript:;" class="menu-toggle waves-effect waves-block">
               <i class="material-icons">assignment</i>
@@ -87,7 +93,7 @@
               </li>
             </ul>
           </li>
-          
+
           <% if current_employee.user_role != 'employee' && current_employee.user_role != 'team_leader' %>
             <li class="<%= 'active' if params[:controller] == 'projects' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
@@ -186,7 +192,7 @@
               </li>
             </ul>
           </li>
-          
+
           <li class="<%= 'active' if params[:controller] == 'employee' %>">
             <a href="javascript:;" class="menu-toggle waves-effect waves-block">
               <i class="material-icons">assignment</i>

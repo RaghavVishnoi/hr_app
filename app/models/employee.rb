@@ -26,7 +26,9 @@ class Employee < ApplicationRecord
   has_many :documents, dependent: :destroy
   has_many :experiences, dependent: :destroy
   has_one :project_team_member, dependent: :destroy
-  
+
+  has_many :emp_benefit_docs, dependent: :destroy
+
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
 
@@ -38,7 +40,7 @@ class Employee < ApplicationRecord
   scope :hr, -> { joins(:role).where(roles: { role: "hr" }) }
   scope :president, -> { joins(:role).where(roles: { role: "president" }) }
   scope :team_exams, -> { }
-  
+
   scope :members, -> { joins(:role).where("roles.role in (?)", ["employee", "team_manager", "team_leader"]) }
 
   def self.not_added()
