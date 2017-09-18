@@ -3,7 +3,6 @@ class EventsController < ApplicationController
 
   def index
     @events = current_employee.leave_work_emps
-    binding.pry
     @leaves = current_employee.leaves.where(all_assign: 1)
   end
 
