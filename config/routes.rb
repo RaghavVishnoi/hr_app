@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
 
+  resources :events
   root 'home#index'
   resources :project_team_members
   get "/org_team_chart" => "project_team_members#org_team_chart", as: :org_team_chart
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
   resources :issues
   resources :experiences
   resources :employees, except: [:show], path: '/users'
-
+  resources :leave_work_assign
   resources :roles
 
   devise_for :employees, controllers: {

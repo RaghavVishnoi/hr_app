@@ -1,0 +1,18 @@
+<%#= text_field_tag "leave_work_assing[][assign_to]" %>
+<%@team_members=current_employee.project_team_member.project_team.project_team_members.where.not(employee_id: current_employee.id).map(&:employee)%>
+
+
+<%#@team_members = @team_members.where.not(id: current_employee.id)%>
+  <%#= f.label :assigned_to %>
+    <div class="col-xs-12 center">
+      <div class="form-group form-float ">
+        <div class="form-line">
+        <%=date%>  : 
+   		<%= select_tag "leave_work_assing[][#{date}]", options_from_collection_for_select(@team_members, "id","name")%>	
+          <%#= select_tag "leave_work_assing[][assign_to]", @team_members.collect {|s| [ s.employee.name, s.id ] } , class: "form-control" %>
+        </div>
+      </div>
+    </div>
+    
+
+   

@@ -5,7 +5,7 @@ class LeavesController < ApplicationController
   # GET /leaves.json
   def index
   
-    @my_leaves = Leave.where(employee_id: current_employee.id)
+    @my_leaves = Leave.where(employee_id: current_employee.id).order('id DESC')
     if current_employee.user_role == 'team_leader' || current_employee.user_role == 'hr' || current_employee.user_role == 'president'
       @leaves = Leave.all
     end
@@ -42,15 +42,15 @@ class LeavesController < ApplicationController
     @leave.employee_id = leave_params[:employee_id] if current_employee.employee?
     respond_to do |format|
       if @leave.save
-        format.html { redirect_to @leave, notice: 'Leave was successfully created.' }
+        format.html { redirect_to new_leave_work_assign_path, notice: 'Leave was successfully created.' }
         format.json { render :show, status: :created, location: @leave }
       else
         format.html { render :new }
         format.json { render json: @leave.errors, status: :unprocessable_entity }
       end
     end
-    @email= Employee.find(leave_params[:assigned_to]).email
-    LeaveRequestMailer.leave_email(@email,@leave.id).deliver_later
+ #   @email= Employee.find(leave_params[:assigned_to]).email
+  #  LeaveRequestMailer.leave_email(@email,@leave.id).deliver_later
   end
 
   # PATCH/PUT /leaves/1

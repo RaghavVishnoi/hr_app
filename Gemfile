@@ -18,7 +18,9 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem "font-awesome-rails"
 
-gem 'momentjs-rails', '>= 2.9.0'
+# gem 'fullcalendar-rails'
+# gem 'momentjs-rails'
+gem 'turbolinks', '~> 5' 
 gem 'bootstrap-datetimepicker-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem "paperclip"
