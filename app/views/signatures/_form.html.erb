@@ -1,0 +1,34 @@
+<%= form_for(signature, url:  save_signature_path(current_employee)) do |f| %>
+  <% if signature.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(signature.errors.count, "error") %> prohibited this signature from being saved:</h2>
+
+      <ul>
+      <% signature.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :sign, class: 'signature_pad_input' %>
+  <div class="signature_pad text-center">
+    <div class="signature_pad_body">
+      <canvas></canvas>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <div class="form-group form-float">
+        <div class="form-line">
+          <%= f.text_field :sign_file_name, class: "form-control" %>
+          <label class="form-label">Signature filename </label>
+        </div>
+      </div>
+    </div>
+    <div class="signature_pad_footer">
+      <div class="text-muted">Sign above</div>
+      <button type="button" class="btn btn-default signature_pad_clear">Clear</button>
+      <%= f.submit 'Save', class: 'btn btn-success signature_pad_save'  %>
+    </div>
+  </div>
+
+<% end %>

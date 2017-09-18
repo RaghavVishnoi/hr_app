@@ -23,7 +23,7 @@
 # Ignore application configuration
 /config/application.yml
 config/database.yml
-
-
+public/signatures/*
 public/documents/*
 public/employee_benefits/*
+public/disclosures/*

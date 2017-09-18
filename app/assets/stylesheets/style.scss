@@ -4,13 +4,13 @@
 .mb20 { margin-bottom: 20px; }
 
 .field.form-group label { margin-right: 20px; float: left; width: 100px; }
-.field.form-group { 
-  input[type='text'], 
-  input[type='password'],  
-  input[type='email'],  
-  input[type='number'],  
-  select { 
-    width: 100%; height: 25px !important; 
+.field.form-group {
+  input[type='text'],
+  input[type='password'],
+  input[type='email'],
+  input[type='number'],
+  select {
+    width: 100%; height: 25px !important;
     padding: 2px 12px !important;
     border-radius: 2px !important;
     -webkit-box-shadow: inset 0 1px 1px rgba(90, 90, 90, 0.1) !important;
@@ -27,7 +27,7 @@
 .authentication-box { padding: 30px; border: #ddd; background: #fdfdfd; float: left; box-shadow: 0px 3px 10px 0px #555; }
 .authentication-box h2 { margin-top: 0px !important; background: #00CED1; padding: 10px; width: 100%; color: #fff; text-align: center; font-weight: 900; }
 .field.form-group label { margin-right: 10px !important; width: auto !important;}
-.form-date-select > select[id*='leave_'] { width: auto !important; display: inline-block; } 
+.form-date-select > select[id*='leave_'] { width: auto !important; display: inline-block; }
 
 
 .bs-wizard {margin-top: 40px;}
@@ -38,8 +38,8 @@
 .bs-wizard > .bs-wizard-step + .bs-wizard-step {}
 .bs-wizard > .bs-wizard-step .bs-wizard-stepnum {color: #595959; font-size: 16px; margin-bottom: 5px;}
 .bs-wizard > .bs-wizard-step .bs-wizard-info {color: #999; font-size: 14px;}
-.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;} 
-.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; } 
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot {position: absolute; width: 30px; height: 30px; display: block; background: #fbe8aa; top: 45px; left: 50%; margin-top: -15px; margin-left: -15px; border-radius: 50%;}
+.bs-wizard > .bs-wizard-step > .bs-wizard-dot:after {content: ' '; width: 14px; height: 14px; background: #fbbd19; border-radius: 50px; position: absolute; top: 8px; left: 8px; }
 .bs-wizard > .bs-wizard-step > .progress {position: relative; border-radius: 0px; height: 8px; box-shadow: none; margin: 20px 0;}
 .bs-wizard > .bs-wizard-step > .progress > .progress-bar {width:0px; box-shadow: none; background: #fbe8aa;}
 .bs-wizard > .bs-wizard-step.complete > .progress > .progress-bar {width:100%;}
@@ -54,10 +54,10 @@
 /*END Form Wizard*/
 
 
-.box-with-all-emp, .box-with-selected-emp { 
-  border: 1px solid #bbb; 
+.box-with-all-emp, .box-with-selected-emp {
+  border: 1px solid #bbb;
   padding: 0px !important;
-  min-height: 250px; 
+  min-height: 250px;
 }
 .box-with-all-emp .available-members, .box-with-selected-emp .available-members {
   padding: 0px;
@@ -66,12 +66,12 @@
   width: 100%;
 }
 
-.employee-blocks { 
+.employee-blocks {
   border: 2px solid #ccc;
   cursor: pointer;
-  width: 100%; 
-  float: left; 
-  padding: 7px 15px; 
+  width: 100%;
+  float: left;
+  padding: 7px 15px;
   background: #eee;
   background: -webkit-linear-gradient(#efefef, #ddd); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(#efefef, #ddd); /* For Opera 11.1 to 12.0 */
@@ -116,6 +116,18 @@ a { text-decoration: none; }
   font-weight: 900;
   font-size: 12px;
   overflow: hidden;
+}
+.signature_pad {
+  width: 700px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.signature_pad_body canvas {
+  width: 100%;
+  height: 100%;
+  border: dotted #444;
+  background: #ccc;
 }
 
 @media screen and (max-width: 600px) {

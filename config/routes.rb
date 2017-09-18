@@ -87,12 +87,25 @@ Rails.application.routes.draw do
   get '/gen/new_message' => 'general#new_message', as: :general_new_message
   delete '/gen/delete_message/:m_id' => 'general#delete_message', as: :delete_message
 
+
+  get '/:id/signatures' => "signatures#index", as: :user_signatures
+  post '/save_signature/:id' => "signatures#create", as: :save_signature
+  get '/signatures/:id/download' => "signatures#download", as: :download_signature
+  delete '/signatures/:id' => "signatures#destroy", as: :delete_signature
+
   get '/employee_benefits' => 'employee_benefits#index', as: :employee_benefits
   post '/employee_benefits/:id/upload_template' => "employee_benefits#upload_template", as: :upload_template
   get '/download_template/:id' => "employee_benefits#download_emp_benefit_doc", as: :download_emp_benefit_doc
   post '/employee_benefits/:id/upload_benefit_doc' => "employee_benefits#upload_benefit_doc", as: :upload_benefit_doc
   delete '/employee_benefit_docs/:id/destroy' => "employee_benefits#delete_emp_benefit_doc", as: :delete_emp_benefit_doc
   get '/employee_benefit_docs/:id' => "employee_benefits#show", as: :show_emp_benefit_doc
+
+  get '/disclosures' => 'disclosures#index', as: :disclosures
+  post '/disclosures/:id/upload_disclosure_template' => "disclosures#upload_disclosure_template", as: :upload_disclosure_template
+  get '/download_disc_template/:id' => "disclosures#download_disclosure_doc", as: :download_disclosure_doc
+  post '/disclosures/:id/upload_disclosure_doc' => "disclosures#upload_disclosure_doc", as: :upload_disclosure_doc
+  delete '/disclosures/:id/destroy' => "disclosures#delete_disclosure_doc", as: :delete_disclosure_doc
+  get '/disclosures/:id' => "disclosures#show", as: :show_disclosure_doc
 
   mount ActionCable.server => "/cable"
 end

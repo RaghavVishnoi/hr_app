@@ -10,10 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918084645) do
+ActiveRecord::Schema.define(version: 20170918194038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "disclosures", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.boolean  "template"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+  end
 
   create_table "documents", force: :cascade do |t|
     t.integer  "employee_id"
@@ -81,6 +92,18 @@ ActiveRecord::Schema.define(version: 20170918084645) do
     t.index ["role_id"], name: "index_employees_on_role_id", using: :btree
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "start"
+    t.datetime "end"
+    t.string   "color"
+    t.integer  "employee_id_id"
+    t.string   "for_team"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["employee_id_id"], name: "index_events_on_employee_id_id", using: :btree
+  end
+
   create_table "exams", force: :cascade do |t|
     t.string   "title"
     t.integer  "marks"
@@ -118,6 +141,17 @@ ActiveRecord::Schema.define(version: 20170918084645) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "leave_work_assigns", force: :cascade do |t|
+    t.integer  "leave_id"
+    t.string   "assign_to"
+    t.integer  "employee_id"
+    t.date     "assign_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["employee_id"], name: "index_leave_work_assigns_on_employee_id", using: :btree
+    t.index ["leave_id"], name: "index_leave_work_assigns_on_leave_id", using: :btree
+  end
+
   create_table "leaves", force: :cascade do |t|
     t.string   "subject"
     t.string   "body"
@@ -133,6 +167,7 @@ ActiveRecord::Schema.define(version: 20170918084645) do
     t.string   "status"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.integer  "all_assign"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -214,9 +249,13 @@ ActiveRecord::Schema.define(version: 20170918084645) do
 
   create_table "signatures", force: :cascade do |t|
     t.string   "sign"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "employee_id"
+    t.string   "sign_file_name"
+    t.string   "sign_content_type"
+    t.integer  "sign_file_size"
+    t.datetime "sign_updated_at"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -300,6 +339,8 @@ ActiveRecord::Schema.define(version: 20170918084645) do
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "teams"
   add_foreign_key "experiences", "employees"
+  add_foreign_key "leave_work_assigns", "employees"
+  add_foreign_key "leave_work_assigns", "leaves", column: "leave_id"
   add_foreign_key "project_team_members", "employees"
   add_foreign_key "project_team_members", "project_teams"
   add_foreign_key "questions", "exams"
