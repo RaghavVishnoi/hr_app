@@ -35,7 +35,7 @@ class EmployeeBenefitsController < ApplicationController
   def upload_benefit_doc
     if params[:documents]
       params[:documents].each { |document|
-        @employee.documents.create(
+        @employee.emp_benefit_docs.create(
           document: document,
           template: 0,
           template_type: params["emp_benefit_doc"]["template_type"]
