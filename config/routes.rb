@@ -100,5 +100,12 @@ Rails.application.routes.draw do
   delete '/employee_benefit_docs/:id/destroy' => "employee_benefits#delete_emp_benefit_doc", as: :delete_emp_benefit_doc
   get '/employee_benefit_docs/:id' => "employee_benefits#show", as: :show_emp_benefit_doc
 
+  get '/disclosures' => 'disclosures#index', as: :disclosures
+  post '/disclosures/:id/upload_disclosure_template' => "disclosures#upload_disclosure_template", as: :upload_disclosure_template
+  get '/download_disc_template/:id' => "disclosures#download_disclosure_doc", as: :download_disclosure_doc
+  post '/disclosures/:id/upload_disclosure_doc' => "disclosures#upload_disclosure_doc", as: :upload_disclosure_doc
+  delete '/disclosures/:id/destroy' => "disclosures#delete_disclosure_doc", as: :delete_disclosure_doc
+  get '/disclosures/:id' => "disclosures#show", as: :show_disclosure_doc
+
   mount ActionCable.server => "/cable"
 end

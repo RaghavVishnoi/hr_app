@@ -26,3 +26,4 @@ config/database.yml
 public/signatures/*
 public/documents/*
 public/employee_benefits/*
+public/disclosures/*
