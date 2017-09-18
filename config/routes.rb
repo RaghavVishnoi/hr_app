@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   resources :leaves
   resources :issues
   resources :experiences
-  resources :employees, except: [:show], path: '/users' do
-    resources :signatures
-  end
+  resources :employees, except: [:show], path: '/users'
 
   resources :roles
 
@@ -86,6 +84,9 @@ Rails.application.routes.draw do
   get '/gen/show_message/:m_id' => 'general#show_message', as: :general_show_message
   get '/gen/new_message' => 'general#new_message', as: :general_new_message
   delete '/gen/delete_message/:m_id' => 'general#delete_message', as: :delete_message
+
+  get '/:id/signatures' => "signatures#index", as: :user_signatures
+  post '/save_signature/:id' => "signatures#create", as: :save_signature
 
   mount ActionCable.server => "/cable"
 end

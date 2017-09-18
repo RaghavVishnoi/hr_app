@@ -117,7 +117,6 @@ a { text-decoration: none; }
   font-size: 12px;
   overflow: hidden;
 }
-
 .signature_pad {
   width: 700px;
   height: 400px;
@@ -128,7 +127,7 @@ a { text-decoration: none; }
   width: 100%;
   height: 100%;
   border: dotted #444;
-  background: #CCCCCC;
+  background: #ccc;
 }
 
 @media screen and (max-width: 600px) {

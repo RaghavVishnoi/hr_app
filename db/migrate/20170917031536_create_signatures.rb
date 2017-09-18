@@ -2,10 +2,10 @@ class CreateSignatures < ActiveRecord::Migration[5.0]
   def change
     create_table :signatures do |t|
       t.string :sign
-      t.integer :user_id
+      t.integer :employee_id
 
       t.timestamps
     end
-    add_index :signatures, :user_id
+    add_index :signatures, :employee_id
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917031536) do
+ActiveRecord::Schema.define(version: 20170917190409) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20170917031536) do
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
+    t.string   "document_type"
+    t.boolean  "template"
     t.index ["employee_id"], name: "index_documents_on_employee_id", using: :btree
   end
 
@@ -195,10 +197,9 @@ ActiveRecord::Schema.define(version: 20170917031536) do
 
   create_table "signatures", force: :cascade do |t|
     t.string   "sign"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_signatures_on_user_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
   end
 
   create_table "subjects", force: :cascade do |t|
