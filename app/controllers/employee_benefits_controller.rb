@@ -1,31 +1,35 @@
 class EmployeeBenefitsController < ApplicationController
 
   before_action :set_employee, only: [:upload_template, :upload_benefit_doc]
-  DOCS_PATH = File.join(Rails.root, "public", "documents")
 
   def index
-    @templates = Document.templates
-    @uploaded_docs = current_employee.documents.where("document_type is NOT NULL and template =?", false)
-    @template_types = Document.templates.pluck(:document_type)
-    @all_user_docs = Document.where("document_type is NOT NULL and template =? and employee_id !=?", false, current_employee.id)
+    @templates = EmpBenefitDoc.templates
+    @uploaded_docs = current_employee.emp_benefit_docs.where("template_type is NOT NULL and template =?", false)
+    @template_types = EmpBenefitDoc.templates.pluck(:template_type)
+    @all_user_docs = EmpBenefitDoc.where("template_type is NOT NULL and template =? and employee_id !=?", false, current_employee.id)
+  end
+
+  def show
+    @document = EmpBenefitDoc.find(params[:id])
+    send_file(@document.document.path, :filename => @document.document_file_name, :disposition => 'inline', :type => "application/pdf")
   end
 
   def upload_template
     if params[:documents]
       params[:documents].each { |document|
-        @employee.documents.create(
+        @employee.emp_benefit_docs.create(
           document: document,
           template: 1,
-          document_type: params["document"]["document_type"]
+          template_type: params["emp_benefit_doc"]["template_type"]
         )
       }
     end
     redirect_to employee_benefits_path
   end
 
-  def download_template
-    @document = Document.find(params[:id])
-    send_file(File.join(DOCS_PATH, "#{@document.id}/#{@document.document_file_name}"))
+  def download_emp_benefit_doc
+    @document = EmpBenefitDoc.find(params[:id])
+    send_file(@document.document.path)
   end
 
   def upload_benefit_doc
@@ -34,16 +38,17 @@ class EmployeeBenefitsController < ApplicationController
         @employee.documents.create(
           document: document,
           template: 0,
-          document_type: params["document"]["document_type"]
+          template_type: params["emp_benefit_doc"]["template_type"]
         )
       }
     end
     redirect_to employee_benefits_path
   end
 
-  def download_benefit_doc
-    @document = Document.find(params[:id])
-    send_file(File.join(DOCS_PATH, "#{@document.id}/#{@document.document_file_name}"))
+  def delete_emp_benefit_doc
+    @document = EmpBenefitDoc.find(params[:id])
+    @document.destroy
+    redirect_to employee_benefits_path
   end
 
 

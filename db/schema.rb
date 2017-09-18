@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170917152453) do
+ActiveRecord::Schema.define(version: 20170918084645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,23 @@ ActiveRecord::Schema.define(version: 20170917152453) do
     t.string   "document_type"
     t.boolean  "template"
     t.index ["employee_id"], name: "index_documents_on_employee_id", using: :btree
+  end
+
+  create_table "emp_benefit_docs", force: :cascade do |t|
+    t.integer  "employee_id"
+    t.string   "filename"
+    t.string   "content_type"
+    t.bigint   "size"
+    t.boolean  "template"
+    t.string   "template_type"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "document"
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
+    t.index ["employee_id"], name: "index_emp_benefit_docs_on_employee_id", using: :btree
   end
 
   create_table "employee_usage_logs", force: :cascade do |t|
@@ -197,10 +214,9 @@ ActiveRecord::Schema.define(version: 20170917152453) do
 
   create_table "signatures", force: :cascade do |t|
     t.string   "sign"
-    t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_signatures_on_user_id", using: :btree
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
   end
 
   create_table "subjects", force: :cascade do |t|

@@ -88,9 +88,10 @@ Rails.application.routes.draw do
 
   get '/employee_benefits' => 'employee_benefits#index', as: :employee_benefits
   post '/employee_benefits/:id/upload_template' => "employee_benefits#upload_template", as: :upload_template
-  get '/download_template/:id' => "employee_benefits#download_template", as: :download_template
+  get '/download_template/:id' => "employee_benefits#download_emp_benefit_doc", as: :download_emp_benefit_doc
   post '/employee_benefits/:id/upload_benefit_doc' => "employee_benefits#upload_benefit_doc", as: :upload_benefit_doc
-  get '/download_benefit_doc/:id' => "employee_benefits#download_benefit_doc", as: :download_benefit_doc
+  delete '/employee_benefit_docs/:id/destroy' => "employee_benefits#delete_emp_benefit_doc", as: :delete_emp_benefit_doc
+  get '/employee_benefit_docs/:id' => "employee_benefits#show", as: :show_emp_benefit_doc
 
   mount ActionCable.server => "/cable"
 end

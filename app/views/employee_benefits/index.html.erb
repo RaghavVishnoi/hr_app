@@ -23,17 +23,17 @@
               <% @templates.each do |template| %>
                 <tr>
                   <td><%= template.document_file_name %></td>
-                  <td><%= template.document_type %>
+                  <td><%= template.template_type %>
                   <td>
-                    <%= link_to template.document.url(:original, false) do %>
+                    <%= link_to show_emp_benefit_doc_path(template) do %>
                       <i class="material-icons">remove_red_eye</i>
                     <% end %>
                     <% if current_employee.hr? %>
-                      <%= link_to template, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <%= link_to delete_emp_benefit_doc_path(template), method: :delete, data: { confirm: 'Are you sure?' } do %>
                         <i class="material-icons">delete</i>
                       <% end %>
                     <% end %>
-                    <%= link_to download_template_path(template) do %>
+                    <%= link_to download_emp_benefit_doc_path(template) do %>
                       <i class="material-icons">file_download</i>
                     <% end %>
                   </td>
@@ -52,11 +52,11 @@
           </h2>
         </div>
         <div class="body">
-          <%= form_for(Document.new, url: upload_template_path(current_employee), method: :post, html: { multipart: true }) do |f| %>
+          <%= form_for(EmpBenefitDoc.new, url: upload_template_path(current_employee), method: :post, html: { multipart: true }) do |f| %>
           <div class="col-xs-12">
             <div class="form-group form-float">
               <div class="form-line">
-                <%= f.text_field :document_type, class: "form-control" %>
+                <%= f.text_field :template_type, class: "form-control" %>
                 <label class="form-label">Document type</label>
               </div>
             </div>
@@ -84,11 +84,11 @@
       </div>
       <div class="body">
         <br>
-        <%= form_for(Document.new, url: upload_benefit_doc_path(current_employee), method: :post, html: { multipart: true }) do |f| %>
+        <%= form_for(EmpBenefitDoc.new, url: upload_benefit_doc_path(current_employee), method: :post, html: { multipart: true }) do |f| %>
         <div class="col-xs-12">
           <div class="form-group form-float">
               <label class="form-label">Document type</label>
-              <%= f.select :document_type, @template_types, class: "form-control" %>
+              <%= f.select :template_type, @template_types, class: "form-control" %>
           </div>
         </div>
         <div class="col-xs-12">
@@ -127,15 +127,15 @@
               <% @uploaded_docs.each do |doc| %>
                 <tr>
                   <td><%= doc.document_file_name %></td>
-                  <td><%= doc.document_type %>
+                  <td><%= doc.template_type %>
                   <td>
-                    <%= link_to doc.document.url(:original, false) do %>
+                    <%= link_to show_emp_benefit_doc_path(doc) do %>
                       <i class="material-icons">remove_red_eye</i>
                     <% end %>
-                    <%= link_to doc, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                    <%= link_to delete_emp_benefit_doc_path(doc), method: :delete, data: { confirm: 'Are you sure?' } do %>
                       <i class="material-icons">delete</i>
                     <% end %>
-                    <%= link_to download_benefit_doc_path(doc) do %>
+                    <%= link_to download_emp_benefit_doc_path(doc) do %>
                       <i class="material-icons">file_download</i>
                     <% end %>
                   </td>
@@ -169,15 +169,15 @@
                 <% @all_user_docs.each do |doc| %>
                   <tr>
                     <td><%= doc.document_file_name %></td>
-                    <td><%= doc.document_type %>
+                    <td><%= doc.template_types %>
                     <td>
-                      <%= link_to doc.document.url(:original, false) do %>
+                      <%= link_to show_emp_benefit_doc_path(doc) do %>
                         <i class="material-icons">remove_red_eye</i>
                       <% end %>
-                      <%= link_to doc, method: :delete, data: { confirm: 'Are you sure?' } do %>
+                      <%= link_to delete_emp_benefit_doc_path(doc), method: :delete, data: { confirm: 'Are you sure?' } do %>
                         <i class="material-icons">delete</i>
                       <% end %>
-                      <%= link_to download_benefit_doc_path(doc) do %>
+                      <%= link_to download_emp_benefit_doc_path(doc) do %>
                         <i class="material-icons">file_download</i>
                       <% end %>
                     </td>
