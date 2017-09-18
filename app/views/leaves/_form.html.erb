@@ -46,21 +46,14 @@
   <%#= f.text_field :acceptable_type %>
   <!-- </div> -->
   <% if current_employee.employee? || current_employee.team_leader? || current_employee.team_manager? %>
-  <%= f.label :assigned_to %>
-    <div class="col-xs-12">
-      <div class="form-group form-float">
-        <div class="form-line">
-          <%= f.select :assigned_to, @team_members.collect {|s| [ s.name, s.id ] } , {}, class: "form-control" %>
-        </div>
-      </div>
-    </div>
+
     <% elsif  current_employee.hr? %>
     <%= f.hidden_field :assigned_to, value: @assigned_to %>
     <%end%>
     <div class="actions demo-button-sizes">
       <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
         <%= f.hidden_field :employee_id, value: current_employee.id %>        
-        <%= f.submit "Add", class: "btn bg-cyan waves-effect" %>
+        <%= f.submit "Next", class: "btn bg-cyan waves-effect" %>
       </div>
     </div>
 

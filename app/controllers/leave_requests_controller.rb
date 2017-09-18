@@ -1,7 +1,8 @@
 class LeaveRequestsController < ApplicationController
   def index
-  	@leave_requests = Leave.where(assigned_to: current_employee.id)
-	 	
+
+
+  	@leave_requests = current_employee.leave_work_emps.map(&:leave)
 
   	if current_employee.team_leader?
   		team_members = current_employee.project_team_member.project_team.project_team_members.pluck(:employee_id)	

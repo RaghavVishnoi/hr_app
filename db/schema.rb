@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20170918105752) do
 
   # These are extensions that must be enabled in order to support this database
@@ -214,6 +215,7 @@ ActiveRecord::Schema.define(version: 20170918105752) do
 
   create_table "signatures", force: :cascade do |t|
     t.string   "sign"
+<<<<<<< HEAD
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.integer  "employee_id"
@@ -221,6 +223,11 @@ ActiveRecord::Schema.define(version: 20170918105752) do
     t.string   "sign_content_type"
     t.integer  "sign_file_size"
     t.datetime "sign_updated_at"
+=======
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
+>>>>>>> 3ffcb4f8fdf318c3955c85b5632ab32328189e18
   end
 
   create_table "subjects", force: :cascade do |t|

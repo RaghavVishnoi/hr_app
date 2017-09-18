@@ -4,4 +4,6 @@ class Document < ApplicationRecord
     :path => ":rails_root/public/documents/:id/:filename",
     :url  => "/documents/:id/:filename"
   do_not_validate_attachment_file_type :document
+
+  scope :templates, -> {where(template: 1)}
 end

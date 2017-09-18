@@ -24,17 +24,20 @@
                 <tbody>
                   <% @leaves ||= [] %>
                   <% @leaves.each do |leafe| %>
+                  <%if leafe.all_assign.present?%>
                   <tr>
                     <td><%= leafe.subject %></td>
                     <td><%= leafe.body %></td>
                     <td><%= leafe.from_date %></td>
                     <td><%= leafe.to_date %></td>
-                    <td><%= leafe.assigned_to %></td>
+                    <td><%= leafe.leave_work_assigns.map(&:assign_to).uniq!.to_s
+ %></td>
                     <td><%= leafe.employee_id %></td>
                     <td><%= link_to 'Show', leafe %></td>
                     <td><%#= link_to 'Edit', edit_leafe_path(leafe) %></td>
                     <td><%= link_to 'Destroy', leafe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
                   </tr>
+                  <% end %>
                   <% end %>
                 </tbody>
               </table>
