@@ -1,0 +1,13 @@
+<tr>
+  <td><%= image_tag signature.sign_path, size: "100x30" %></td>
+  <td><%= signature.sign_file_name %></td>
+
+  <td>
+    <%= link_to download_signature_path(signature) do %>
+      <i class="material-icons">file_download</i>
+    <% end %>
+    <%= link_to delete_signature_path(signature), method: :delete, data: { confirm: 'Are you sure?' } do %>
+      <i class="material-icons">delete</i>
+    <% end %>
+  </td>
+</tr>

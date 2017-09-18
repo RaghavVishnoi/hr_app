@@ -1,24 +1,27 @@
 class SignaturesController < ApplicationController
   before_action :set_employee, only: [:create]
-  before_action :set_signature, only: [:show, :edit, :update, :destroy]
+  before_action :set_signature, only: [:destroy, :download]
 
   def index
-    @signatures = Signature.all
+    @signatures = current_employee.signatures
     @signature = Signature.new
   end
 
   def create
     sign = Paperclip.io_adapters.for(params[:signature][:sign])
-    @employee.signatures.create(sign: sign)
+    @employee.signatures.create(sign: sign, sign_file_name: "#{params[:signature][:sign_file_name]}.png")
+
     redirect_to user_signatures_path
+  end
+
+  def download
+    send_file(@signature.sign.path)
   end
 
   def destroy
     @signature.destroy
-    respond_to do |format|
-      format.html { redirect_to signatures_url, notice: 'Signature was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to user_signatures_path
   end
 
   private

@@ -94,11 +94,9 @@
               <span>Disclosures</span>
             </a>
             <ul class="ml-menu">
-              <% if current_employee.user_role == 'employee' %>
-                <li>
-                  <%= link_to 'E-Signatures', user_signatures_path(current_employee) %>
-                </li>
-              <% end %>
+              <li>
+                <%= link_to 'E-Signatures', user_signatures_path(current_employee) %>
+              </li>
             </ul>
           </li>
 

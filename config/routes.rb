@@ -87,6 +87,8 @@ Rails.application.routes.draw do
 
   get '/:id/signatures' => "signatures#index", as: :user_signatures
   post '/save_signature/:id' => "signatures#create", as: :save_signature
+  get '/signatures/:id/download' => "signatures#download", as: :download_signature
+  delete '/signatures/:id' => "signatures#destroy", as: :delete_signature
 
   mount ActionCable.server => "/cable"
 end
