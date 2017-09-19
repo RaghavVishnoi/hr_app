@@ -5,5 +5,7 @@
         weekStart: 1,
         time: false
     });
+
+    $('.datatable').DataTable();
 });
 
