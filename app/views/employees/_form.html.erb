@@ -41,6 +41,51 @@
   <div class="col-sm-6 col-xs-12">
     <div class="form-group form-float">
       <div class="form-line">
+        <%= f.label :address %>
+        <%= f.text_field :address, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :city %>
+        <%= f.text_field :city, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :state %>
+        <%= f.text_field :state, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+<div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :country %>
+        <%= f.text_field :country, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :zipcode %>
+        <%= f.text_field :zipcode, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
         <%= f.label :role_id %>
         <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control" %>
       </div>

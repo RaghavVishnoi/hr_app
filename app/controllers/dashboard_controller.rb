@@ -9,5 +9,6 @@ class DashboardController < ApplicationController
       @active_exams = Exam.enabled 
       @results = Result.eager_load([:employee, :exams])
     end
+  # render :layout => 'dashboard'
   end
 end
