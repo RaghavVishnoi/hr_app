@@ -107,5 +107,7 @@ Rails.application.routes.draw do
   delete '/disclosures/:id/destroy' => "disclosures#delete_disclosure_doc", as: :delete_disclosure_doc
   get '/disclosures/:id' => "disclosures#show", as: :show_disclosure_doc
 
+  get '/perf_review_template/new' => 'perf_review_templates#new', as: :new_perf_review_template
+
   mount ActionCable.server => "/cable"
 end

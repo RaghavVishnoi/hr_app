@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  reviewer_id: 1
+  reviewee_id: 1
+  flag: false
+  avg: 1.5
+
+two:
+  reviewer_id: 1
+  reviewee_id: 1
+  flag: false
+  avg: 1.5

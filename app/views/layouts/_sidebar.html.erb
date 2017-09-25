@@ -95,6 +95,22 @@
             </ul>
           </li>
 
+          <li class="<%= 'active' if params[:controller] == 'perf_review_templates' %>">
+            <%= link_to new_perf_review_template_path do %>
+              <i class="material-icons">assignment</i>
+              <span>Performance Review</span>
+            <% end %>
+            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+              <i class="material-icons">assignment</i>
+              <span>Performance Review</span>
+            </a>
+            <ul class="ml-menu">
+                <li>
+                  <%= link_to 'Create Template', new_perf_review_template_path, class: "waves-effect waves-block" %>
+                </li>
+            </ul>
+          </li>
+
           <li class="<%= 'active' if params[:controller] == 'signatures' %>">
             <a href="javascript:;" class="menu-toggle waves-effect waves-block">
               <i class="material-icons">assignment</i>

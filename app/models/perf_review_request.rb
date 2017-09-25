@@ -1,0 +1,2 @@
+class PerfReviewRequest < ApplicationRecord
+end

@@ -1,0 +1,36 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <p id="notice"><%= notice %></p>
+    <div class="card">
+      <div class="header">
+        <h2>
+          Create Performance Review Template
+        </h2>
+      </div>
+      <%= form_for(EmpBenefitDoc.new, url: upload_template_path(current_employee), method: :post, html: { multipart: true }) do |f| %>
+        <div class="col-xs-6">
+          <div class="form-group form-float">
+            <div class="form-line">
+              <%= f.text_field :template_type, class: "form-control" %>
+              <label class="form-label">Category Name</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group form-float">
+            <div class="form-line">
+              <%= f.text_field :template_type, class: "form-control" %>
+              <label class="form-label">Category Name</label>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12">
+          <div class="form-actions">
+            <%= f.submit 'Upload', :class => 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</div>
