@@ -18,9 +18,6 @@
 //= require admin
 //= require cable
 //= require demo
-//= require app_cache
-//= require view_gridstack
-//= require forms_standard
 //= require helpers
 //= require jquery.dataTables
 //= require bootstrap-material-datetimepicker
@@ -59,7 +56,7 @@
 
 
 $(document).ready(function(){
-  
+
    $('#calendar').each(function(){
     var calendar = $(this);
     calendar.fullCalendar({
@@ -113,10 +110,10 @@ $(document).ready(function(){
       eventLimit: true,
       events: '/events.json',
 
-     
 
 
-      
+
+
       eventClick: function(event, jsEvent, view) {
         $.getScript(event.edit_url, function() {});
       }
