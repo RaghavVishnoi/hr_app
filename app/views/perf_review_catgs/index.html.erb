@@ -1,0 +1,19 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <p id="notice"><%= notice %></p>
+    <div class="card">
+      <div class="header">
+        <h2>
+          Performance Review Template
+        </h2>
+      </div>
+      <div class="body">
+        <div id="add-category-form">
+          <%= render 'form', perf_review_catg: @perf_review_catg %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <%= render @perf_review_catgs %>
+  </div>
+</div>

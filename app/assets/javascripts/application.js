@@ -31,6 +31,8 @@
 //= require cable
 //= require signature_pad
 //= require signature
+//= require best_in_place
+//= require best_in_place.jquery-ui
 //= require_tree .
 
 

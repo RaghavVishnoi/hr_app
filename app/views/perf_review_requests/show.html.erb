@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Reviewer:</strong>
+  <%= @perf_review_request.reviewer_id %>
+</p>
+
+<p>
+  <strong>Reviewee:</strong>
+  <%= @perf_review_request.reviewee_id %>
+</p>
+
+<p>
+  <strong>Flag:</strong>
+  <%= @perf_review_request.flag %>
+</p>
+
+<p>
+  <strong>Avg:</strong>
+  <%= @perf_review_request.avg %>
+</p>
+
+<%= link_to 'Edit', edit_perf_review_request_path(@perf_review_request) %> |
+<%= link_to 'Back', perf_review_requests_path %>

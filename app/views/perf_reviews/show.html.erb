@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @perf_review.name %>
+</p>
+
+<p>
+  <strong>Employee:</strong>
+  <%= @perf_review.employee_id %>
+</p>
+
+<p>
+  <strong>Time in position:</strong>
+  <%= @perf_review.time_in_position %>
+</p>
+
+<p>
+  <strong>Job title:</strong>
+  <%= @perf_review.job_title %>
+</p>
+
+<p>
+  <strong>Last appraisal:</strong>
+  <%= @perf_review.last_appraisal %>
+</p>
+
+<p>
+  <strong>Team leader:</strong>
+  <%= @perf_review.team_leader %>
+</p>
+
+<p>
+  <strong>First prepared:</strong>
+  <%= @perf_review.first_prepared %>
+</p>
+
+<p>
+  <strong>Hiring date:</strong>
+  <%= @perf_review.hiring_date %>
+</p>
+
+<p>
+  <strong>Prepared by:</strong>
+  <%= @perf_review.prepared_by %>
+</p>
+
+<p>
+  <strong>Catg reviews:</strong>
+  <%= @perf_review.catg_reviews %>
+</p>
+
+<p>
+  <strong>Avg:</strong>
+  <%= @perf_review.avg %>
+</p>
+
+<p>
+  <strong>Reviewer:</strong>
+  <%= @perf_review.reviewer_id %>
+</p>
+
+<%= link_to 'Edit', edit_perf_review_path(@perf_review) %> |
+<%= link_to 'Back', perf_reviews_path %>

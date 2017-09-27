@@ -1,0 +1,28 @@
+<%= form_for review_catg_quest, url:  perf_review_catg_review_catg_quests_path(perf_review_catg) do |f| %>
+  <% if review_catg_quest.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(review_catg_quest.errors.count, "error") %> prohibited this review_catg_quest from being saved:</h2>
+
+      <ul>
+      <% review_catg_quest.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.text_field :name, class: "form-control" %>
+        <%= f.label :name, class: "form-label" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="actions">
+      <%= f.submit "Add Question", class: "btn btn-primary waves-effect" %>
+    </div>
+  </div>
+<% end %>

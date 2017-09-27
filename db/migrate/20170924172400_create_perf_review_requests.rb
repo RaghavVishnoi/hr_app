@@ -5,10 +5,12 @@ class CreatePerfReviewRequests < ActiveRecord::Migration[5.0]
       t.integer :reviewee_id
       t.boolean :flag
       t.float :avg
+      t.integer :employee_id
 
       t.timestamps
     end
     add_index :perf_review_requests, :reviewer_id
     add_index :perf_review_requests, :reviewee_id
+    add_index :perf_review_requests, :employee_id
   end
 end

@@ -1,0 +1,2 @@
+$("tbody").append("<%= escape_javascript(render partial: 'perf_review_catgs/perf_review_catg', locals: { perf_review_catg: @perf_review_catg }) %>");
+$("#add-category-form").html("<%= escape_javascript(render partial: 'perf_review_catgs/form', locals: { perf_review_catg: PerfReviewCatg.new, review_catg_quest: ReviewCatgQuest.new }) %>");

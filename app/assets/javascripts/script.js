@@ -7,5 +7,8 @@
     });
 
     $('.datatable').DataTable();
+
+    $('#example-getting-started').multiselect();
+    jQuery(".best_in_place").best_in_place();
 });
 
