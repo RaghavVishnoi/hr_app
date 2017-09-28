@@ -9,7 +9,6 @@ class CreatePerfReviewRequests < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
-    add_index :perf_review_requests, :reviewer_id
     add_index :perf_review_requests, :reviewee_id
     add_index :perf_review_requests, :employee_id
   end
