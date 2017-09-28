@@ -44,6 +44,9 @@ GEM
     autoprefixer-rails (7.1.2.4)
       execjs
     bcrypt (3.1.11)
+    best_in_place (3.0.3)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
     bindex (0.5.0)
     bootstrap-datetimepicker-rails (0.0.11)
     bootstrap-sass (3.3.7)
@@ -221,6 +224,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 4.0)
+  best_in_place (~> 3.0.1)
   bootstrap-datetimepicker-rails
   bootstrap-sass (~> 3.3.6)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
@@ -233,7 +237,6 @@ DEPENDENCIES
   jquery-rails
   listen (~> 3.0.5)
   microsoft_graph
-  momentjs-rails (>= 2.9.0)
   oauth2
   paperclip
   pg

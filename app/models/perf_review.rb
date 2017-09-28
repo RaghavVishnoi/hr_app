@@ -1,0 +1,2 @@
+class PerfReview < ApplicationRecord
+end

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @review_catg_quest.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @review_catg_quest.category_id %>
+</p>
+
+<%= link_to 'Edit', edit_review_catg_quest_path(@review_catg_quest) %> |
+<%= link_to 'Back', review_catg_quests_path %>

@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Ques Answs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Answer</th>
+      <th>Question</th>
+      <th>Employee</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ques_answs.each do |ques_answ| %>
+      <tr>
+        <td><%= ques_answ.answer %></td>
+        <td><%= ques_answ.question_id %></td>
+        <td><%= ques_answ.employee_id %></td>
+        <td><%= link_to 'Show', ques_answ %></td>
+        <td><%= link_to 'Edit', edit_ques_answ_path(ques_answ) %></td>
+        <td><%= link_to 'Destroy', ques_answ, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ques Answ', new_ques_answ_path %>

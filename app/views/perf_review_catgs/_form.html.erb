@@ -1,0 +1,28 @@
+<%= form_for perf_review_catg do |f| %>
+  <% if perf_review_catg.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(perf_review_catg.errors.count, "error") %> prohibited this perf_review_catg from being saved:</h2>
+
+      <ul>
+      <% perf_review_catg.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.text_field :name, class: "form-control" %>
+        <label class="form-label"> Category Name</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="actions">
+      <%= f.submit "Create Category", class: "btn btn-primary waves-effect" %>
+    </div>
+  </div>
+<% end %>

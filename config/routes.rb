@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
 
 
+  resources :perf_review_requests
+  resources :perf_reviews
+  resources :ques_answs
+  resources :perf_review_catgs do
+    resources :review_catg_quests, only: [:new, :create]
+  end
+
+  resources :review_catg_quests, only: [:edit, :update, :destroy]
+
   resources :events
   root 'home#index'
   resources :project_team_members
@@ -106,6 +115,8 @@ Rails.application.routes.draw do
   post '/disclosures/:id/upload_disclosure_doc' => "disclosures#upload_disclosure_doc", as: :upload_disclosure_doc
   delete '/disclosures/:id/destroy' => "disclosures#delete_disclosure_doc", as: :delete_disclosure_doc
   get '/disclosures/:id' => "disclosures#show", as: :show_disclosure_doc
+
+  get '/perf_review_template/new' => 'perf_review_templates#new', as: :new_perf_review_template
 
   mount ActionCable.server => "/cable"
 end

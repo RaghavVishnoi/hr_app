@@ -1,0 +1,2 @@
+class ReviewCatgQuest < ApplicationRecord
+end

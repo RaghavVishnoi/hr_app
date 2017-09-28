@@ -1,0 +1,2 @@
+$("tbody").append("<%= escape_javascript(render partial: 'perf_review_requests/perf_review_request', locals: { perf_review_request: @perf_review_request }) %>");
+$("#add-review-request-form").html("<%= escape_javascript(render partial: 'perf_review_requests/form', locals: { perf_review_request: PerfReviewRequest.new }) %>");

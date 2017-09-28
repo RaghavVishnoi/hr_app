@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Review Catg Quests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @review_catg_quests.each do |review_catg_quest| %>
+      <tr>
+        <td><%= review_catg_quest.name %></td>
+        <td><%= review_catg_quest.category_id %></td>
+        <td><%= link_to 'Show', review_catg_quest %></td>
+        <td><%= link_to 'Edit', edit_review_catg_quest_path(review_catg_quest) %></td>
+        <td><%= link_to 'Destroy', review_catg_quest, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Review Catg Quest', new_review_catg_quest_path %>

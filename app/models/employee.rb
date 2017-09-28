@@ -31,6 +31,8 @@ class Employee < ApplicationRecord
   has_many :emp_benefit_docs, dependent: :destroy
   has_many :disclosures, dependent: :destroy
 
+  has_many :review_categories, class_name: "PerfReviewCatg", foreign_key: "employee_id"
+  has_many :answers, class_name: "QuesAnsw", foreign_key: "employee_id"
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
@@ -75,7 +77,11 @@ class Employee < ApplicationRecord
   end
 
   def name
-    "#{first_name} #{last_name}"
+    if first_name.present? || last_name.present?
+      "#{first_name} #{last_name}"
+    else
+      email
+    end
   end
 
   def self.to_csv
@@ -88,5 +94,24 @@ class Employee < ApplicationRecord
         end
       end
     end
+  end
+
+  def any_reviews_pending?
+    reviewers = PerfReviewRequest.pluck(:reviewer_id, :flag)
+    reviewers.each do |reviewer_ids|
+      if reviewer_ids[0].include?(self.id.to_s) && reviewer_ids[1].nil?
+        true
+      end
+    end
+  end
+
+  def reviews_pending
+    arr = Array.new
+    PerfReviewRequest.all.each do |perf_review_request|
+      if perf_review_request.reviewer_id.include?(self.id.to_s) && perf_review_request.flag.nil?
+        arr.push(perf_review_request.reviewee.name)
+      end
+    end
+    return arr.to_sentence
   end
 end

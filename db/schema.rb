@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170918194038) do
+ActiveRecord::Schema.define(version: 20170927122316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -176,6 +176,46 @@ ActiveRecord::Schema.define(version: 20170918194038) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "perf_review_catgs", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "employee_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["employee_id"], name: "index_perf_review_catgs_on_employee_id", using: :btree
+  end
+
+  create_table "perf_review_requests", force: :cascade do |t|
+    t.text     "reviewer_id"
+    t.integer  "reviewee_id"
+    t.boolean  "flag"
+    t.float    "avg"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "index_perf_review_requests_on_employee_id", using: :btree
+    t.index ["reviewee_id"], name: "index_perf_review_requests_on_reviewee_id", using: :btree
+    t.index ["reviewer_id"], name: "index_perf_review_requests_on_reviewer_id", using: :btree
+  end
+
+  create_table "perf_reviews", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "employee_id"
+    t.string   "time_in_position"
+    t.string   "job_title"
+    t.date     "last_appraisal"
+    t.string   "team_leader"
+    t.date     "first_prepared"
+    t.date     "hiring_date"
+    t.string   "prepared_by"
+    t.text     "catg_reviews"
+    t.float    "avg"
+    t.integer  "reviewer_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.index ["employee_id"], name: "index_perf_reviews_on_employee_id", using: :btree
+    t.index ["reviewer_id"], name: "index_perf_reviews_on_reviewer_id", using: :btree
+  end
+
   create_table "project_team_members", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "project_team_id"
@@ -201,6 +241,16 @@ ActiveRecord::Schema.define(version: 20170918194038) do
     t.string   "client"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "ques_answs", force: :cascade do |t|
+    t.string   "answer"
+    t.integer  "question_id"
+    t.integer  "employee_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["employee_id"], name: "index_ques_answs_on_employee_id", using: :btree
+    t.index ["question_id"], name: "index_ques_answs_on_question_id", using: :btree
   end
 
   create_table "questions", force: :cascade do |t|
@@ -239,6 +289,14 @@ ActiveRecord::Schema.define(version: 20170918194038) do
     t.datetime "started_at"
     t.index ["employee_id"], name: "index_results_on_employee_id", using: :btree
     t.index ["exam_id"], name: "index_results_on_exam_id", using: :btree
+  end
+
+  create_table "review_catg_quests", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["category_id"], name: "index_review_catg_quests_on_category_id", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|

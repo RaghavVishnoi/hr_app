@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  employee_id: 1
+  time_in_position: MyString
+  job_title: MyString
+  last_appraisal: 2017-09-26
+  team_leader: MyString
+  first_prepared: 2017-09-26
+  hiring_date: 2017-09-26
+  prepared_by: MyString
+  catg_reviews: MyText
+  avg: 1.5
+  reviewer_id: 1
+
+two:
+  name: MyString
+  employee_id: 1
+  time_in_position: MyString
+  job_title: MyString
+  last_appraisal: 2017-09-26
+  team_leader: MyString
+  first_prepared: 2017-09-26
+  hiring_date: 2017-09-26
+  prepared_by: MyString
+  catg_reviews: MyText
+  avg: 1.5
+  reviewer_id: 1

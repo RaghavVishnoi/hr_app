@@ -20,7 +20,7 @@ gem "font-awesome-rails"
 
 # gem 'fullcalendar-rails'
 # gem 'momentjs-rails'
-gem 'turbolinks', '~> 5' 
+gem 'turbolinks', '~> 5'
 gem 'bootstrap-datetimepicker-rails'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem "paperclip"
@@ -31,6 +31,8 @@ gem 'oauth2'
 gem 'ruby_outlook'
 gem 'microsoft_graph'
 gem "google_visualr", ">= 2.5"
+
+gem 'best_in_place', '~> 3.0.1'
 
 group :development, :test do
   gem 'pry', platform: :mri
