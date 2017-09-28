@@ -15,8 +15,93 @@
       </div>
     </div>
     <% if current_employee.any_reviews_pending? %>
-      <%= render 'form', perf_review: @perf_review %>
+    <%= form_for(perf_review) do |f| %>
+      <% if perf_review.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(perf_review.errors.count, "error") %> prohibited this perf_review from being saved:</h2>
 
+          <ul>
+          <% perf_review.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="card">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                  General Informations
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <label class="form-label">Name</label>
+                    <%= f.text_field :name, class: "form-control" %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :time_in_position, class: "form-control" %>
+                    <label class="form-label">Time in Position</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :job_title, class: "form-control" %>
+                    <label class="form-label">Job Title</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :last_appraisal, class: "form-control" %>
+                    <label class="form-label">Last Appraisal</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :team_leader, class: "form-control" %>
+                    <label class="form-label">Team Leader</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :first_prepared,  class: "form-control" %>
+                    <label class="form-label">Date First Prepared</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field  :hiring_date, class: "form-control" %>
+                    <label class="form-label">Hiring Date</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group form-float">
+                  <div class="form-line">
+                    <%= f.text_field :prepared_by, class: "form-control" %>
+                    <label class="form-label">Prepared by</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
       <% PerfReviewCatg.all.each do |category| %>
         <div class="card">
           <div class="panel panel-primary">
@@ -62,6 +147,7 @@
               </div>
             </div>
          </div>
+        <% end %>
       <% end %>
     <% end %>
     <div class="col-md-1 column">
