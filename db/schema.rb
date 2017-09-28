@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928182603) do
+ActiveRecord::Schema.define(version: 20170928190023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,14 +41,10 @@ ActiveRecord::Schema.define(version: 20170928182603) do
 
   create_table "emp_benefit_docs", force: :cascade do |t|
     t.integer  "employee_id"
-    t.string   "filename"
-    t.string   "content_type"
-    t.bigint   "size"
     t.boolean  "template"
     t.string   "template_type"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.string   "document"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
@@ -185,15 +181,10 @@ ActiveRecord::Schema.define(version: 20170928182603) do
   end
 
   create_table "perf_review_requests", force: :cascade do |t|
-    t.integer  "reviewee_id"
-    t.boolean  "flag"
-    t.float    "avg"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "employee_id"
-    t.text     "reviewer_id"
-    t.index ["employee_id"], name: "index_perf_review_requests_on_employee_id", using: :btree
-    t.index ["reviewee_id"], name: "index_perf_review_requests_on_reviewee_id", using: :btree
+    t.integer "reviewee_id"
+    t.integer "employee_id"
+    t.text    "reviewer_id"
+    t.boolean "flag"
   end
 
   create_table "perf_reviews", force: :cascade do |t|
@@ -306,13 +297,14 @@ ActiveRecord::Schema.define(version: 20170928182603) do
 
   create_table "signatures", force: :cascade do |t|
     t.string   "sign"
+    t.integer  "employee_id"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.integer  "employee_id"
     t.string   "sign_file_name"
     t.string   "sign_content_type"
     t.integer  "sign_file_size"
     t.datetime "sign_updated_at"
+    t.index ["employee_id"], name: "index_signatures_on_employee_id", using: :btree
   end
 
   create_table "subjects", force: :cascade do |t|
