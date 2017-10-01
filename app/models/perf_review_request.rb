@@ -1,14 +1,24 @@
 class PerfReviewRequest < ApplicationRecord
   belongs_to :employee
-  serialize :reviewer_id, Array
+  has_many :reviewers, class_name: 'PerfReviewReviewer', foreign_key: 'perf_review_request_id'
 
   def reviewee
     Employee.find(reviewee_id)
   end
 
-  def reviewers
-    self.reviewer_id.map { |id| Employee.find(id.to_i).email }.to_sentence
+  def reviewer_name
+    self.reviewers.pluck(:reviewer_id).map { | id | Employee.find(id).name }.to_sentence
   end
+
+  def reviewers
+    PerfReviewReviewer.where(perf_review_request_id: self.id)
+  end
+  #
+  # def self.already_exists?(reviewee_id, reviewer_id)
+  #   requests = PerfReviewRequest.where(reviewee_id)
+  #   requests.each do |request|
+  #     request.reviewers.pluck(:reviewer_id)
+  # end
 
 end
 

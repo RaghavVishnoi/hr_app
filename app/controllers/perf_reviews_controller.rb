@@ -1,5 +1,5 @@
 class PerfReviewsController < ApplicationController
-  before_action :set_perf_review, only: [:show, :edit, :update, :destroy]
+  before_action :set_perf_review, only: [:show, :edit, :update, :destroy, :download_pdf]
 
   # GET /perf_reviews
   # GET /perf_reviews.json
@@ -15,7 +15,7 @@ class PerfReviewsController < ApplicationController
 
   # GET /perf_reviews/new
   def new
-
+    @reviewer = PerfReviewReviewer.find(params[:reviewer_id])
   end
 
   # GET /perf_reviews/1/edit
@@ -25,31 +25,61 @@ class PerfReviewsController < ApplicationController
   # POST /perf_reviews
   # POST /perf_reviews.json
   def create
-    @perf_review = PerfReview.new(perf_review_params)
-
-    respond_to do |format|
-      if @perf_review.save
-        format.html { redirect_to @perf_review, notice: 'Perf review was successfully created.' }
-        format.json { render :show, status: :created, location: @perf_review }
-      else
-        format.html { render :new }
-        format.json { render json: @perf_review.errors, status: :unprocessable_entity }
-      end
+    pending_review = PerfReviewReviewer.find(params[:reviewer_id])
+    employee = Employee.find_by(email: params[:reviewee_email])
+    review = PerfReview.create(
+      employee_id: employee.id,
+      name: params[:perf_review][:name],
+      time_in_position: params[:perf_review][:time_in_position],
+      job_title: params[:perf_review][:job_title],
+      last_appraisal: params[:perf_review][:last_appraisal],
+      team_leader: params[:perf_review][:team_leader],
+      first_prepared: params[:perf_review][:first_prepared],
+      hiring_date: params[:perf_review][:hiring_date],
+      reviewer_id: current_employee.id,
+      prepared_by: params[:perf_review][:prepared_by],
+      request_id: params[:reviewer_id]
+    )
+    params[:answers].each do |answer|
+      ques_id = answer.split("_")[1]
+      quest = ReviewCatgQuest.find(ques_id)
+      quest.answers.create(
+        answer: params["answers"][answer],
+        employee_id: current_employee.id,
+        review_id: review.id
+      )
     end
+    review.update_average_point
+    review.update_flag
+    redirect_to perf_reviews_path
   end
 
   # PATCH/PUT /perf_reviews/1
   # PATCH/PUT /perf_reviews/1.json
   def update
-    respond_to do |format|
-      if @perf_review.update(perf_review_params)
-        format.html { redirect_to @perf_review, notice: 'Perf review was successfully updated.' }
-        format.json { render :show, status: :ok, location: @perf_review }
-      else
-        format.html { render :edit }
-        format.json { render json: @perf_review.errors, status: :unprocessable_entity }
-      end
+    employee = Employee.find_by(email: params[:reviewee_email])
+    @perf_review.update(
+      employee_id: employee.id,
+      name: params[:perf_review][:name],
+      time_in_position: params[:perf_review][:time_in_position],
+      job_title: params[:perf_review][:job_title],
+      last_appraisal: params[:perf_review][:last_appraisal],
+      team_leader: params[:perf_review][:team_leader],
+      first_prepared: params[:perf_review][:first_prepared],
+      hiring_date: params[:perf_review][:hiring_date],
+      reviewer_id: current_employee.id,
+      prepared_by: params[:perf_review][:prepared_by],
+      request_id: params[:reviewer_id]
+    )
+    params[:answers].each do |answer|
+      ques_id = answer.split("_")[1]
+      quest = ReviewCatgQuest.find(ques_id)
+      quest.answers.where(review_id: @perf_review.id).first.update(
+        answer: params["answers"][answer]
+      )
     end
+    @perf_review.update_average_point
+    redirect_to perf_reviews_path
   end
 
   # DELETE /perf_reviews/1
@@ -60,6 +90,13 @@ class PerfReviewsController < ApplicationController
       format.html { redirect_to perf_reviews_url, notice: 'Perf review was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def download_pdf
+    respond_to  do |format|
+        format.html
+        format.pdf
+     end
   end
 
   private

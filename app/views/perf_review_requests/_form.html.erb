@@ -1,33 +1,22 @@
-<%= form_for perf_review_request, html: {remote: true} do |f| %>
-  <% if perf_review_request.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(perf_review_request.errors.count, "error") %> prohibited this perf_review_request from being saved:</h2>
-
-      <ul>
-      <% perf_review_request.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_tag perf_review_requests_path, html: {remote: true} do %>
 
   <div class="col-sm-4 col-xs-4">
     <div class="form-group form-float">
-      <%= f.label "Emplyee to be Revieweed" %>
-      <%= f.select :reviewee_id, options_for_select(Employee.all.collect { |emp| [emp.email, emp.id] }), {}, class: "form-control" %>
+      <label> Emplyee to be Revieweed </label>
+      <%= select_tag "reviewee_id", options_for_select(Employee.all.collect { |emp| [emp.email, emp.id] }), class: "form-control" %>
     </div>
   </div>
 
   <div class="col-sm-4 col-xs-4">
     <div class="form-group form-float">
-      <%= f.label "Select multiple reviewers" %>
-      <%= f.select :reviewer_id, options_for_select(Employee.all.collect { |emp| [emp.email, emp.id] }), {}, multiple: true, class: "form-control" %>
+      <label>Select multiple reviewers</label>
+      <%= select_tag "reviewer_id", options_for_select(Employee.all.collect { |emp| [emp.email, emp.id] }), multiple: true, class: "form-control" %>
     </div>
   </div>
 
   <div class="col-sm-4 col-xs-4">
     <div class="actions">
-      <%= f.submit "Create", class: "btn btn-primary waves-effect" %>
+      <%= submit_tag "Create", class: "btn btn-primary waves-effect" %>
     </div>
   </div>
 <% end %>
