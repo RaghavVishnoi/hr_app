@@ -32,7 +32,8 @@ gem 'ruby_outlook'
 gem 'microsoft_graph'
 gem "google_visualr", ">= 2.5"
 
-gem 'best_in_place', '~> 3.0.1'
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'pry', platform: :mri

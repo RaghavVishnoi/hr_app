@@ -4,141 +4,58 @@
     <div class="card">
       <div class="header">
         <h2>
-          Performance Reviews
+          Pending  Reviews
         </h2>
         <% if current_employee.any_reviews_pending? %>
+        <div class="body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Created by</th>
+                <th>Reviewee</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% current_employee.reviews_pending.each do |review_pending| %>
+                <tr>
+                  <td><%= review_pending.employee.email %></td>
+                  <td><%= review_pending.perf_review_request.reviewee.email %></td>
+                  <td>
+                    <%= link_to give_review_path(review_pending) do %>
+                      Review
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
           You have some review pending for employees. Kindly review them in below given form.
-          Reviews pending for <b> <i> <%= current_employee.reviews_pending %> </b> </i>
+          Reviews pending for <b> <i> <%= current_employee.reviews_pending_for.to_sentence %> </b> </i>
         <% else %>
           No request pending for reviewing.
         <% end %>
       </div>
+      <h2>Your sent Reviewees</h2>
+      <div class="body table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Created by</th>
+              <th>Reviewee</th>
+              <th>Average Point</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <%= render @perf_reviews %>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <% if current_employee.any_reviews_pending? %>
-    <%= form_tag new_perf_review_request_path  do %>
-      <div class="card">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">
-                  General Informations
-              </h3>
-            </div>
-            <div class="panel-body">
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <label class="form-label">Name</label>
-                    <%= text_field_tag :name, "", class: "form-control" %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :time_in_position, "", class: "form-control" %>
-                    <label class="form-label">Time in Position</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :job_title, "", class: "form-control" %>
-                    <label class="form-label">Job Title</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :last_appraisal, "", class: "form-control" %>
-                    <label class="form-label">Last Appraisal</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :team_leader, "", class: "form-control" %>
-                    <label class="form-label">Team Leader</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :first_prepared, "",  class: "form-control" %>
-                    <label class="form-label">Date First Prepared</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag  :hiring_date, "", class: "form-control" %>
-                    <label class="form-label">Hiring Date</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-6">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= text_field_tag :prepared_by, "", class: "form-control" %>
-                    <label class="form-label">Prepared by</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-       </div>
-      <% PerfReviewCatg.all.each do |category| %>
-        <div class="card">
-          <div class="panel panel-primary">
-              <div class="panel-heading">
-                <h3 class="panel-title">
-        						<%= category.name %>
-        				</h3>
-              </div>
-              <div class="panel-body">
-                <% category.questions.each do |question| %>
-                  <div class="col-xs-12">
-                    Q. <%= question.name %>
-                  </div>
-                  <div class="col-xs-12">
-
-                      <%= radio_button_tag "answer", 1 %> <label for=""> 1 </label>
-
-                  </div>
-                  <div class="col-xs-12">
-                    <div class="form-group form-float">
-                      <%= radio_button_tag "anser", "2" %> <label for=""> 2 </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <div class="form-group form-float">
-                      <%= radio_button_tag "anser", "3" %> <label for=""> 3 </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <div class="form-group form-float">
-                      <%= radio_button_tag "anser", "4" %> <label for=""> 4 </label>
-                    </div>
-                  </div>
-                  <div class="col-xs-12">
-                    <div class="form-group form-float">
-                      <%= radio_button_tag "anser", "5" %> <label for=""> 5 </label>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-              <div class="panel-footer">
-                Average points:
-              </div>
-            </div>
-         </div>
-        <% end %>
-      <% end %>
-    <% end %>
     <div class="col-md-1 column">
     </div>
   </div>

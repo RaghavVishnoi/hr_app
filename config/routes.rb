@@ -118,5 +118,11 @@ Rails.application.routes.draw do
 
   get '/perf_review_template/new' => 'perf_review_templates#new', as: :new_perf_review_template
 
+  get '/request/:reviewer_id/send_review' => 'perf_reviews#new', as: :give_review
+
+  post '/create_perf_reviews/:reviewer_id' => 'perf_reviews#create', as: :create_perf_reviews
+
+  get '/download_perf_review/:id' => 'perf_reviews#download_pdf', as: :download_pdf
+
   mount ActionCable.server => "/cable"
 end

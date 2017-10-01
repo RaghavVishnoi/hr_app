@@ -1,6 +1,156 @@
-<h1>Editing Perf Review</h1>
-
-<%= render 'form', perf_review: @perf_review %>
-
-<%= link_to 'Show', @perf_review %> |
-<%= link_to 'Back', perf_reviews_path %>
+<%= form_tag  perf_review_path(@perf_review), method: :patch do %>
+  <div class="card">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+              General Informations
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <!-- <label class="form-label">Select the person to be reviewed</label> -->
+                <%= select_tag "reviewee_email", options_for_select(current_employee.reviews_pending_for, @perf_review.employee.email), class: "form-control", prompt: "Select the person to be reviewed" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <label class="form-label">Name</label>
+                <%= text_field_tag "perf_review[name]", @perf_review.name, class: "form-control" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[time_in_position]", @perf_review.time_in_position, class: "form-control" %>
+                <label class="form-label">Time in Position</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[job_title]", @perf_review.job_title, class: "form-control" %>
+                <label class="form-label">Job Title</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[last_appraisal]", @perf_review.last_appraisal, class: "form-control" %>
+                <label class="form-label">Last Appraisal</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[team_leader]", @perf_review.team_leader, class: "form-control" %>
+                <label class="form-label">Team Leader</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[first_prepared]", @perf_review.first_prepared,  class: "form-control" %>
+                <label class="form-label">Date First Prepared</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag  "perf_review[hiring_date]", @perf_review.hiring_date, class: "form-control" %>
+                <label class="form-label">Hiring Date</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_field_tag "perf_review[prepared_by]", @perf_review.prepared_by, class: "form-control" %>
+                <label class="form-label">Prepared by</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+  <% PerfReviewCatg.all.each do |category| %>
+    <div class="card">
+      <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+                <%= category.name %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <% category.questions.each do |question| %>
+              <div class="col-xs-12">
+                Q. <%= question.name %>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "1" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 1, true %> <label for='answers_answer_<%= question.id %>_1'> 1 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 1 %> <label for='answers_answer_<%= question.id %>_1'> 1 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "2" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 2,  true %> <label for='answers_answer_<%= question.id %>_2'> 2 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 2 %> <label for='answers_answer_<%= question.id %>_2'> 2 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "3" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 3, true %> <label for="answers_answer_<%= question.id %>_3"> 3 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 3 %> <label for="answers_answer_<%= question.id %>_3"> 3 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "4" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 4, true %> <label for="answers_answer_<%= question.id %>_4"> 4 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 4 %> <label for="answers_answer_<%= question.id %>_4"> 4 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "5" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 5, true %> <label for="answers_answer_<%= question.id %>_5"> 5 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 5 %> <label for="answers_answer_<%= question.id %>_5"> 5 </label>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+          <div class="panel-footer">
+            Average points: <%= @perf_review.calculate_avg_point[category.id] %>
+          </div>
+        </div>
+     </div>
+    <% end %>
+    <div class="col-xs-12">
+      <div class="actions">
+        <%= submit_tag "Update", class: "btn btn-primary waves-effect" %>
+      </div>
+    </div>
+<% end %>

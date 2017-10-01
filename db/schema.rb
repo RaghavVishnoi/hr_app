@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170928190023) do
+ActiveRecord::Schema.define(version: 20171001080728) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,7 +183,14 @@ ActiveRecord::Schema.define(version: 20170928190023) do
   create_table "perf_review_requests", force: :cascade do |t|
     t.integer "reviewee_id"
     t.integer "employee_id"
-    t.text    "reviewer_id"
+    t.boolean "flag"
+    t.index ["employee_id"], name: "index_perf_review_requests_on_employee_id", using: :btree
+    t.index ["reviewee_id"], name: "index_perf_review_requests_on_reviewee_id", using: :btree
+  end
+
+  create_table "perf_review_reviewers", force: :cascade do |t|
+    t.integer "perf_review_request_id"
+    t.integer "reviewer_id"
     t.boolean "flag"
   end
 
@@ -202,6 +209,7 @@ ActiveRecord::Schema.define(version: 20170928190023) do
     t.integer  "reviewer_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "request_id"
     t.index ["employee_id"], name: "index_perf_reviews_on_employee_id", using: :btree
     t.index ["reviewer_id"], name: "index_perf_reviews_on_reviewer_id", using: :btree
   end
@@ -239,6 +247,7 @@ ActiveRecord::Schema.define(version: 20170928190023) do
     t.integer  "employee_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "review_id"
     t.index ["employee_id"], name: "index_ques_answs_on_employee_id", using: :btree
     t.index ["question_id"], name: "index_ques_answs_on_question_id", using: :btree
   end
