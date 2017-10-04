@@ -1,4 +1,5 @@
 class PerfReview < ApplicationRecord
+  belongs_to :employee
 
   def employee
     Employee.find(employee_id)
@@ -19,7 +20,7 @@ class PerfReview < ApplicationRecord
       category.questions.each do |question|
         each_quest_points << question.answer(id)
       end
-      sum_of_array = each_quest_points.sum.to_i
+      sum_of_array = each_quest_points.map { |id| id.to_i }.sum
       average_point = sum_of_array/each_quest_points.length
       category_wise_points[category.id] = average_point
     end

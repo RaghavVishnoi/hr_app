@@ -6,8 +6,10 @@
     <%= link_to perf_review_path(perf_review, format: :pdf) do %>
       Show
     <% end %>
-    <%= link_to edit_perf_review_path(perf_review) do %>
-      Edit
+    <% if current_employee.hr? %>
+      <%= link_to edit_perf_review_path(perf_review) do %>
+        Edit
+      <% end %>
     <% end %>
   </td>
 </tr>

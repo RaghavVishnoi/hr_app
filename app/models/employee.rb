@@ -33,6 +33,7 @@ class Employee < ApplicationRecord
 
   has_many :review_categories, class_name: "PerfReviewCatg", foreign_key: "employee_id"
   has_many :answers, class_name: "QuesAnsw", foreign_key: "employee_id"
+  has_many :perf_reviews, class_name: "PerfReview", foreign_key: "reviewer_id"
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
