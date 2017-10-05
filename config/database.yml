@@ -20,7 +20,9 @@ test:
   database: hr_test
 
 production:
+  # <<: *default
+  # database: hr_pro
+  # username: rails
+  # password: <%= ENV['APP_DATABASE_PASSWORD'] %>
   <<: *default
-  database: hr_pro
-  username: rails
-  password: <%= ENV['APP_DATABASE_PASSWORD'] %>
+  database: db/production.sqlite3
