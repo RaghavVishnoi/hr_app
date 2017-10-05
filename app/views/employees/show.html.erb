@@ -109,7 +109,7 @@
                       <b>Upload Document</b>
                     </div>
                     <div class="col-sm-4">
-                      <%= file_field_tag "documents[]", type: :file, multiple: true %>
+                      <%= file_field_tag "documents[]", type: :file, multiple: true,:required => "true" %>
                     </div>
                     <div class="col-sm-4">
                      <%= f.submit 'Upload', :class => 'btn btn-primary' %>
