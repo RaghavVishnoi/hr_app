@@ -1461,3 +1461,118 @@ fc-today {
   margin-left: 12px !important;
   padding: 5px! important;
 }
+
+
+/*------------------------ Employee Profile ---------------------------*/
+
+ .employee-profile-card {
+    margin-top: 0px;
+    padding: 30px;
+    -webkit-border-top-left-radius:5px;
+    -moz-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.employee-profile-card.hovercard {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background-color: #f5f5f5;
+ }
+.employee-profile-card.hovercard .employee-profile-card-background {
+    height: 130px;
+    padding-top: 20px !important;
+}
+.employee-profile-card-background img {
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    filter: blur(25px);
+    margin-left: -100px;
+    margin-top: -200px;
+    min-width: 130%;
+
+}
+.employee-profile-card .card-background img{
+  background-size: cover;
+  display: block;
+  filter: blur(5px);
+  -webkit-filter: blur(2px);
+  right: 0;
+  z-index: 1;
+}
+.employee-profile-card.hovercard .useravatar {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.employee-profile-card.hovercard .useravatar img {
+    width: 100px;
+    height: 100px;
+    max-width: 100px;
+    max-height: 100px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+}
+
+ 
+.employee-profile-card.hovercard .employee-profile-card-info {
+    position: absolute;
+    bottom: 14px;
+    left: 0;
+    right: 0;
+}
+.employee-profile-card.hovercard .employee-profile-card-info .employee-profile-card-title {
+    padding:0 5px;
+    font-size: 20px;
+    line-height: 1;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.employee-profile-card.hovercard .employee-profile-card-info {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+.employee-profile-card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+.btn-pref .btn {
+    -webkit-border-radius:0 !important;
+}
+.employee-profile-pane{background-color: #fff;}
+.employee-profile-pane #tab1{height: 75px;}
+.employee-profile-pane #tab2{height: 200px;}
+.employee-document-table{border-bottom: 2px solid; min-height:50px;max-height: 150px; overflow: auto;}
+.employee-profile-pane #tab3{height: 390px;}
+.employee-experience-table{border-bottom: 2px solid; min-height:50px;max-height: 150px; overflow: auto;}
+
+#notice {
+  color: green;
+  height: 40px;
+  padding: 11px;
+  background-color: #ccc;
+  border-radius: 10px;
+  margin-top: -25px;
+  display: block;
+}
+
+#notice span i{float: right;}
+
+.profile-action{padding-left: 5%;}
+.employee-experience-field{margin-bottom: 5px;}

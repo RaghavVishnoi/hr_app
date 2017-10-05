@@ -1,164 +1,227 @@
 <div class="row clearfix js-sweetalert">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-    <div class="card">
-      <p id="notice"><%= notice %></p>
-      <div class="header">
-        <h2>
-          <div class="row clearfix">
-            <div class="col-xs-12">
-              <strong>Employee:</strong>
-              <%= @employee.name %>
+    <div class="profile-action">
+      <%= link_to "Change your password", edit_employee_registration_path %> |
+      <%= link_to 'Edit', edit_employee_path(@employee) %> |
+      <%= link_to 'Back', employees_path %>
+    </div>
+    <div class="employee-profile-card">
+      <%=render 'layouts/notice'%>
+       <div class="col-sm-12">
+        <div class="employee-profile-card hovercard">
+            <div class="card-background">
+                <img class="card-bkimg" alt="" src="/assets/hr-background.jpg" width="100%" height="270">
+            </div> 
+            <div class="useravatar">
+              <img src="/assets/default-profile-pic.png" class="employee-profile-avtar">
+            </div>            
+        </div>
+        <div class="btn-pref btn-group btn-group-justified btn-group-lg employee-profile-action" role="group" aria-label="...">
+            <div class="btn-group emp-profile" role="group">
+                <button type="button" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <div class="hidden-xs">Profile</div>
+                </button>
             </div>
-            <br/>
-            <div class=" col-md-6 col-sm-6 col-xs-12">
-              <strong>Email:</strong>
-              <%= @employee.email %>
+            <div class="btn-group emp-document" role="group">
+                <button type="button" class="btn btn-default" href="#tab2" data-toggle="tab"><span class="fa fa-file-text" aria-hidden="true"></span>
+                    <div class="hidden-xs">Documents</div>
+                </button>
             </div>
-            <div class=" col-md-6 col-sm-6 col-xs-12">
-              <strong>Role:</strong>
-              <%= @employee.user_role %>
+            <div class="btn-group emp-experience" role="group">
+                <button type="button" class="btn btn-default" href="#tab3" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                    <div class="hidden-xs">Experience</div>
+                </button>
             </div>
-          </h2>
-        </h2>
-      </div>
-      <%= link_to "Change your password", edit_employee_registration_path %>
-      <div class="body">
+        </div>
 
-        <div class="row clearfix">
-          <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-            <h2 class='text-center'>Document Upload</h2>
-            <%= form_for(@employee, url: upload_document_path(@employee), method: :post, html: { multipart: true }) do |f| %>
-
-              <div class="col-xs-12">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= file_field_tag "documents[]", type: :file, multiple: true %>
+        <div class="well employee-profile-pane">
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="tab1">
+              <div class="col-md-offset-2 col-sm-10">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <b>Name</b>
+                  </div>
+                  <div class="col-sm-5">
+                    <%= @employee.name %>
                   </div>
                 </div>
               </div>
-              <div class="form-actions">
-                <%= f.submit 'Upload', :class => 'btn btn-primary' %>
+              <div class="col-md-offset-2 col-sm-10">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <b>Email</b>
+                  </div>
+                  <div class="col-sm-5">
+                    <%= @employee.email %>
+                  </div>
+                </div>
               </div>
-            <% end %>
-          </div>
-        </div>
-
-
-        <div class="row clearfix">
-          <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-            <div class="table-responsive">
-              <h1>Documents</h1>
-              <table class="table table-bordered table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>File Name</th>
-                    <th colspan="2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @employee.documents.each do |document| %>
+              <div class="col-md-offset-2 col-sm-10">
+                <div class="row">
+                  <div class="col-sm-5">
+                    <b>Role</b>
+                  </div>
+                  <div class="col-sm-5">
+                    <%= @employee.user_role %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade in" id="tab2">
+              <div class="employee-document-table">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td><%=  document.document_file_name %></td>
-                      <% if current_employee.user_role != 'employee' %>
-                        <td><%= link_to 'download', download_document_path(document), target: "blank" %></td>
-                        <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-                      <% end %>
+                      <th>Document Name</th>
+                      <th>Action</th>
                     </tr>
-                  <% end %>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <% @employee.documents.each do |document| %>
+                      <tr class="active">
+                        <td><%=document.document_file_name%></td>
+                        <td>
+                          <% if current_employee.user_role != 'employee' %>
+                            <%= link_to download_document_path(document), target: "blank" do %>
+                              <i class="fa fa-download" aria-hidden="true"></i>
+                            <%end%>
+                            &nbsp;&nbsp;&nbsp;
+                            <%= link_to document, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                            <%end%>
+                          <% end %>
+                        </td>
+                      </tr>
+                    <%end%>
+                  </tbody>
+                </table>
+              </div>  
+              <div class="col-sm-12">
+                <div class="row">
+                  &nbsp;
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="row">
+                  <%= form_for(@employee, url: upload_document_path(@employee), method: :post, html: { multipart: true }) do |f| %>
+                    <div class="col-sm-4">
+                      <b>Upload Document</b>
+                    </div>
+                    <div class="col-sm-4">
+                      <%= file_field_tag "documents[]", type: :file, multiple: true %>
+                    </div>
+                    <div class="col-sm-4">
+                     <%= f.submit 'Upload', :class => 'btn btn-primary' %>
+                    </div>
+                  <%end%>  
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-
-
-        <hr/>
-        <hr/>
-        <div class="row clearfix">
-          <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-            <h2 class='text-center'> Experience </h2>
-            <%= form_for(@experience, url: experiences_path, method: :post) do |f| %>
-              <%= f.hidden_field :employee_id, value: @employee.id %>
-              <div class="col-xs-12">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= f.label :title, class: "form-label" %>
-                    <%= f.text_field :title, class: "form-control" %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= f.label :description, class: "form-label" %>
-                    <%= f.text_area :description, class: "form-control", placeholder: "Job Description" %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= f.label :from_date %>
-                    <%= f.text_field :from_date, class: "form-control datepicker" %>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12">
-                <div class="form-group form-float">
-                  <div class="form-line">
-                    <%= f.label :to_date %>
-                    <%= f.text_field :to_date, class: "form-control datepicker" %>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <%= f.submit 'Add Experience', :class => 'btn btn-primary' %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
-        <hr/>
-
-        <div class="row clearfix">
-          <div class="col-md-8 col-sm-8 col-md-offset-2 col-sm-offset-2">
-            <div class="table-responsive">
-              <h1>Experiences</h1>
-              <table class="table table-bordered table-hover table-striped">
-                <thead>
-                  <tr>
-                    <th>Title</th>
-                    <th>Description</th>
-                    <th>From Date</th>
-                    <th>To Date</th>
-
-                    <th colspan="2"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <% @employee.experiences.each do |experience| %>
+            <div class="tab-pane fade in" id="tab3">
+              <div class="employee-experience-table">
+                <table class="table">
+                  <thead>
                     <tr>
-                      <td><%= experience.title %></td>
-                      <td><%= experience.description %></td>
-                      <td><%= experience.from_date %></td>
-                      <td><%= experience.to_date %></td>
-                      <td><%= link_to 'edit', edit_experience_path(experience) %></td>
-                      <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+                      <th>Title</th>
+                      <th>Description</th>
+                      <th>From</th>
+                      <th>To</th>
+                      <th>Action</th>
                     </tr>
-                  <% end %>
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    <% @employee.experiences.each do |experience| %>
+                      <tr class="active">
+                        <td><%= experience.title %></td>
+                        <td><%= experience.description %></td>
+                        <td><%= experience.from_date %></td>
+                        <td><%= experience.to_date %></td>
+                        <td>
+                          <%= link_to edit_experience_path(experience) do%>
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          <%end%>
+                          &nbsp;&nbsp;&nbsp;
+                          <%= link_to  experience, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                          <%end%>
+                        </td>
+                      </tr>
+                    <%end%>
+                  </tbody>
+                </table>
+              </div>  
+              <div class="col-sm-12">
+                <div class="row">
+                  &nbsp;
+                </div>
+              </div>
+              <div class="col-sm-12">
+                <div class="row">
+                  <%= form_for(@experience, url: experiences_path, method: :post) do |f| %>
+                    <div class="col-md-offset-2 col-sm-10 employee-experience-field">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <b>Title</b>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.text_field :title, class: "form-control",:required => "true" %>
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="col-md-offset-2 col-sm-10 employee-experience-field">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <b>Description</b>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.text_area :description, class: "form-control", placeholder: "Job Description",:required => "true" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-offset-2 col-sm-10 employee-experience-field">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <b>From Date</b>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.text_field :from_date, class: "form-control datepicker",:required => "true" %>
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="col-md-offset-2 col-sm-10 employee-experience-field">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <b>To Date</b>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.text_field :to_date, class: "form-control datepicker",:required => "true" %>
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="col-md-offset-8 col-sm-4 employee-experience-field">
+                      <%= f.submit 'Add Experience', :class => 'btn btn-primary' %>
+                    </div>
+                  <%end%>  
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <%= link_to 'Edit', edit_employee_path(@employee) %> |
-        <%= link_to 'Back', employees_path %>
+      </div>  
 
         <% content_for :page_script do %>
           <script type="text/javascript">
-            $("#experience_from_date, #experience_to_date").datepicker()
+            $("#experience_from_date, #experience_to_date").datepicker();
           </script>
         <% end %>
+
+        <script>
+           $(".employee-profile-action .btn-group").click(function(){
+              $(".employee-profile-action .btn-group button").attr("style","background-color: #fff !important;color: #000");
+              $(this).children(".btn").attr("style","background-color: #1f91f3 !important;color: #fff");
+           });
+         </script>
+
+            

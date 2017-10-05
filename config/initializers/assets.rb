@@ -8,4 +8,4 @@ Rails.application.config.assets.version = '1.0'
 
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
-Rails.application.config.assets.precompile += %w( user/user.css user/user.js antares.css external.css forms_standard.js app_cache.js view_gridstack.js )
+Rails.application.config.assets.precompile += %w( user/user.css user/user.js antares.css external.css forms_standard.js app_cache.js view_gridstack.js employee-profile-form.scss)

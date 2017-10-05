@@ -1,0 +1,12 @@
+<%if notice%>
+	<p id="notice">
+	  <label><%= notice %></label>
+	  <span><i class="fa fa-times" aria-hidden="true"></i></span>
+	</p>
+<%end%>
+
+<script>
+	$("#notice span i").click(function(){
+		$("#notice").attr("style","display: none;")
+	});
+</script>

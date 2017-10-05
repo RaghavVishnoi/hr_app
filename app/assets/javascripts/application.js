@@ -55,8 +55,7 @@
 // App.cable = ActionCable.createConsumer();
 
 
-$(document).ready(function(){
-
+$(document).ready(function(){  
    $('#calendar').each(function(){
     var calendar = $(this);
     calendar.fullCalendar({
