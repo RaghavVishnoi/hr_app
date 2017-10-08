@@ -1,0 +1,2 @@
+class LeaveResponse < ApplicationRecord
+end

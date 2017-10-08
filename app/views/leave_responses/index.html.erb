@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Leave Responses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leave_responses.each do |leave_response| %>
+      <tr>
+        <td><%= link_to 'Show', leave_response %></td>
+        <td><%= link_to 'Edit', edit_leave_response_path(leave_response) %></td>
+        <td><%= link_to 'Destroy', leave_response, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Leave Response', new_leave_response_path %>

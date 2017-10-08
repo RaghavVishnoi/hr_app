@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LeaveWorkAssignTest < ActiveSupport::TestCase
+class LeaveRequestTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -18,6 +18,7 @@ class Employee < ApplicationRecord
   has_many :responses
   has_many :employee_usage_logs
   has_many :trackers, class_name: "Tracker", foreign_key: "employee_id"
+  has_many :leave_requests
 
   belongs_to :role
   has_many :teams, through: :team_members
@@ -38,7 +39,7 @@ class Employee < ApplicationRecord
   # has_many :project_team_members
 
   scope :employees, -> { joins(:role).where(roles: { role: "employee" }) }
-  scope :team_managers, -> { joins(:role).where(roles: { role: "team_member" }) }
+  scope :team_managers, -> { joins(:role).where(roles: { role: "team_manager" }) }
   scope :team_leaders, -> { joins(:role).where(roles: { role: "team_leader" }) }
 
   scope :team_members, -> { joins(:role).where(roles: { role: "team_member" }) }
@@ -47,6 +48,7 @@ class Employee < ApplicationRecord
   scope :team_exams, -> { }
 
   scope :members, -> { joins(:role).where("roles.role in (?)", ["employee", "team_manager", "team_leader"]) }
+  
 
   def self.not_added()
     includes(:project_team_member).where(project_team_members: { employee_id: nil } )
@@ -82,6 +84,10 @@ class Employee < ApplicationRecord
     else
       email
     end
+  end
+
+  def covers
+    Employee.where("role_id = ?", self.role.id)
   end
 
   def self.to_csv

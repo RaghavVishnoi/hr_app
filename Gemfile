@@ -37,6 +37,7 @@ gem 'wkhtmltopdf-binary'
 
 group :development, :test do
   gem 'pry', platform: :mri
+  gem 'byebug'
 end
 
 group :development do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171001080728) do
+ActiveRecord::Schema.define(version: 20171007071619) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -137,33 +137,41 @@ ActiveRecord::Schema.define(version: 20171001080728) do
     t.datetime "updated_at",              null: false
   end
 
-  create_table "leave_work_assigns", force: :cascade do |t|
-    t.integer  "leave_id"
-    t.string   "assign_to"
+  create_table "leave_requests", force: :cascade do |t|
+    t.datetime "from"
+    t.datetime "to"
+    t.string   "subject"
+    t.text     "description"
+    t.boolean  "is_office_wide_meeting"
+    t.boolean  "is_staff_meeting"
+    t.boolean  "is_client_visit_day"
+    t.boolean  "is_client_visit_week"
+    t.boolean  "is_client_part"
+    t.boolean  "is_special_approval_needed"
+    t.boolean  "is_training_schedule"
+    t.string   "coverage_plans"
+    t.float    "vacation_hours"
+    t.float    "sick_hours"
+    t.datetime "date_vacation_accrues"
+    t.datetime "date_requested_off"
+    t.string   "purspose_timeoff"
+    t.boolean  "is_make_up_or_sicktime"
     t.integer  "employee_id"
-    t.date     "assign_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.index ["employee_id"], name: "index_leave_work_assigns_on_employee_id", using: :btree
-    t.index ["leave_id"], name: "index_leave_work_assigns_on_leave_id", using: :btree
+    t.integer  "cover_id"
+    t.integer  "team_lead_id"
+    t.integer  "team_manager_id"
+    t.string   "status"
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  create_table "leaves", force: :cascade do |t|
-    t.string   "subject"
-    t.string   "body"
-    t.datetime "from_date"
-    t.datetime "to_date"
-    t.datetime "employee_accepted_at"
-    t.datetime "tl_accepted_at"
-    t.datetime "tm_accepted_at"
-    t.datetime "hr_accepted_at"
-    t.datetime "president_accepted_at"
-    t.integer  "assigned_to"
+  create_table "leave_responses", force: :cascade do |t|
+    t.integer  "leave_request_id"
     t.integer  "employee_id"
-    t.string   "status"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.integer  "all_assign"
+    t.string   "role"
+    t.datetime "response_date"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "messages", force: :cascade do |t|
@@ -397,8 +405,12 @@ ActiveRecord::Schema.define(version: 20171001080728) do
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "teams"
   add_foreign_key "experiences", "employees"
-  add_foreign_key "leave_work_assigns", "employees"
-  add_foreign_key "leave_work_assigns", "leaves", column: "leave_id"
+  add_foreign_key "leave_requests", "employees"
+  add_foreign_key "leave_requests", "employees", column: "cover_id"
+  add_foreign_key "leave_requests", "employees", column: "team_lead_id"
+  add_foreign_key "leave_requests", "employees", column: "team_manager_id"
+  add_foreign_key "leave_responses", "employees"
+  add_foreign_key "leave_responses", "leave_requests"
   add_foreign_key "project_team_members", "employees"
   add_foreign_key "project_team_members", "project_teams"
   add_foreign_key "questions", "exams"

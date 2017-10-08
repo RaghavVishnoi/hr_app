@@ -52,6 +52,7 @@ GEM
     bootstrap3-datetimepicker-rails (4.17.47)
       momentjs-rails (>= 2.8.1)
     builder (3.2.3)
+    byebug (9.1.0)
     climate_control (0.2.0)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
@@ -226,6 +227,7 @@ DEPENDENCIES
   bootstrap-datetimepicker-rails
   bootstrap-sass (~> 3.3.6)
   bootstrap3-datetimepicker-rails (~> 4.17.47)
+  byebug
   coffee-rails (~> 4.2)
   devise
   figaro

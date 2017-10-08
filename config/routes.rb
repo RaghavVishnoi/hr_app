@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :leave_responses
+  resources :leave_requests
   resources :perf_review_requests
   resources :perf_reviews
   resources :ques_answs
@@ -17,7 +19,6 @@ Rails.application.routes.draw do
   resources :project_teams
   resources :trackers
   resources :projects
-  resources :leaves
   resources :issues
   resources :experiences
   resources :employees, except: [:show], path: '/users'
