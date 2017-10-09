@@ -8,11 +8,11 @@ class LeaveRequestsController < ApplicationController
     when "employee"
       @leave_requests = current_employee.leave_requests
     when "team_leader"
-      @self_leave_requests = LeaveRequest.team_leader_leave_requests
+      @leave_requests = LeaveRequest.team_leader_leave_requests
     when "team_manager"
-
+      @leave_requests = LeaveRequest.team_manager_leave_requests
     when "hr"
-
+      @leave_requests = LeaveRequest.hr_leave_requests
     when "president"
 
     end
@@ -72,6 +72,19 @@ class LeaveRequestsController < ApplicationController
     end
   end
 
+  def update_status
+    @leave_response = LeaveResponse.new(leave_response_params)
+    if @leave_response.save!
+      if leave_response_params[:reporting_manager_action] == "approved"
+        render json: {status: 200,message: "Successfully approved!"}
+      else
+        render json: {status: 200,message: "Successfully rejected!"}
+      end 
+    else
+      render json: {status: 500,error: @leave_response.errors.full_messages}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_leave_request
@@ -81,6 +94,16 @@ class LeaveRequestsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def leave_request_params
       params.require(:leave_request).permit(:from,:to,:subject,:description,:is_office_wide_meeting,:is_staff_meeting,:is_client_visit_day,:is_client_visit_week,:is_client_part,:is_special_approval_needed,:is_training_schedule,:coverage_plans,:vacation_hours,:sick_hours,:date_vacation_accrues,:date_requested_off,:purspose_timeoff,:is_make_up_or_sicktime,:employee_id,:cover_id,:team_lead_id,:team_manager_id)
+    end
+
+    def leave_response_params
+      @params = params.symbolize_keys
+      {
+        leave_request_id: Integer(@params[:leave_request]["leave_request_id"]),
+        employee_id: Integer(@params[:leave_request]["employee_id"]),
+        role: @params[:leave_request]["employee_role"],
+        reporting_manager_action: @params[:leave_request]["action"]
+      }
     end
 
 

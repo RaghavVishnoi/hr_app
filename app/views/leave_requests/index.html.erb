@@ -27,10 +27,36 @@
                   <td><%= leave_request.employee.name %></td>
                   <td><%= leave_request.status.capitalize %></td>
                   <% if current_employee.user_role == 'employee' %>
-                    <td><%= link_to 'Show', employee_profile_path(employee) %></td>
-                    <td><%= link_to 'Edit', edit_employee_path(employee
-                    ) %></td>
-                    <td><%= link_to 'Destroy', employee, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                    <td>
+                      <%= link_to leave_request_path(leave_request) do%>
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                      <%end%>
+                      &nbsp;&nbsp;&nbsp;
+                      <%= link_to edit_leave_request_path(leave_request) do%>
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                      <%end%>
+                      &nbsp;&nbsp;&nbsp;
+                      <%= link_to leave_request, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      <%end%>
+                    </td>
+                    <%else%> 
+                    <td> 
+                      <%= link_to leave_request_path(leave_request) do%>
+                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                      <%end%>
+                      &nbsp;&nbsp;&nbsp;
+                      <%if (current_employee.user_role == "team_leader" && leave_request.status == "initial") || (current_employee.user_role == "team_manager" && leave_request.status == "lead_approved") || current_employee.user_role == "hr" || current_employee.user_role == "president"%>
+                        <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                          <i class="fa fa-check" aria-hidden="true"></i>
+                          Approve
+                        </button>
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="rejectedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                          <i class="fa fa-times" aria-hidden="true" ></i>
+                          Reject
+                        </button>
+                      <%end%>  
+                    </td>        
                   <% end %>
                 </tr>
               <% end %>
@@ -38,7 +64,7 @@
           </table>
         </div>
       <% else %>
-        You don't have any leave requests
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;You don't have any leave requests</p>
       <% end %>
       <br/>
     </div>

@@ -5,9 +5,11 @@
     <%= csrf_meta_tags %>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= yield :head %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
   </head>
 
   <body <%= yield(:body_attributes) %> class="theme-cyan">
@@ -29,6 +31,7 @@
       $(document).on("click", function(){
         $(".dropdown-animating.open").removeClass('open');
       });
+      $('.datetimepicker').datetimepicker({});
     </script>
   </body>
 </html>

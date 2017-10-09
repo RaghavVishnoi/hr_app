@@ -15,7 +15,7 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :from %>
-        <%= f.text_field :from, class: "form-control datepicker",required: true %>
+        <%= f.text_field :from, class: "form-control datetimepicker",required: true %>
       </div>
     </div>
   </div>
@@ -24,7 +24,7 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :to %>
-        <%= f.text_field :to, class: "form-control datepicker",required: true %>
+        <%= f.text_field :to, class: "form-control datetimepicker",required: true %>
       </div>
     </div>
   </div>
@@ -156,7 +156,7 @@
       <div class="form-line">
         <%= f.label :date_vacation_accrues? %>
         <br />
-        <%= f.text_field :date_vacation_accrues, class: "form-control datepicker",required: true %>
+        <%= f.text_field :date_vacation_accrues, class: "form-control datetimepicker",required: true %>
       </div>
     </div>
   </div>
@@ -166,7 +166,7 @@
       <div class="form-line">
         <%= f.label :date_requested_off? %>
         <br />
-        <%= f.text_field :date_requested_off, class: "form-control datepicker",required: true %>
+        <%= f.text_field :date_requested_off, class: "form-control datetimepicker",required: true %>
       </div>
     </div>
   </div>
@@ -216,7 +216,7 @@
       <div class="form-line">
         <%= f.label :supervising_team_manager_approval_and_e_signature? %>
         <br />
-        <%= f.select :team_lead_id, Employee.team_managers.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+        <%= f.select :team_manager_id, Employee.team_managers.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -227,9 +227,3 @@
     <%= f.submit "Apply Leave", class: "btn bg-blue waves-button-input" %>
   </div>
 <% end %>
-
- <% content_for :page_script do %>
-    <script type="text/javascript">
-      $("#experience_from_date, #experience_to_date").datepicker();
-    </script>
-  <% end %>

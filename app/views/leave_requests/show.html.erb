@@ -1,4 +1,228 @@
-<p id="notice"><%= notice %></p>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Leave Request Details -  <%=@leave_request.status.capitalize%></h2>
+      </div>
+      <div class="body">
+       	<div class="row panel panel-success">
+            <div class="panel-body">                                          
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
 
-<%= link_to 'Edit', edit_leave_request_path(@leave_request) %> |
-<%= link_to 'Back', leave_requests_path %>
+                            <div class="row">
+                                
+                                <div class="col-lg-12 col-md-12">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Basic" class="text-success"><i class="fa fa-indent"></i>Basic</a></li>
+
+                                        <li><a data-toggle="tab" href="#Detailed_Servay" class="text-success"><i class="fa fa-bookmark-o"></i>Detailed Servay</a></li>
+
+                                        <li><a data-toggle="tab" href="#Reporting_Hierarchy" class="text-success"><i class="fa fa-home"></i> Reporting Hierarchy & Cover </a></li>
+
+                                        <li><a data-toggle="tab" href="#Other" class="text-success"><i class="fa fa-info"></i> Other</a></li>	
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="Basic" class="tab-pane fade in active">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+    
+                                                        <tr>
+                                                            <td class="text-success"> From date</td>
+                                                            <td><%=@leave_request.from.strftime("%d %b,%Y %H:%M")%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">To Date</td>
+                                                            <td><%=@leave_request.to.strftime("%d %b,%Y %H:%M")%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Subject</td>
+                                                            <td>
+                                                                <%=@leave_request.subject%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Description</td>
+                                                            <td><%=@leave_request.description%></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div id="Detailed_Servay" class="tab-pane fade">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+    									
+                                                        <tr>
+                                                            <td class="text-success"> Is there an office wide meeting on this day? </td>
+                                                            <td>
+                                                                <%=@leave_request.is_office_wide_meeting == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Is there any staff meeting on this day?  </td>
+                                                            <td>
+                                                                <%=@leave_request.is_staff_meeting == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Is there a client visit on the day you out? </td>
+                                                            <td>
+                                                                <%=@leave_request.is_client_visit_day == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Is there a client visit the following week?  </td>
+                                                            <td>
+                                                                <%=@leave_request.is_client_visit_week == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> If so is this client part of your team? </td>
+                                                            <td>
+                                                                <%=@leave_request.is_client_part == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> If so special approval will be needed by the manager?  </td>
+                                                            <td>
+                                                                <%=@leave_request.is_special_approval_needed == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Are you scheduled for training either as a trainer or trainee during the requested time off? </td>
+                                                            <td>
+                                                                <%=@leave_request.is_training_schedule == true ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> If so what coverage plans have you arranged? </td>
+                                                            <td>
+                                                                <%=@leave_request.coverage_plans%>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div id="Reporting_Hierarchy" class="tab-pane fade">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>   										
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Person who will be covering for you and their e signature? 
+                                                            </td>
+                                                            <td>
+                                                                <%=@leave_request.cover.name%>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Team leader approval and e signature? 
+                                                            </td>
+                                                            <td>
+                                                                <%=@leave_request.team_leader.name%>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Supervising team manager approval and e signature?  
+                                                            </td>
+                                                            <td>
+                                                                <%=@leave_request.team_manager.name%>
+                                                            </td>
+                                                        </tr>
+                                                                 										
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div id="Other" class="tab-pane fade">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                    Vacation hours available?
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.vacation_hours%>
+                                                                </td>
+                                                            </tr> 
+
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                    No of sick hours available?
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.sick_hours%>
+                                                                </td>
+                                                            </tr>  
+
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                    Date vacation accrues? 
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.date_vacation_accrues.strftime("%d %b,%Y %H:%M")%>
+                                                                </td>
+                                                            </tr>  
+
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                    Date requested off? 
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.date_requested_off.strftime("%d %b,%Y %H:%M")%>
+                                                                </td>
+                                                            </tr>
+
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                   Purpose of time off? 
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.purspose_timeoff%>
+                                                                </td>
+                                                            </tr>   
+
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                   Will you use sick vacation or make up time? 
+
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.is_make_up_or_sicktime == true ? 'Yes' : 'No'%>
+                                                                </td>
+                                                            </tr>                 
+        										
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.table-responsive -->
+                
+            </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', leave_requests_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

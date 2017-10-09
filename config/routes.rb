@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  post "/leave_requests/update_status"
   resources :leave_responses
   resources :leave_requests
   resources :perf_review_requests

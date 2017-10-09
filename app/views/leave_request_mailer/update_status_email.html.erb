@@ -7,11 +7,12 @@
   <body>
     <h4><%=@leave_request.subject%></h4>
     <p>
-     <%=@employee.first_name%> <%=@employee.last_name%> Needs Leave from Date : <%=@leave_request.from.to_date%> to <%=@leave_request.to.to_date%>
+     <%=@request_owner.first_name%> <%=@request_owner.last_name%> Needs Leave from Date : <%=@leave_request.from.to_date%> to <%=@leave_request.to.to_date%>
 
      <%= @leave_request.description %>	
     </p>
     <p>And his/her work is assign to <%=@cover.first_name%> <%=@cover.last_name%> .</p>
+    
     <h4>Thank you</h4>
   	
   </body>
