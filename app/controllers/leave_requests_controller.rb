@@ -4,18 +4,22 @@ class LeaveRequestsController < ApplicationController
   # GET /leave_requests
   # GET /leave_requests.json
   def index
-    case current_employee.role.role
-    when "employee"
-      @leave_requests = current_employee.leave_requests
-    when "team_leader"
-      @leave_requests = LeaveRequest.team_leader_leave_requests
-    when "team_manager"
-      @leave_requests = LeaveRequest.team_manager_leave_requests
-    when "hr"
-      @leave_requests = LeaveRequest.hr_leave_requests
-    when "president"
+    if params[:type] == "active"
+      @leave_requests = LeaveRequest.where(to: Time.now.beginning_of_day..Time.now.end_of_day)
+    else
+      case current_employee.role.role
+      when "employee"
+        @leave_requests = current_employee.leave_requests
+      when "team_leader"
+        @leave_requests = LeaveRequest.team_leader_leave_requests
+      when "team_manager"
+        @leave_requests = LeaveRequest.team_manager_leave_requests
+      when "hr"
+        @leave_requests = LeaveRequest.hr_leave_requests
+      when "president"
 
-    end
+      end
+    end  
   end
 
   # GET /leave_requests/1

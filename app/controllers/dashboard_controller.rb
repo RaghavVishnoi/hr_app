@@ -8,6 +8,7 @@ class DashboardController < ApplicationController
       @exams = current_employee.exams
       @active_exams = Exam.enabled 
       @results = Result.eager_load([:employee, :exams])
+      @active_leaves = LeaveRequest.where(to: Time.now.beginning_of_day..Time.now.end_of_day)
     end
   # render :layout => 'dashboard'
   end
