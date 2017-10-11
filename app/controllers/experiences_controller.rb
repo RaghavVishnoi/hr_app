@@ -28,8 +28,13 @@ class ExperiencesController < ApplicationController
 
     respond_to do |format|
       if @experience.save
-        format.html { redirect_to @experience, notice: 'Experience was successfully created.' }
-        format.json { render :show, status: :created, location: @experience }
+        if last_url[:controller] == 'employees'
+          format.html { redirect_to request.referer, notice: 'Experience was successfully created.' }
+          format.json { render :show, status: :created, location: @experience }
+        else
+          format.html { redirect_to experiences_path, notice: 'Experience was successfully created.' }
+          format.json { render :show, status: :created, location: @experience }
+        end  
       else
         format.html { render :new }
         format.json { render json: @experience.errors, status: :unprocessable_entity }
@@ -42,7 +47,7 @@ class ExperiencesController < ApplicationController
   def update
     respond_to do |format|
       if @experience.update(experience_params)
-        format.html { redirect_to @experience, notice: 'Experience was successfully updated.' }
+        format.html { redirect_to experiences_path, notice: 'Experience was successfully updated.' }
         format.json { render :show, status: :ok, location: @experience }
       else
         format.html { render :edit }

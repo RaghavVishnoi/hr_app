@@ -1,33 +1,53 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Experiences</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>From date</th>
-      <th>To date</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @experiences.each do |experience| %>
-      <tr>
-        <td><%= experience.from_date %></td>
-        <td><%= experience.to_date %></td>
-        <td><%= experience.title %></td>
-        <td><%= experience.description %></td>
-        <td><%= link_to 'Show', experience %></td>
-        <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
-        <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
 <br>
 
 <%= link_to 'New Experience', new_experience_path %>
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          Experiences
+          
+        </h2>
+      </div>
+      <% if @experiences.present? %>
+      <div class="body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>From date</th>
+                <th>To date</th>
+                <th>Employee</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+               <% @experiences.each do |experience| %>
+                <tr>
+                  <td><%= experience.from_date %></td>
+                  <td><%= experience.to_date %></td>
+                  <td><%=experience.employee.name%></td>
+                  <td><%= experience.title %></td>
+                  <td><%= experience.description %></td>
+                  <% if current_employee.user_role != 'employee' %>
+                    <td><%= link_to 'Show', experience %></td>
+                    <td><%= link_to 'Edit', edit_experience_path(experience) %></td>
+                    <td><%= link_to 'Destroy', experience, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        You don't have any experience detail!
+      <% end %>
+      <br/>
+    </div>
+  </div>
+</div>

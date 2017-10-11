@@ -11,27 +11,43 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :from_date %>
-    <%= f.datetime_select :from_date %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :from_date %>
+        <%= f.text_field :from_date, class: "form-control datetimepicker",required: true %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :to_date %>
-    <%= f.datetime_select :to_date %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :to_date %>
+        <%= f.text_field :to_date, class: "form-control datetimepicker",required: true %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "form-control",required: true %>
+      </div>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :description %>
-    <%= f.text_field :description %>
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: "form-control",required: true %>
+        <%= f.hidden_field :employee_id, class: "form-control",required: true,:value => "#{current_employee.id}" %>
+      </div>
+    </div>
   </div>
-
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Add Experience", class: "btn bg-blue waves-button-input" %>
   </div>
 <% end %>

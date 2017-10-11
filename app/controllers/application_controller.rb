@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_employee!
   before_filter :all_messages
+  before_filter :last_url
 
   def after_sign_in_path_for(resource)	
     dashboard_path
@@ -10,6 +11,10 @@ class ApplicationController < ActionController::Base
 
   def all_messages
     @messages = Message.order("id desc").first(5)
+  end
+
+  def last_url
+  	Rails.application.routes.recognize_path(request.referrer)
   end
 
 end

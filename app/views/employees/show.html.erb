@@ -199,6 +199,7 @@
                         </div>
                       </div>  
                     </div>
+                    <%= f.hidden_field :employee_id, class: "form-control datepicker",:required => "true",:value => "#{@employee.id}" %>
                     <div class="col-md-offset-8 col-sm-4 employee-experience-field">
                       <%= f.submit 'Add Experience', :class => 'btn btn-primary' %>
                     </div>

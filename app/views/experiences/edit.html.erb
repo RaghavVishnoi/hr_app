@@ -1,6 +1,62 @@
-<h1>Editing Experience</h1>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Edit Experience</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+          	<%= form_for(@experience) do |f| %>
+              <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :from_date %>
+			        <br>
+			        <%= text_field_tag "","#{@experience.from_date}",style: "border: 0",disabled: true  %>
+			        <%= f.text_field :from_date, class: "form-control datetimepicker" %>
+			      </div>
+			    </div>
+			  </div>
 
-<%= render 'form', experience: @experience %>
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :to_date %>
+			        <br>
+			        <%= text_field_tag "","#{@experience.to_date}",style: "border: 0",disabled: true  %>
+			        <%= f.text_field :to_date, class: "form-control datetimepicker"  %>
+			      </div>
+			    </div>
+			  </div>
 
-<%= link_to 'Show', @experience %> |
-<%= link_to 'Back', experiences_path %>
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :title %>
+			        <%= f.text_field :title, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :description %>
+			        <%= f.text_field :description, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+			  <div class="actions">
+			    <%= f.submit "Add Experience", class: "btn bg-blue waves-button-input" %>
+			  </div>
+			<%end%>  
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', experiences_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

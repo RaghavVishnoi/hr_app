@@ -1559,7 +1559,7 @@ fc-today {
 .employee-profile-pane #tab1{height: 75px;}
 .employee-profile-pane #tab2{height: 200px;}
 .employee-document-table{border-bottom: 2px solid; min-height:50px;max-height: 150px; overflow: auto;}
-.employee-profile-pane #tab3{height: 390px;}
+.employee-profile-pane #tab3{height: 500px;}
 .employee-experience-table{border-bottom: 2px solid; min-height:50px;max-height: 150px; overflow: auto;}
 
 #notice {
@@ -1578,3 +1578,23 @@ fc-today {
 .employee-experience-field{margin-bottom: 5px;}
 
 .radio_button_default{position: relative !important;left:0 !important;opacity: 10 !important}
+
+
+.navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
+.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.icon-size
+{
+    font-size: 87px;
+}
