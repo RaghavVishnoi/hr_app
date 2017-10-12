@@ -1,12 +1,13 @@
 class ApplicationController < ActionController::Base
+
   protect_from_forgery with: :exception
 
   before_filter :authenticate_employee!
   before_filter :all_messages
   before_filter :last_url
 
-  def after_sign_in_path_for(resource)	
-    dashboard_path
+  def after_sign_in_path_for(resource)
+      dashboard_path
   end
 
   def all_messages
@@ -14,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
 
   def last_url
-    if request.referrer != nil
+    if request.referrer != nil && params[:controller] != 'admin/sessions'
   	 Rails.application.routes.recognize_path(request.referrer)
     else
       ''
