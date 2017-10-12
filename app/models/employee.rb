@@ -8,8 +8,6 @@ class Employee < ApplicationRecord
   acts_as_taggable_on :skills
 
   belongs_to :role
-  has_many :leaves, class_name: "Leave", foreign_key: "employee_id"
-  has_many :leave_work_emps, class_name: "LeaveWorkAssign", foreign_key: "employee_id"
   has_many :events, class_name: "Event", foreign_key: "employee_id_id"
   has_many :switch_days, class_name: "SwitchDay", foreign_key: "employee_id"
   has_many :exams, through: :teams
@@ -23,7 +21,6 @@ class Employee < ApplicationRecord
   belongs_to :role
   has_many :teams, through: :team_members
   has_many :team_members
-  has_many :leave, as: :applicable
   has_many :documents, dependent: :destroy
   has_many :experiences, dependent: :destroy
   has_one :project_team_member, dependent: :destroy

@@ -1,6 +1,30 @@
 Rails.application.routes.draw do
 
 
+  devise_for :admin, controllers: {  
+    # confirmations: 'users/confirmations',
+    sessions: 'admin/sessions',
+    # unlocks: 'users/unlocks',
+  }, skip: [:sessions]
+
+  ## custom routes for users
+  as :admin do  
+     unauthenticated :admin do
+      root to: 'admin/sessions#new'
+     end
+
+     authenticated :admin do
+      root to: 'admin/sessions#new'
+     end  
+  end
+
+  devise_scope :admin do
+    get "/admins/sign_in" => "admin/sessions#new", as: :new_admin_session_path_url
+    post '/admins/sign_in' => 'admin/sessions#create', as: :admin_session_path
+  end
+
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   post "/leave_requests/update_status"
   resources :leave_responses
   resources :leave_requests

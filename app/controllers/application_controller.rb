@@ -14,7 +14,11 @@ class ApplicationController < ActionController::Base
   end
 
   def last_url
-  	Rails.application.routes.recognize_path(request.referrer)
+    if request.referrer != nil
+  	 Rails.application.routes.recognize_path(request.referrer)
+    else
+      ''
+    end
   end
 
 end
