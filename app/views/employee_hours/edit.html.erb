@@ -1,0 +1,84 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Edit Hours</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <%= form_for(@employee_hour) do |f| %>
+			  <% if @employee_hour.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@employee_hour.errors.count, "error") %> prohibited this employee_hour from being saved:</h2>
+
+			      <ul>
+			      <% @employee_hour.errors.full_messages.each do |message| %>
+			        <li><%= message %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :employee_id %>
+			        <%= f.select :employee_id, Employee.where.not(id: EmployeeHour.all.pluck(:employee_id)).joins(:role).where.not('roles.role IN (?)',['president']).collect {|e| [ e.name, e.id ] }, {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :initial_sick_hours %>
+			        <%= f.number_field :initial_sick_hours, class: "form-control",required: true%>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :available_sick_hours %>
+			        <%= f.number_field :available_sick_hours, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :initial_vocation_hours %>
+			        <%= f.number_field :initial_vocation_hours, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :available_vocation_hours %>
+			        <%= f.number_field :available_vocation_hours, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+			  
+			  <div class="col-sm-12 col-xs-12">
+			    <div class="form-group form-float">
+			        <div class="actions">
+			          <%= f.submit "Update Hours", class: "btn bg-blue waves-button-input" %>
+			        </div>
+			    </div>
+			  </div>
+			<% end %>
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', employee_hours_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

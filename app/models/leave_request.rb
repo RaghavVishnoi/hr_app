@@ -2,6 +2,7 @@ class LeaveRequest < ApplicationRecord
 
 	before_create :default_values
 	after_create :notify_reporting_employee
+	after_create :update_available_hours
 
 	belongs_to :employee
 	belongs_to :cover, :class_name => :Employee,:foreign_key => "cover_id"
@@ -14,6 +15,9 @@ class LeaveRequest < ApplicationRecord
 	scope :team_manager_leave_requests, -> {where(status: ["lead_approved","manager_approved","hr_approved","president_approved","manager_rejected","hr_rejected","president_rejected"]).joins(:employee).where("employees.role_id in (?)", Role.where(role: ["employee","team_leader"]).pluck(:id))}
 
 	scope :hr_leave_requests, -> {joins(:employee).where("employees.role_id in (?)", Role.where(role: ["employee","team_leader","team_manager"]).pluck(:id))}
+
+	validates :from,presence: true
+	validates :to,presence: true
 
 	private
 		def default_values
@@ -28,8 +32,16 @@ class LeaveRequest < ApplicationRecord
 				@email = Employee.find_by_role_id(Role.find_by_role("team_manager"))
 			when "team_manager"
 				@email = Employee.find_by_role_id(Role.find_by_role("hr"))
+			when "hr"
+				@email = Employee.find_by_role_id(Role.find_by_role("president"))
 			end				
-			LeaveRequestMailer.leave_email(@email,self).deliver_now
+			#LeaveRequestMailer.leave_email(@email,self).deliver_now
+		end
+
+		def update_available_hours
+			applied_days = ((self.to - self.from).to_i)/1.day
+			total_hours = applied_days * 8
+			self.employee.employee_hour.update(available_sick_hours: self.employee.employee_hour.available_sick_hours - total_hours)
 		end
 
 end

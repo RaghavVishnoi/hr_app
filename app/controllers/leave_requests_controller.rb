@@ -40,9 +40,8 @@ class LeaveRequestsController < ApplicationController
   # POST /leave_requests.json
   def create
     @leave_request = LeaveRequest.new(leave_request_params)
-
     respond_to do |format|
-      if @leave_request.save
+      if @leave_request.save!
         format.html { redirect_to @leave_request, notice: 'Leave request was successfully created.' }
         format.json { render :show, status: :created, location: @leave_request }
       else

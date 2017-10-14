@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :employee_hours
   post "/leave_requests/update_status"
 
   resources :leave_responses

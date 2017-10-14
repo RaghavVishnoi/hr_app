@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171012184414) do
+ActiveRecord::Schema.define(version: 20171014081143) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,16 @@ ActiveRecord::Schema.define(version: 20171012184414) do
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
     t.index ["employee_id"], name: "index_emp_benefit_docs_on_employee_id", using: :btree
+  end
+
+  create_table "employee_hours", force: :cascade do |t|
+    t.float    "available_sick_hours"
+    t.float    "initial_sick_hours"
+    t.float    "available_vocation_hours"
+    t.float    "initial_vocation_hours"
+    t.integer  "employee_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "employee_usage_logs", force: :cascade do |t|
@@ -416,6 +426,7 @@ ActiveRecord::Schema.define(version: 20171012184414) do
   end
 
   add_foreign_key "documents", "employees"
+  add_foreign_key "employee_hours", "employees"
   add_foreign_key "employee_usage_logs", "employees"
   add_foreign_key "employees", "roles"
   add_foreign_key "exams", "employees"

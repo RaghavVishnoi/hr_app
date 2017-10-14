@@ -1,0 +1,74 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Employee Sick/Vocation Hours</h2>
+      </div>
+      <div class="body">
+       	<div class="row panel panel-success">
+            <div class="panel-body">                                          
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+
+                            <div class="row">
+                                
+                                <div class="col-lg-12 col-md-12">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Hours" class="text-success"><i class="fa fa-indent"></i>Hours</a></li>	
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="Basic" class="tab-pane fade in active">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+    
+                                                        <tr>
+                                                            <td class="text-success">Employee Name</td>
+                                                            <td><%=@employee_hour.employee.name%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Initial Sick Hours</td>
+                                                            <td><%=@employee_hour.initial_sick_hours%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Available Sick Hours</td>
+                                                            <td>
+                                                                <%=@employee_hour.available_sick_hours%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Initial Vocation Hours</td>
+                                                            <td>
+                                                                <%=@employee_hour.initial_vocation_hours%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Available Vocation Hours</td>
+                                                            <td>
+                                                                <%=@employee_hour.available_vocation_hours%>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.table-responsive -->
+                
+            </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', employee_hours_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

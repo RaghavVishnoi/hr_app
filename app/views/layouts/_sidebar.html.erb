@@ -258,6 +258,21 @@
               </li>
             </ul>
           </li>
+
+          <li class="<%= 'active' if params[:controller] == 'employees' %>">
+            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+              <i class="material-icons">event</i>
+              <span>Leave Available Hours</span>
+            </a>
+            <ul class="ml-menu">
+              <li>
+                <%= link_to 'List Available Hours', employee_hours_path, class: " waves-effect waves-block" %>
+              </li>
+              <li>
+                <%= link_to 'Add Available Hours', new_employee_hour_path , class: " waves-effect waves-block" %>
+              </li>
+            </ul>
+          </li>
         </ul>
       <% end %>
     </div>
