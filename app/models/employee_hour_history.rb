@@ -1,0 +1,2 @@
+class EmployeeHourHistory < ApplicationRecord
+end

@@ -1,0 +1,3 @@
+class EmployeeHourHistoriesController < ApplicationController
+
+end

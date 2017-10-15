@@ -14,11 +14,13 @@
                                 
                                 <div class="col-lg-12 col-md-12">
                                     <ul class="nav nav-tabs">
-                                        <li class="active"><a data-toggle="tab" href="#Hours" class="text-success"><i class="fa fa-indent"></i>Hours</a></li>	
+                                        <li class="<%='active' if !@history%>"><a data-toggle="tab" href="#Hours" class="text-success"><i class="fa fa-indent"></i>Hours</a></li>
+
+                                        <li class="<%='active' if @history%>"><a data-toggle="tab" href="#History" class="text-success"><i class="fa fa-indent"></i>History</a></li>	
                                     </ul>
 
                                     <div class="tab-content">
-                                        <div id="Basic" class="tab-pane fade in active">
+                                        <div id="Hours" class="tab-pane fade <%=' in active' if !@history%>">
                                             <div class="table-responsive panel">
                                                 <table class="table">
                                                     <tbody>
@@ -52,6 +54,57 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                        </div>
+
+                                        <div id="History" class="tab-pane fade <%=' in active' if @history%>">
+                                            <div class="table-responsive panel">
+                                                <table class="table" style="height: 175px;">
+                                                    <tbody>
+                                                        <%=form_tag request.fullpath do%>    
+                                                            <tr>
+                                                                <td class="text-success">From</td>
+                                                                <td style="width: 50%;"><%=text_field_tag "from","#{@from}", {class: "form-control datetimepicker"} %></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-success">To</td>
+                                                                <td style="width: 50%;"><%=text_field_tag 'to',"#{@from}", {class: "form-control datetimepicker"} %>
+                                                               
+                                                                <%=hidden_field_tag 'action_type','history'%>    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                    <div class="actions">
+                                                                        <%= submit_tag "Search", class: "btn bg-blue" %>
+                                                                        <%= submit_tag "Clear", class: "btn bg-red" %>
+                                                                    </div>
+                                                                </td>
+                                                                <td></td>
+                                                            </tr>
+                                                        <%end%>    
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <table class="table" style="height: 175px;overflow: auto;">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Sick Hours</th>
+                                                            <th>Vocation Hours</th>
+                                                            <th>Start Date</th>
+                                                            <th>End Date</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <%@employee_hour_histories.each do |employee_hour_history|%>
+                                                            <tr>
+                                                                <td class="text-success"><%=employee_hour_history.sick_hours%></td>
+                                                                <td><%=employee_hour_history.vocation_hours%></td>
+                                                                <td><%=employee_hour_history.start_date.strftime("%d %b,%Y")%></td>
+                                                                <td><%=employee_hour_history.end_date.strftime("%d %b,%Y")%></td>
+                                                            </tr>
+                                                        <%end%>    
+                                                    </tbody>
+                                                </table>
                                         </div>
 
                                     </div>

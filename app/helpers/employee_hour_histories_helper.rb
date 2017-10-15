@@ -1,0 +1,2 @@
+module EmployeeHourHistoriesHelper
+end

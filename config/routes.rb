@@ -2,7 +2,14 @@ Rails.application.routes.draw do
 
 
   resources :employee_hours
+  post '/employee_hours/:id' => 'employee_hours#show'
   post "/leave_requests/update_status"
+
+  resources :employee_hours do 
+    collection do
+      post '/history' => "employee_hours#history"
+    end
+  end
 
   resources :leave_responses
   resources :leave_requests

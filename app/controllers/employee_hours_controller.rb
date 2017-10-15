@@ -10,6 +10,22 @@ class EmployeeHoursController < ApplicationController
   # GET /employee_hours/1
   # GET /employee_hours/1.json
   def show
+    @from = params[:from]
+    @to = params[:to]
+    if params[:from].present? && params[:to].present?  && params[:commit] == 'Search'
+      @employee_hour_histories = EmployeeHourHistory.where(start_date: Date.strptime(params[:from], "%d/%m/%Y")..Date.strptime(params[:to], "%d/%m/%Y"),employee_hour_id: params[:id])
+      @history = true
+    else
+      if params[:commit] == 'Search'
+        @employee_hour_histories = []
+        @history = true
+      else
+        @employee_hour_histories = []
+        @history = false
+        @from = ""
+        @to = ""
+      end
+    end
   end
 
   # GET /employee_hours/new
