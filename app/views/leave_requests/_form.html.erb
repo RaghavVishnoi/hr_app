@@ -183,10 +183,60 @@
 
   <div class="col-sm-6 col-xs-12">
     <div class="form-group form-float">
-      <div class="form-line">
+      <div class="form-line makeup-or-sick-time">
         <%= f.label :will_you_use_sick_vacation_or_make_up_time? %>
         <br />
         <%= f.select :is_make_up_or_sicktime, ['Yes','No'], {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 leave-hour-type">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :leave_hour_type %>
+        <br />
+        <%= f.select :leave_hour_type, ['Sick','Vocation','Make Up'], {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 sick-hour-usage">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :sick_hour %>
+        <br />
+        <%= f.number_field :sick_hour_usage, class: "form-control",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 vocation-hour-usage" style="display: none;">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :vocation_hour %>
+        <br />
+        <%= f.number_field :vocation_hour_usage, class: "form-control",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12 make-up-time-usage" style="display: none;">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :make_up_time %>
+        <br />
+        <%= f.number_field :make_up_time_usage, class: "form-control",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :purpose_of_time_off? %>
+        <br />
+        <%= f.text_field :purspose_timeoff, class: "form-control",required: true %>
       </div>
     </div>
   </div>
@@ -222,13 +272,47 @@
   </div>
 
   <%= f.hidden_field :employee_id,value: current_employee.id %>
-
-  <div class="actions">
-    <%= f.submit "Apply Leave", class: "btn bg-blue waves-button-input" %>
+  <div class="col-sm-12 col-xs-12">
+    <div class="form-group form-float">
+      <div class="actions">
+        <%= f.submit "Apply Leave", class: "btn bg-blue waves-button-input" %>
+      </div>
+    </div>
   </div>
+
+ 
 <% end %>
 
 
 <script>
- 
+  $(document).ready(function(){
+    $("button").click(function(){
+      alert("inininin")
+    timeNeeded = $("#leave_request_is_make_up_or_sicktime").val();
+    if(timeNeeded == "Yes"){
+      $(".leave-hour-type").attr("style","display: block");
+      $("#leave_request_leave_hour_type").change(function(){
+        leaveHourType = $("#leave_request_leave_hour_type").val();
+        if(leaveHourType == 'Sick'){
+          $("#sick-hour-usage").attr("style","display: block");
+          $("#vocation-hour-usage").attr("style","display: none");
+          $("#make-up-time-usage").attr("style","display: none");
+        }else if(leaveHourType == 'Vocation'){
+          $("#sick-hour-usage").attr("style","display: none");
+          $("#vocation-hour-usage").attr("style","display: block");
+          $("#make-up-time-usage").attr("style","display: none");
+        }else{
+          $("#sick-hour-usage").attr("style","display: none");
+          $("#vocation-hour-usage").attr("style","display: none");
+          $("#make-up-time-usage").attr("style","display: block");
+        }
+      })
+    }else{
+      $(".leave-hour-type").attr("style","display: none");
+      $("#sick-hour-usage").attr("style","display: none");
+      $("#vocation-hour-usage").attr("style","display: none");
+      $("#make-up-time-usage").attr("style","display: none");
+    }
+  })
+  })
 </script>

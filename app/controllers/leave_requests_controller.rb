@@ -96,7 +96,7 @@ class LeaveRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def leave_request_params
-      params.require(:leave_request).permit(:from,:to,:subject,:description,:is_office_wide_meeting,:is_staff_meeting,:is_client_visit_day,:is_client_visit_week,:is_client_part,:is_special_approval_needed,:is_training_schedule,:coverage_plans,:vacation_hours,:sick_hours,:date_vacation_accrues,:date_requested_off,:purspose_timeoff,:is_make_up_or_sicktime,:employee_id,:cover_id,:team_lead_id,:team_manager_id)
+      params.require(:leave_request).permit(:from,:to,:subject,:description,:is_office_wide_meeting,:is_staff_meeting,:is_client_visit_day,:is_client_visit_week,:is_client_part,:is_special_approval_needed,:is_training_schedule,:coverage_plans,:vacation_hours,:sick_hours,:date_vacation_accrues,:date_requested_off,:purspose_timeoff,:is_make_up_or_sicktime,:leave_hour_type,:sick_hour_usage,:vocation_hour_usage,:make_up_time_usage,:employee_id,:cover_id,:team_lead_id,:team_manager_id)
     end
 
     def leave_response_params

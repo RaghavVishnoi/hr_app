@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171015080106) do
+ActiveRecord::Schema.define(version: 20171016185652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -200,6 +200,10 @@ ActiveRecord::Schema.define(version: 20171015080106) do
     t.string   "status"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.string   "leave_hour_type"
+    t.float    "sick_hour_usage"
+    t.float    "vocation_hour_usage"
+    t.float    "make_up_time_usage"
   end
 
   create_table "leave_responses", force: :cascade do |t|
