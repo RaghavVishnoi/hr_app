@@ -186,7 +186,7 @@
       <div class="form-line">
         <%= f.label :will_you_use_sick_vacation_or_make_up_time? %>
         <br />
-        <%= f.text_field :is_make_up_or_sicktime, class: "form-control",required: true %>
+        <%= f.select :is_make_up_or_sicktime, ['Yes','No'], {}, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -227,3 +227,8 @@
     <%= f.submit "Apply Leave", class: "btn bg-blue waves-button-input" %>
   </div>
 <% end %>
+
+
+<script>
+ 
+</script>
