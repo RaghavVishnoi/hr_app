@@ -201,6 +201,33 @@
                                                                 <td>
                                                                     <%=@leave_request.is_make_up_or_sicktime == true ? 'Yes' : 'No'%>
                                                                 </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                   Sick hours usage
+
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.sick_hour_usage || 0.0%>
+                                                                </td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                   Vocation hours usage
+
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.vocation_hour_usage || 0.0%>
+                                                                </td>
+                                                            </tr> 
+                                                            <tr>
+                                                                <td class="text-success">
+                                                                   Make up time usage
+
+                                                                </td>
+                                                                <td>
+                                                                    <%=@leave_request.make_up_time_usage || 0.0%>
+                                                                </td>
                                                             </tr>                 
         										
                                                     </tbody>

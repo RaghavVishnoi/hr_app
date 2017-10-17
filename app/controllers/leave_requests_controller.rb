@@ -17,7 +17,7 @@ class LeaveRequestsController < ApplicationController
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"
-
+        @leave_requests = LeaveRequest.all
       end
     end  
   end

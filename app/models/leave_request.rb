@@ -39,9 +39,17 @@ class LeaveRequest < ApplicationRecord
 		end
 
 		def update_available_hours
-			applied_days = ((self.to - self.from).to_i)/1.day
-			total_hours = applied_days * 8
-			self.employee.employee_hour.update(available_sick_hours: self.employee.employee_hour.available_sick_hours - total_hours)
+			employee_hours = self.employee.employee_hour
+			case self.leave_hour_type
+			when "Sick"
+				sick_hours = employee_hours.available_sick_hours
+				employee_hours.update(available_sick_hours: sick_hours-self.sick_hour_usage)
+			when "Vocation"
+				available_vocation_hours = employee_hours.available_vocation_hours
+				employee_hours.update(available_vocation_hours: available_vocation_hours-self.vocation_hour_usage)
+			else
+
+			end
 		end
 
 end

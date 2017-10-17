@@ -137,7 +137,7 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :vacation_hours_available? %>
-        <%= f.text_field :vacation_hours, class: "form-control",value: "#{current_employee.employee_hour.try(:available_vocation_hours)}",disabled: true %>  
+        <%= f.text_field :vacation_hours, class: "form-control",value: "#{current_employee.employee_hour.try(:available_vocation_hours)}",readonly: true %>  
       </div>
     </div>
   </div>
@@ -146,7 +146,7 @@
     <div class="form-group form-float">
       <div class="form-line">
         <%= f.label :no_of_sick_hours_available? %>
-        <%= f.text_field :sick_hours, class: "form-control",required: true,value: "#{current_employee.employee_hour.try(:available_sick_hours)}",disabled: true  %>
+        <%= f.text_field :sick_hours, class: "form-control",required: true,value: "#{current_employee.employee_hour.try(:available_sick_hours)}",readonly: true  %>
       </div>
     </div>
   </div>
@@ -206,7 +206,7 @@
       <div class="form-line">
         <%= f.label :sick_hour %>
         <br />
-        <%= f.number_field :sick_hour_usage, class: "form-control",required: true %>
+        <%= f.number_field :sick_hour_usage, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -216,7 +216,7 @@
       <div class="form-line">
         <%= f.label :vocation_hour %>
         <br />
-        <%= f.number_field :vocation_hour_usage, class: "form-control",required: true %>
+        <%= f.number_field :vocation_hour_usage, class: "form-control" %>
       </div>
     </div>
   </div>
@@ -226,7 +226,7 @@
       <div class="form-line">
         <%= f.label :make_up_time %>
         <br />
-        <%= f.number_field :make_up_time_usage, class: "form-control",required: true %>
+        <%= f.number_field :make_up_time_usage, class: "form-control"%>
       </div>
     </div>
   </div>
@@ -285,34 +285,32 @@
 
 
 <script>
-  $(document).ready(function(){
-    $("button").click(function(){
-      alert("inininin")
+  $("#leave_request_is_make_up_or_sicktime").change(function(){
     timeNeeded = $("#leave_request_is_make_up_or_sicktime").val();
     if(timeNeeded == "Yes"){
       $(".leave-hour-type").attr("style","display: block");
-      $("#leave_request_leave_hour_type").change(function(){
-        leaveHourType = $("#leave_request_leave_hour_type").val();
-        if(leaveHourType == 'Sick'){
-          $("#sick-hour-usage").attr("style","display: block");
-          $("#vocation-hour-usage").attr("style","display: none");
-          $("#make-up-time-usage").attr("style","display: none");
-        }else if(leaveHourType == 'Vocation'){
-          $("#sick-hour-usage").attr("style","display: none");
-          $("#vocation-hour-usage").attr("style","display: block");
-          $("#make-up-time-usage").attr("style","display: none");
-        }else{
-          $("#sick-hour-usage").attr("style","display: none");
-          $("#vocation-hour-usage").attr("style","display: none");
-          $("#make-up-time-usage").attr("style","display: block");
-        }
-      })
+      $(".sick-hour-usage").attr("style","display: block");
     }else{
       $(".leave-hour-type").attr("style","display: none");
-      $("#sick-hour-usage").attr("style","display: none");
-      $("#vocation-hour-usage").attr("style","display: none");
-      $("#make-up-time-usage").attr("style","display: none");
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: none");
     }
-  })
-  })
+  });
+  $("#leave_request_leave_hour_type").change(function(){
+    leaveHourType = $("#leave_request_leave_hour_type").val();
+    if(leaveHourType == 'Sick'){
+      $(".sick-hour-usage").attr("style","display: block");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: none");
+    }else if(leaveHourType == 'Vocation'){
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: block");
+      $(".make-up-time-usage").attr("style","display: none");
+    }else{
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: block");
+    }
+  });  
 </script>

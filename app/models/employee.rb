@@ -17,6 +17,7 @@ class Employee < ApplicationRecord
   has_many :employee_usage_logs
   has_many :trackers, class_name: "Tracker", foreign_key: "employee_id"
   has_many :leave_requests
+  has_one  :employee_hour
 
   belongs_to :role
   has_many :teams, through: :team_members

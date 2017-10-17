@@ -1,6 +1,335 @@
-<h1>Editing Leave Request</h1>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Edit Leave Request</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <%= form_for(@leave_request) do |f| %>
+			  <% if @leave_request.errors.any? %>
+			    <div id="error_explanation">
+			      <h2><%= pluralize(@leave_request.errors.count, "error") %> prohibited this exam from being saved:</h2>
 
-<%= render 'form', leave_request: @leave_request %>
+			      <ul>
+			      <% @leave_request.errors.full_messages.each do |message| %>
+			        <li><%= message %></li>
+			      <% end %>
+			      </ul>
+			    </div>
+			  <% end %>
 
-<%= link_to 'Show', @leave_request %> |
-<%= link_to 'Back', leave_requests_path %>
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :from %>
+			        <%= f.text_field :from, class: "form-control",readonly: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :to %>
+			        <%= f.text_field :to, class: "form-control",readonly: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :subject %>
+			        <%= f.text_field :subject, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :description %>
+			        <%= f.text_area :description, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :is_there_an_office_wide_meeting_on_this_day? %>
+			        <br />
+			          <%= f.radio_button :is_office_wide_meeting, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_office_wide_meeting, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :is_there_any_staff_meeting_on_this_day? %>
+			        <br />
+			          <%= f.radio_button :is_staff_meeting, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_staff_meeting, false,class: "radio_button_default",checked: true %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :is_there_a_client_visit_on_the_day_you_out? %>
+			        <br />
+			          <%= f.radio_button :is_client_visit_day, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_client_visit_day, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :is_there_a_client_visit_the_following_week? %>
+			        <br />
+			          <%= f.radio_button :is_client_visit_week, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_client_visit_week, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :if_so_is_this_client_part_of_your_team? %>
+			        <br />
+			          <%= f.radio_button :is_client_part, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_client_part, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :if_so_special_approval_will_be_needed_by_the_manager? %>
+			        <br />
+			          <%= f.radio_button :is_special_approval_needed, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_special_approval_needed, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :are_you_scheduled_for_training_either_as_a_trainer_or_trainee_during_the_requested_time_off? %>
+			        <br />
+			          <%= f.radio_button :is_training_schedule, true,class: "radio_button_default" %> Yes &nbsp;&nbsp;&nbsp;&nbsp;
+			          <%= f.radio_button :is_training_schedule, false,class: "radio_button_default",checked: true  %> No<br />
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :if_so_what_coverage_plans_have_you_arranged? %>
+			        <%= f.text_field :coverage_plans, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :vacation_hours_available? %>
+			        <%= f.text_field :vacation_hours, class: "form-control",value: "#{current_employee.employee_hour.try(:available_vocation_hours)}",readonly: true %>  
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :no_of_sick_hours_available? %>
+			        <%= f.text_field :sick_hours, class: "form-control",required: true,value: "#{current_employee.employee_hour.try(:available_sick_hours)}",readonly: true  %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :date_vacation_accrues? %>
+			        <br />
+			        <%= f.text_field :date_vacation_accrues, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :date_requested_off? %>
+			        <br />
+			        <%= f.text_field :date_requested_off, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :purpose_of_time_off? %>
+			        <br />
+			        <%= f.text_field :purspose_timeoff, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line makeup-or-sick-time">
+			        <%= f.label :will_you_use_sick_vacation_or_make_up_time? %>
+			        <br />
+			        <%= f.select :is_make_up_or_sicktime, ['Yes','No'], {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12 leave-hour-type">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :leave_hour_type %>
+			        <br />
+			        <%= f.select :leave_hour_type, ['Sick','Vocation','Make Up'], {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12 sick-hour-usage">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :sick_hour %>
+			        <br />
+			        <%= f.number_field :sick_hour_usage, class: "form-control",value: "#{@leave_request.sick_hour_usage}" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12 vocation-hour-usage">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :vocation_hour %>
+			        <br />
+			        <%= f.number_field :vocation_hour_usage, class: "form-control",value: "#{@leave_request.vocation_hour_usage}" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12 make-up-time-usage">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :make_up_time %>
+			        <br />
+			        <%= f.number_field :make_up_time_usage, class: "form-control",value: "#{@leave_request.make_up_time_usage}"%>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :purpose_of_time_off? %>
+			        <br />
+			        <%= f.text_field :purspose_timeoff, class: "form-control",required: true %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :person_who_will_be_covering_for_you_and_their_e_signature? %>
+			        <br />
+			        <%= f.select :cover_id, Employee.employees.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :team_leader_approval_and_e_signature? %>
+			        <br />
+			        <%= f.select :team_lead_id, Employee.team_leaders.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :supervising_team_manager_approval_and_e_signature? %>
+			        <br />
+			        <%= f.select :team_manager_id, Employee.team_managers.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <%= f.hidden_field :employee_id,value: current_employee.id %>
+			  <div class="col-sm-12 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="actions">
+			        <%= f.submit "Apply Leave", class: "btn bg-blue waves-button-input" %>
+			      </div>
+			    </div>
+			  </div>
+
+			 
+			<% end %>
+
+
+
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', leave_requests_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $("#leave_request_is_make_up_or_sicktime").change(function(){
+    timeNeeded = $("#leave_request_is_make_up_or_sicktime").val();
+    if(timeNeeded == "Yes"){
+      $(".leave-hour-type").attr("style","display: block");
+      $(".sick-hour-usage").attr("style","display: block");
+    }else{
+      $(".leave-hour-type").attr("style","display: none");
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: none");
+    }
+  });
+  $("#leave_request_leave_hour_type").change(function(){
+    leaveHourType = $("#leave_request_leave_hour_type").val();
+    if(leaveHourType == 'Sick'){
+      $(".sick-hour-usage").attr("style","display: block");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: none");
+    }else if(leaveHourType == 'Vocation'){
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: block");
+      $(".make-up-time-usage").attr("style","display: none");
+    }else{
+      $(".sick-hour-usage").attr("style","display: none");
+      $(".vocation-hour-usage").attr("style","display: none");
+      $(".make-up-time-usage").attr("style","display: block");
+    }
+  });  
+</script>

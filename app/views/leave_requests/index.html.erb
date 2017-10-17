@@ -26,7 +26,7 @@
                   <td><%= leave_request.to.strftime("%d %b,%Y") %></td>
                   <td><%= leave_request.employee.name %></td>
                   <td><%= leave_request.status.capitalize %></td>
-                  <% if current_employee.user_role == 'employee' %>
+                  <% if current_employee.user_role == 'employee'%>
                     <td>
                       <%= link_to leave_request_path(leave_request) do%>
                         <i class="fa fa-plus-square" aria-hidden="true"></i>
@@ -47,6 +47,11 @@
                       <%end%>
                       &nbsp;&nbsp;&nbsp;
                       <%if (current_employee.user_role == "team_leader" && leave_request.status == "initial") || (current_employee.user_role == "team_manager" && leave_request.status == "lead_approved") || current_employee.user_role == "hr" || current_employee.user_role == "president"%>
+                        <%if current_employee.user_role == "hr" || current_employee.user_role == "president"%>
+                          <%= link_to edit_leave_request_path(leave_request) do%>
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                          <%end%>
+                        <%end%>
                         <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
                           <i class="fa fa-check" aria-hidden="true"></i>
                           Approve
