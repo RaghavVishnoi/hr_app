@@ -72,6 +72,8 @@ GEM
       responders
       warden (~> 1.2.3)
     erubis (2.7.0)
+    et-orbi (1.0.7)
+      tzinfo
     execjs (2.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
@@ -207,6 +209,8 @@ GEM
     ruby_outlook (0.3.0)
       faraday
       uuidtools
+    rufus-scheduler (3.4.2)
+      et-orbi (~> 1.0)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -282,6 +286,7 @@ DEPENDENCIES
   rails (~> 5.0.5)
   rails_admin (~> 1.2)
   ruby_outlook
+  rufus-scheduler
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
