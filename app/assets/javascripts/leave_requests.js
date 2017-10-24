@@ -18,6 +18,7 @@ function showForwardRequest(employee_id,employee_role,id){
 	$("#forwardRequest").modal();
 	$("#submitForwardRequest").click(function(){
 		reporting_manager_id = $("#reporting_manager_id").val();
+		console.log("dddddddd "+reporting_manager_id)
 		forwardLeaveRequest(employee_id,employee_role,id,reporting_manager_id)
 	});
 }

@@ -10,7 +10,7 @@
       <hr>
       <div class="modal-body">
         <p>Please select an employee.</p>
-        <p><%=select_tag :reporting_manager_id, options_for_select(Employee.all.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }), class: "form-control" %></p>
+        <p><%=select_tag :reporting_manager_id, options_for_select(Employee.all.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }), class: "form-control",multiple: true %></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="submitForwardRequest" style="margin-right: 11%;">Done</button>

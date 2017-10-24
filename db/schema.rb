@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171024105808) do
+ActiveRecord::Schema.define(version: 20171024142016) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(version: 20171024105808) do
     t.float    "make_up_time_usage"
     t.text     "comment"
     t.integer  "reporting_manager_id",       default: 1
+    t.integer  "president_id",               default: 1
   end
 
   create_table "leave_responses", force: :cascade do |t|

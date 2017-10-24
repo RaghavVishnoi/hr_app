@@ -93,7 +93,18 @@ class LeaveRequestsController < ApplicationController
   def forward
     @leave_response = LeaveResponse.new(leave_response_params)
     if @leave_response.save
-      leave_request = @leave_response.leave_request.update(reporting_manager_id: leave_response_params[:reporting_manager_id]) 
+      employees = Employee.where(id: leave_response_params[:reporting_manager_id])
+      leave_request = false
+      employees.each do |employee|
+        byebug
+        if employee.user_role == 'president'
+          leave_request = @leave_response.leave_request.update!(president_id: employee.id) 
+        elsif employee.user_role == 'team_manager'
+          leave_request = @leave_response.leave_request.update!(reporting_manager_id: employee.id) 
+        else
+          leave_request = false
+        end            
+      end    
       if leave_request
         render json: {status: 200,message: "Successfully forwarded!"}
       else
