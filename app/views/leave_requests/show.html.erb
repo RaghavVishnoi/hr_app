@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="header">
-        <h2>Leave Request Details -  <%=@leave_request.status.capitalize%></h2>
+        <h2>Leave Request Details -  <%=@leave_request.status.camelize%></h2>
       </div>
       <div class="body">
        	<div class="row panel panel-success">
@@ -46,6 +46,10 @@
                                                         <tr>
                                                             <td class="text-success"> Description</td>
                                                             <td><%=@leave_request.description%></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Comments</td>
+                                                            <td><%=@leave_request.comment%></td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

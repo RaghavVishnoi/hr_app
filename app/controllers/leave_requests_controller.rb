@@ -17,7 +17,7 @@ class LeaveRequestsController < ApplicationController
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"
-        @leave_requests = LeaveRequest.all
+        @leave_requests = LeaveRequest.where(reporting_manager_id: current_employee.id)
       end
     end  
   end
@@ -80,9 +80,25 @@ class LeaveRequestsController < ApplicationController
     if @leave_response.save!
       if leave_response_params[:reporting_manager_action] == "approved"
         render json: {status: 200,message: "Successfully approved!"}
+      elsif leave_response_params[:reporting_manager_action] == "cancel"
+        render json: {status: 200,message: "Successfully cencelled!"}  
       else
         render json: {status: 200,message: "Successfully rejected!"}
       end 
+    else
+      render json: {status: 500,error: @leave_response.errors.full_messages}
+    end
+  end
+
+  def forward
+    @leave_response = LeaveResponse.new(leave_response_params)
+    if @leave_response.save
+      leave_request = @leave_response.leave_request.update(reporting_manager_id: leave_response_params[:reporting_manager_id]) 
+      if leave_request
+        render json: {status: 200,message: "Successfully forwarded!"}
+      else
+        render json: {status: 500,error: leave_request.errors.full_messages}
+      end
     else
       render json: {status: 500,error: @leave_response.errors.full_messages}
     end
@@ -105,7 +121,9 @@ class LeaveRequestsController < ApplicationController
         leave_request_id: Integer(@params[:leave_request]["leave_request_id"]),
         employee_id: Integer(@params[:leave_request]["employee_id"]),
         role: @params[:leave_request]["employee_role"],
-        reporting_manager_action: @params[:leave_request]["action"]
+        comment: @params[:leave_request]["comment"],
+        reporting_manager_action: @params[:leave_request]["action"],
+        reporting_manager_id: @params[:leave_request]["reporting_manager_id"]
       }
     end
 

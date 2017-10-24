@@ -4,7 +4,11 @@ class EmployeeHoursController < ApplicationController
   # GET /employee_hours
   # GET /employee_hours.json
   def index
-    @employee_hours = EmployeeHour.all
+    if current_employee.user_role == 'hr' || current_employee.user_role == 'president'
+      @employee_hours = EmployeeHour.all
+    else
+      @employee_hours = EmployeeHour.where(employee_id: current_employee.id)
+    end
   end
 
   # GET /employee_hours/1

@@ -8,13 +8,15 @@
               Employee Availble Hours
             </h2>
           </div>
-          <div class="col-sm-2">
-            <div class="actions">
-              <a href = '/employee_hours/new'>
-                <%=submit_tag "Add Hours", class: "btn bg-blue waves-button-input" %>
-              </a>  
+          <%if current_employee.user_role == 'hr' || current_employee.user_role == 'president'%>
+            <div class="col-sm-2">
+              <div class="actions">
+                <a href = '/employee_hours/new'>
+                  <%=submit_tag "Add Hours", class: "btn bg-blue waves-button-input" %>
+                </a>  
+              </div>
             </div>
-          </div>
+          <%end%>  
         </div>
       </div>
       <% if @employee_hours.present? %>
@@ -38,12 +40,12 @@
                   <td><%= employee_hour.available_sick_hours %></td>
                   <td><%= employee_hour.initial_vocation_hours %></td>
                   <td><%= employee_hour.available_vocation_hours %></td>
-                  <% if current_employee.user_role != 'employee' %>
-                    <td>
+                  <td>
                       <%= link_to employee_hour_path(employee_hour) do%>
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
                     </td>
+                  <% if current_employee.user_role != 'employee' %>
                     <td>
                       <%= link_to edit_employee_hour_path(employee_hour) do%>
                         <i class="fa fa-pencil" aria-hidden="true"></i>

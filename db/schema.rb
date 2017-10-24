@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016185652) do
+ActiveRecord::Schema.define(version: 20171024105808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -198,12 +198,14 @@ ActiveRecord::Schema.define(version: 20171016185652) do
     t.integer  "team_lead_id"
     t.integer  "team_manager_id"
     t.string   "status"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.string   "leave_hour_type"
     t.float    "sick_hour_usage"
     t.float    "vocation_hour_usage"
     t.float    "make_up_time_usage"
+    t.text     "comment"
+    t.integer  "reporting_manager_id",       default: 1
   end
 
   create_table "leave_responses", force: :cascade do |t|
@@ -213,6 +215,7 @@ ActiveRecord::Schema.define(version: 20171016185652) do
     t.datetime "response_date"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.text     "comment"
   end
 
   create_table "messages", force: :cascade do |t|

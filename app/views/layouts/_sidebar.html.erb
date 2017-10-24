@@ -268,9 +268,11 @@
               <li>
                 <%= link_to 'List Available Hours', employee_hours_path, class: " waves-effect waves-block" %>
               </li>
-              <li>
-                <%= link_to 'Add Available Hours', new_employee_hour_path , class: " waves-effect waves-block" %>
-              </li>
+              <%if current_employee.user_role == 'hr' || current_employee.user_role == 'president'%>
+                <li>
+                  <%= link_to 'Add Available Hours', new_employee_hour_path , class: " waves-effect waves-block" %>
+                </li>
+              <%end%>  
             </ul>
           </li>
         </ul>

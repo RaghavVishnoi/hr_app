@@ -25,11 +25,11 @@
                   <td><%= leave_request.from.strftime("%d %b,%Y") %></td>
                   <td><%= leave_request.to.strftime("%d %b,%Y") %></td>
                   <td><%= leave_request.employee.name %></td>
-                  <td><%= leave_request.status.capitalize %></td>
+                  <td><%= leave_request.status.camelize %></td>
                   <% if current_employee.user_role == 'employee'%>
                     <td>
                       <%= link_to leave_request_path(leave_request) do%>
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
                       &nbsp;&nbsp;&nbsp;
                       <%= link_to edit_leave_request_path(leave_request) do%>
@@ -43,7 +43,7 @@
                     <%else%> 
                     <td> 
                       <%= link_to leave_request_path(leave_request) do%>
-                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
                       &nbsp;&nbsp;&nbsp;
                       <%if (current_employee.user_role == "team_leader" && leave_request.status == "initial") || (current_employee.user_role == "team_manager" && leave_request.status == "lead_approved") || current_employee.user_role == "hr" || current_employee.user_role == "president"%>
@@ -56,10 +56,20 @@
                           <i class="fa fa-check" aria-hidden="true"></i>
                           Approve
                         </button>
-                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="rejectedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
                           <i class="fa fa-times" aria-hidden="true" ></i>
                           Reject
                         </button>
+                        <button name="color" type="button" class="btn btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','cancel')">
+                          <i class="fa fa-ban" aria-hidden="true"></i>
+                          Cancel
+                        </button>
+                         <%if current_employee.user_role == "hr"%>
+                          <button name="color" type="button" class="btn btn-danger" onclick="showForwardRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                            <i class="fa fa-forward" aria-hidden="true"></i>
+                          Forward
+                          </button>
+                         <%end%>
                       <%end%>  
                     </td>        
                   <% end %>
@@ -67,6 +77,8 @@
               <% end %>
             </tbody>
           </table>
+          <%=render 'request_close_reason'%>
+          <%=render 'forward_request'%>
         </div>
       <% else %>
         <p>&nbsp;&nbsp;&nbsp;&nbsp;You don't have any leave requests</p>
@@ -75,3 +87,7 @@
     </div>
   </div>
 </div>
+
+<script>
+  $("#cancelReasonComment").val("");
+</script>

@@ -1,0 +1,21 @@
+<div id="forwardRequest" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Forward Request</h4>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <p>Please select an employee.</p>
+        <p><%=select_tag :reporting_manager_id, options_for_select(Employee.all.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }), class: "form-control" %></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="submitForwardRequest" style="margin-right: 11%;">Done</button>
+      </div>
+    </div>
+
+  </div>
+</div>
