@@ -17,7 +17,7 @@ class LeaveRequestsController < ApplicationController
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"
-        @leave_requests = LeaveRequest.where(reporting_manager_id: current_employee.id)
+        @leave_requests = LeaveRequest.where('president_id = ? OR reporting_manager_id = ?',current_employee.id,current_employee.id)
       end
     end  
   end
