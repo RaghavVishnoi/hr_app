@@ -134,7 +134,8 @@ class LeaveRequestsController < ApplicationController
         role: @params[:leave_request]["employee_role"],
         comment: @params[:leave_request]["comment"],
         reporting_manager_action: @params[:leave_request]["action"],
-        reporting_manager_id: @params[:leave_request]["reporting_manager_id"]
+        reporting_manager_id: @params[:leave_request]["reporting_manager_id"],
+        response_date: Date.current
       }
     end
 

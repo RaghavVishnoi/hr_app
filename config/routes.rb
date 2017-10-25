@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   post '/employee_hours/:id' => 'employee_hours#show'
   post "/leave_requests/update_status"
   post "/leave_requests/forward"
+  post "/employees/archive"
 
   resources :employee_hours do 
     collection do

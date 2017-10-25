@@ -42,11 +42,11 @@ class LeaveRequest < ApplicationRecord
 			employee_hours = self.employee.employee_hour
 			case self.leave_hour_type
 			when "Sick"
-				sick_hours = employee_hours.available_sick_hours
-				employee_hours.update(available_sick_hours: sick_hours-self.sick_hour_usage)
+				sick_hours = employee_hours.try(:available_sick_hours) || 0
+				employee_hours.update(available_sick_hours: sick_hours-self.sick_hour_usage) if employee_hours.present?
 			when "Vocation"
-				available_vocation_hours = employee_hours.available_vocation_hours
-				employee_hours.update(available_vocation_hours: available_vocation_hours-self.vocation_hour_usage)
+				available_vocation_hours = employee_hours.try(:available_vocation_hours) || 0
+				employee_hours.update(available_vocation_hours: available_vocation_hours-self.vocation_hour_usage) if employee_hours.present?
 			else
 
 			end

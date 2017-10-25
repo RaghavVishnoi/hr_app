@@ -1,4 +1,8 @@
+require "pdfkit"
+
 class EmployeesController < ApplicationController
+  include EmployeesHelper
+
   before_action :set_employee, only: [:show, :edit, :update, :destroy, :upload_document]
   def index
     if current_employee.president?
@@ -64,6 +68,24 @@ class EmployeesController < ApplicationController
       }
     end
     redirect_to employee_profile_path(@employee)
+  end
+
+  def archive
+    employee_params = params.symbolize_keys
+    coverage_id = employee_params[:employee]["coverage_id"]
+    employee_id = employee_params[:employee]["employee_id"]
+    employee_data = Employee.find(employee_id)
+    coverage_data = Employee.find(coverage_id)
+    termination_date = employee_params[:employee]["termination_date"]
+    html = EmployeesHelper.termination_template(employee_data,coverage_data,termination_date,current_employee) 
+    kit = PDFKit.new(html)
+    kit.to_file("public/termination/termination-#{employee_id}.pdf")
+    result = employee_data.update(status: "archive")
+    if result
+      render json: {status: 200,message: "Successfully terminated and generated a report!"}
+    else
+      render json: {status: 500,error: result.errors.full_messages}
+    end
   end
 
   private

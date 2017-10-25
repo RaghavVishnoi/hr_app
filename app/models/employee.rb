@@ -31,6 +31,7 @@ class Employee < ApplicationRecord
   has_many :disclosures, dependent: :destroy
 
   has_many :review_categories, class_name: "PerfReviewCatg", foreign_key: "employee_id"
+  has_many :perf_reviews
   has_many :answers, class_name: "QuesAnsw", foreign_key: "employee_id"
 
   has_one :employee_hour

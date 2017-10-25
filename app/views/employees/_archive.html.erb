@@ -1,0 +1,23 @@
+<div id="archiveEmployee" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Terminate Employee</h4>
+      </div>
+      <hr>
+      <div class="modal-body">
+        <p>Please select a coverage.</p>
+        <p><%=select_tag :employee_coverage_id, options_for_select(Employee.all.collect {|r| [ r.name, r.id ] }), class: "form-control" %></p>
+        <p>Please select termination date.</p>
+        <p><input type="text" class="form-control datetimepicker" id="employeeTerminationDate"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="submitArchiveEmployee" style="margin-right: 11%;">Done</button>
+      </div>
+    </div>
+
+  </div>
+</div>

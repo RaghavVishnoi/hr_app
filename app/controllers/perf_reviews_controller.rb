@@ -40,15 +40,17 @@ class PerfReviewsController < ApplicationController
       prepared_by: params[:perf_review][:prepared_by],
       request_id: params[:reviewer_id]
     )
-    params[:answers].each do |answer|
-      ques_id = answer.split("_")[1]
-      quest = ReviewCatgQuest.find(ques_id)
-      quest.answers.create(
-        answer: params["answers"][answer],
-        employee_id: current_employee.id,
-        review_id: review.id
-      )
-    end
+    if params[:answers].present?
+      params[:answers].each do |answer|
+        ques_id = answer.split("_")[1]
+        quest = ReviewCatgQuest.find(ques_id)
+        quest.answers.create(
+          answer: params["answers"][answer],
+          employee_id: current_employee.id,
+          review_id: review.id
+        )
+      end
+    end  
     review.update_average_point
     review.update_flag
     redirect_to perf_reviews_path

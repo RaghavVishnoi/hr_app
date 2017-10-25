@@ -53,3 +53,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'rails_admin', '~> 1.2'
 
 gem 'rufus-scheduler'
+
+gem 'pdfkit'

@@ -1,5 +1,8 @@
 class PerfReview < ApplicationRecord
 
+  belongs_to :employee
+  belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
+
   def employee
     Employee.find(employee_id)
   end
