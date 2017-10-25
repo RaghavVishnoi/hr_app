@@ -9,11 +9,11 @@ class LeaveRequestsController < ApplicationController
     else
       case current_employee.role.role
       when "employee"
-        @leave_requests = current_employee.leave_requests
+        @leave_requests = (current_employee.leave_requests + LeaveRequest.where(cover_id:  current_employee.id)).uniq
       when "team_leader"
-        @leave_requests = LeaveRequest.team_leader_leave_requests
+        @leave_requests = (LeaveRequest.team_leader_leave_requests + LeaveRequest.where(cover_id:  current_employee.id)).uniq
       when "team_manager"
-        @leave_requests = LeaveRequest.team_manager_leave_requests
+        @leave_requests = (LeaveRequest.team_manager_leave_requests + LeaveRequest.where(cover_id:  current_employee.id)).uniq
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"

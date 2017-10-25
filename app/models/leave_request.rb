@@ -3,6 +3,7 @@ class LeaveRequest < ApplicationRecord
 	before_create :default_values
 	after_create :notify_reporting_employee
 	after_create :update_available_hours
+	after_create :notify_cover_employee
 
 	belongs_to :employee
 	belongs_to :cover, :class_name => :Employee,:foreign_key => "cover_id"
@@ -36,6 +37,10 @@ class LeaveRequest < ApplicationRecord
 				@email = Employee.find_by_role_id(Role.find_by_role("president"))
 			end				
 			#LeaveRequestMailer.leave_email(@email,self).deliver_now
+		end
+
+		def notify_cover_employee
+			#LeaveRequestMailer.leave_email(self.cover.email,self).deliver_now
 		end
 
 		def update_available_hours
