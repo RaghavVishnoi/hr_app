@@ -1,6 +1,6 @@
 class LeaveRequestsController < ApplicationController
   before_action :set_leave_request, only: [:show, :edit, :update, :destroy]
-
+  helper_method :sort_column, :sort_direction
   # GET /leave_requests
   # GET /leave_requests.json
   def index
@@ -136,6 +136,14 @@ class LeaveRequestsController < ApplicationController
         reporting_manager_id: @params[:leave_request]["reporting_manager_id"],
         response_date: Date.current
       }
+    end
+
+    def sort_column
+      Employee.column_names.include?(params[:sort]) ? params[:sort] : "status"
+    end
+    
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
 

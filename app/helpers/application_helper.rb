@@ -60,6 +60,7 @@ module ApplicationHelper
   end
 
   def sortable(column, title = nil)
+    column = 'role_id' if column == 'role'
     title ||= column.titleize
     css_class = column == sort_column ? "current #{sort_direction}" : nil
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
