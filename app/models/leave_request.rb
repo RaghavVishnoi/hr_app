@@ -20,6 +20,32 @@ class LeaveRequest < ApplicationRecord
 	validates :from,presence: true
 	validates :to,presence: true
 
+	def self.is_approve_disable(status,current_employee)
+		case current_employee.user_role
+		when 'team_leader'
+			["lead_approved","manager_approved","hr_approved","president_approved"].include? status
+		when 'team_manager'
+			["manager_approved","hr_approved","president_approved"].include? status
+		when 'hr'
+			["hr_approved","president_approved"].include? status
+		when 'president'
+			["president_approved"].include? status
+		end
+	end
+
+	def self.is_reject_disable(status,current_employee)
+		case current_employee.user_role
+		when 'team_leader'
+			["lead_rejected","manager_rejected","hr_rejected","president_rejected"].include? status
+		when 'team_manager'
+			["manager_rejected","hr_rejected","president_rejected"].include? status
+		when 'hr'
+			["hr_rejected","president_rejected"].include? status
+		when 'president'
+			["president_rejected"].include? status
+		end
+	end
+
 	private
 		def default_values
 			self.status ||= "initial"

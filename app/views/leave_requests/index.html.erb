@@ -52,14 +52,28 @@
                             <i class="fa fa-pencil" aria-hidden="true"></i>
                           <%end%>
                         <%end%>
-                        <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
-                          <i class="fa fa-check" aria-hidden="true"></i>
-                          Approve
-                        </button>
-                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
-                          <i class="fa fa-times" aria-hidden="true" ></i>
-                          Reject
-                        </button>
+                        <%if LeaveRequest.is_approve_disable(leave_request.status,current_employee)%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')" disabled="true">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%else%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%end%>
+                         <%if LeaveRequest.is_reject_disable(leave_request.status,current_employee)%>  
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')" disabled="true">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                         <%else%>
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                        <%end%>  
                         <button name="color" type="button" class="btn btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','cancel')">
                           <i class="fa fa-ban" aria-hidden="true"></i>
                           Cancel
