@@ -2,6 +2,7 @@ require "pdfkit"
 
 class EmployeesController < ApplicationController
   include EmployeesHelper
+  helper_method :sort_column, :sort_direction
 
   before_action :set_employee, only: [:show, :edit, :update, :destroy, :upload_document]
   def index
@@ -12,6 +13,7 @@ class EmployeesController < ApplicationController
     elsif current_employee.team_leader?
       @employees = Employee.where.not(role_id: Role.where(role: ['president', 'hr']).ids)
     end
+    @employees = @employees.order(sort_column + " " + sort_direction)
   end
 
   def show
@@ -102,5 +104,13 @@ class EmployeesController < ApplicationController
     def time_diff(start_time, end_time)
         (start_time -  end_time) / 60
     end
+
+  def sort_column
+    Employee.column_names.include?(params[:sort]) ? params[:sort] : "status"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
 
 end
