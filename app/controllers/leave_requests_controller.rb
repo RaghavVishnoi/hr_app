@@ -19,6 +19,9 @@ class LeaveRequestsController < ApplicationController
       when "president"
         @leave_requests = LeaveRequest.where('president_id = ? OR reporting_manager_id = ?',current_employee.id,current_employee.id)
       end
+      if params[:status].present? && params[:status] != "All"
+        @leave_requests = @leave_requests.where(status: LeaveRequest::LEAVE_REQUEST_STATUS[params[:status]])
+      end
     end  
   end
 

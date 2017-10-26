@@ -7,6 +7,14 @@
           
         </h2>
       </div>
+      <div class="col-sm-12">
+        <div class="col-sm-6 col-sm-offset-6">
+          <div class="col-sm-6"><label>Search Status: </label></div>
+          <div class="col-sm-6">
+             <%=select_tag :leave_request_search, options_for_select(LeaveRequest::LEAVE_REQUEST_FILTER,params[:status]), class: "form-control"%> 
+          </div>
+        </div>
+      </div>
       <% if @leave_requests.present? %>
       <div class="body table-responsive">
           <table class="table table-hover">
@@ -104,4 +112,8 @@
 
 <script>
   $("#cancelReasonComment").val("");
+  $("#leave_request_search").change(function(){
+    value = $("#leave_request_search").val();
+    location.href = '?status='+value
+  });
 </script>

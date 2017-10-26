@@ -1,5 +1,8 @@
 class LeaveRequest < ApplicationRecord
 
+	LEAVE_REQUEST_FILTER = ["All","Active","Approved","Rejected","Cancelled"]
+	LEAVE_REQUEST_STATUS = {"Active" => ["initial"],"Pending" => ["lead_approved","manager_approved"],"Approved" => ["hr_approved","president_approved"],"Rejected" => ["lead_rejected","manager_rejected","hr_rejected","president_rejected"],"Cancelled" => ["lead_cancelled","manager_cancelled","hr_cancelled","president_cancelled"]}
+
 	before_create :default_values
 	after_create :notify_reporting_employee
 	after_create :update_available_hours
