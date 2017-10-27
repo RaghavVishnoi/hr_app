@@ -24,6 +24,7 @@
                 <th>To</th>
                 <th>Employee Name</th>
                 <th>Status</th>
+                <th>Requested On</th>
                 <th colspan="3"></th>
               </tr>
             </thead>
@@ -34,18 +35,11 @@
                   <td><%= leave_request.to.strftime("%d %b,%Y") %></td>
                   <td><%= leave_request.employee.name %></td>
                   <td><%= leave_request.status.camelize %></td>
+                  <td><%= leave_request.created_at.strftime("%d %b,%Y") %></td>
                   <% if current_employee.user_role == 'employee'%>
                     <td>
                       <%= link_to leave_request_path(leave_request) do%>
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
-                      <%end%>
-                      &nbsp;&nbsp;&nbsp;
-                      <%= link_to edit_leave_request_path(leave_request) do%>
-                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                      <%end%>
-                      &nbsp;&nbsp;&nbsp;
-                      <%= link_to leave_request, method: :delete, data: { confirm: 'Are you sure?' } do%>
-                        <i class="fa fa-trash" aria-hidden="true"></i>
                       <%end%>
                     </td>
                     <%else%> 
@@ -58,6 +52,9 @@
                         <%if current_employee.user_role == "hr" || current_employee.user_role == "president"%>
                           <%= link_to edit_leave_request_path(leave_request) do%>
                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                          <%end%>
+                          <%= link_to leave_request, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                            <i class="fa fa-trash" aria-hidden="true"></i>
                           <%end%>
                         <%end%>
                         <%if LeaveRequest.is_approve_disable(leave_request.status,current_employee)%>
@@ -92,7 +89,31 @@
                           Forward
                           </button>
                          <%end%>
-                      <%end%>  
+                      <%end%> 
+                      <%if current_employee.user_role == "employee" && leave_request.cover_id == current_employee.id%>
+                          <%if LeaveRequest.is_approve_disable(leave_request.status,current_employee)%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')" disabled="true">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%else%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%end%>
+                         <%if LeaveRequest.is_reject_disable(leave_request.status,current_employee)%>  
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')" disabled="true">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                         <%else%>
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                        <%end%>  
+                      <%end%> 
                     </td>        
                   <% end %>
                 </tr>

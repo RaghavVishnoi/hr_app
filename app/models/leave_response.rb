@@ -15,6 +15,15 @@ class LeaveResponse < ApplicationRecord
 				status = ""
 				reporting_manager_id = 1;
 				case self.employee.role.role
+				when 'employee'
+					reporting_email = self.leave_request.cover.email
+					if reporting_manager_action == "approved"
+						status = "cover_approved"
+						reporting_manager_id = self.leave_request.team_lead.id
+					else
+						status = "cover_rejected"
+						reporting_manager_id = self.leave_request.employee.id
+					end
 				when 'team_leader'
 					reporting_email = self.leave_request.team_manager.email
 					if reporting_manager_action == "approved"

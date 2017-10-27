@@ -25,6 +25,8 @@ class LeaveRequest < ApplicationRecord
 
 	def self.is_approve_disable(status,current_employee)
 		case current_employee.user_role
+		when 'employee'
+			["cover_approved","lead_approved","manager_approved","hr_approved","president_approved"]
 		when 'team_leader'
 			["lead_approved","manager_approved","hr_approved","president_approved"].include? status
 		when 'team_manager'
@@ -38,6 +40,8 @@ class LeaveRequest < ApplicationRecord
 
 	def self.is_reject_disable(status,current_employee)
 		case current_employee.user_role
+		when 'employee'
+			["cover_rejected","lead_rejected","manager_rejected","hr_rejected","president_rejected"
 		when 'team_leader'
 			["lead_rejected","manager_rejected","hr_rejected","president_rejected"].include? status
 		when 'team_manager'
