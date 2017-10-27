@@ -41,6 +41,30 @@
                       <%= link_to leave_request_path(leave_request) do%>
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
+                      <%if leave_request.cover_id == current_employee.id%>
+                        <%if LeaveRequest.is_approve_disable(leave_request.status,current_employee)%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')" disabled="true">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%else%>
+                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            Approve
+                          </button>
+                        <%end%>
+                         <%if LeaveRequest.is_reject_disable(leave_request.status,current_employee)%>  
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')" disabled="true">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                         <%else%>
+                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                            Reject
+                          </button>
+                        <%end%>  
+                      <%end%> 
                     </td>
                     <%else%> 
                     <td> 
@@ -84,35 +108,11 @@
                           Cancel
                         </button>
                          <%if current_employee.user_role == "hr"%>
-                          <button name="color" type="button" class="btn btn-danger" onclick="showForwardRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
+                          <button name="color" type="button" class="btn btn-danger" onclick="showForwardRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')" style="margin-left: 60px;margin-top: 5px;">
                             <i class="fa fa-forward" aria-hidden="true"></i>
                           Forward
                           </button>
                          <%end%>
-                      <%end%> 
-                      <%if current_employee.user_role == "employee" && leave_request.cover_id == current_employee.id%>
-                          <%if LeaveRequest.is_approve_disable(leave_request.status,current_employee)%>
-                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')" disabled="true">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            Approve
-                          </button>
-                        <%else%>
-                          <button name="color" type="button" class="btn btn-success" value="btn-success" onclick="approvedLeaveRequest('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>')">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            Approve
-                          </button>
-                        <%end%>
-                         <%if LeaveRequest.is_reject_disable(leave_request.status,current_employee)%>  
-                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')" disabled="true">
-                            <i class="fa fa-times" aria-hidden="true" ></i>
-                            Reject
-                          </button>
-                         <%else%>
-                          <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="showCloseReason('<%=current_employee.id%>','<%=current_employee.role.role%>','<%=leave_request.id%>','reject')">
-                            <i class="fa fa-times" aria-hidden="true" ></i>
-                            Reject
-                          </button>
-                        <%end%>  
                       <%end%> 
                     </td>        
                   <% end %>

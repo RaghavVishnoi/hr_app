@@ -19,7 +19,7 @@ class LeaveResponse < ApplicationRecord
 					reporting_email = self.leave_request.cover.email
 					if reporting_manager_action == "approved"
 						status = "cover_approved"
-						reporting_manager_id = self.leave_request.team_lead.id
+						reporting_manager_id = self.leave_request.team_leader.id
 					else
 						status = "cover_rejected"
 						reporting_manager_id = self.leave_request.employee.id
