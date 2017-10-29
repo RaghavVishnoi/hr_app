@@ -3,16 +3,52 @@ function archiveEmployeeCall(id){
 	$("#submitArchiveEmployee").click(function(){
 		coverageId = $("#employee_coverage_id").val();
 		terminationDate = $("#employeeTerminationDate").val();
-		terminateEmployee(id,coverageId,terminationDate)
+		terminationComment = $("#employeeTerminationComment").val();
+		terminateEmployee(id,coverageId,terminationDate,terminationComment)
 	});
 }
 
-function terminateEmployee(employeeId,coverageId,terminationDate){
+function experienceReportCall(id){
+	$.loader.open();
+	data = {
+		employee_id: id,
+	}
+	$.ajax({
+		url: "/experience/report",
+		type: "POST",
+		data: {
+			experience: data
+		},
+		dataType: "JSON",
+
+		complete: function(){
+			$.loader.close();
+		},
+
+		success: function(data){
+			response = data
+			if(response["status"] == 200){
+				alert(response["message"])
+				location.reload();
+			}else{
+				alert(response["error"])
+			}
+		},
+
+		error: function(err_data){
+			$.loader.close();
+			alert(err_data)
+		}
+	})	
+}
+
+function terminateEmployee(employeeId,coverageId,terminationDate,terminationComment){
 	$.loader.open();
 	data = {
 		employee_id: employeeId,
 		coverage_id: coverageId,
-		termination_date: terminationDate
+		termination_date: terminationDate,
+		termination_comment: terminationComment
 	}
 	$.ajax({
 		url: "/employees/archive",

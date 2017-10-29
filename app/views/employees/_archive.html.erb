@@ -13,6 +13,8 @@
         <p><%=select_tag :employee_coverage_id, options_for_select(Employee.all.collect {|r| [ r.name, r.id ] }), class: "form-control" %></p>
         <p>Please select termination date.</p>
         <p><input type="text" class="form-control datetimepicker" id="employeeTerminationDate"></p>
+        <p>Please add your comment.</p>
+        <p><textarea class="form-control datetimepicker" id="employeeTerminationComment"></textarea></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="submitArchiveEmployee" style="margin-right: 11%;">Done</button>

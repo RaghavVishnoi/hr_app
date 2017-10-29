@@ -1,5 +1,9 @@
 class Issue < ApplicationRecord
+  
   STATUS = {"Pending" => 1, "In Progress" => 2, "Completed" => 3 }
+
+  belongs_to :creator,class_name: "Employee",foreign_key: "creator_id"
+  belongs_to :solver,class_name: "Employee",foreign_key: "solved_by"
 
   def issue_status
   	case(status)

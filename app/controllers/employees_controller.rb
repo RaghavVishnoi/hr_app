@@ -79,10 +79,11 @@ class EmployeesController < ApplicationController
     employee_data = Employee.find(employee_id)
     coverage_data = Employee.find(coverage_id)
     termination_date = employee_params[:employee]["termination_date"]
+    termination_comment = employee_params[:employee]["termination_comment"]
     html = EmployeesHelper.termination_template(employee_data,coverage_data,termination_date,current_employee) 
     kit = PDFKit.new(html)
     kit.to_file("public/termination/termination-#{employee_id}.pdf")
-    result = employee_data.update(status: "archive")
+    result = employee_data.update(status: "archive",comment: termination_comment)
     if result
       render json: {status: 200,message: "Successfully terminated and generated a report!"}
     else

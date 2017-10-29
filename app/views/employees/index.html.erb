@@ -28,6 +28,12 @@
                   <td><%= employee.user_role %></td>
                   <td><%=employee.status.capitalize%></td>
                   <% if current_employee.user_role != 'employee' %>
+                    <td>
+                      <a href="javascript:void(0)" onclick="experienceReportCall('<%=employee.id%>')">Experience</a>
+                      <%if employee.exp_report == true%>
+                        <a href="experience/experience-<%=employee.id%>.pdf"><i class="fa fa-download" aria-hidden="true"></i></a>
+                      <%end%>
+                    </td>
                     <td><%= link_to 'Show', employee_profile_path(employee) %></td>
                     <td><%= link_to 'Edit', edit_employee_path(employee
                     ) %></td>

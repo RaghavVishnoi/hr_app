@@ -12,6 +12,7 @@ class LeaveRequest < ApplicationRecord
 	belongs_to :cover, :class_name => :Employee,:foreign_key => "cover_id"
 	belongs_to :team_leader, :class_name => :Employee,:foreign_key => "team_lead_id"
 	belongs_to :team_manager, :class_name => :Employee,:foreign_key => "team_manager_id"
+	has_many :leave_responses
 
 
 	scope :team_leader_leave_requests, -> {joins(:employee).where("employees.role_id in (?)", Role.where(role: ["employee"]).pluck(:id)) }

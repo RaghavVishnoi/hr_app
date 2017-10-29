@@ -3,9 +3,10 @@ Rails.application.routes.draw do
 
   resources :employee_hours
   post '/employee_hours/:id' => 'employee_hours#show'
-  post "/leave_requests/update_status"
-  post "/leave_requests/forward"
-  post "/employees/archive"
+  post '/leave_requests/update_status'
+  post '/leave_requests/forward'
+  post '/employees/archive'
+  post '/experience/report' => 'experiences#report'
 
   resources :employee_hours do 
     collection do

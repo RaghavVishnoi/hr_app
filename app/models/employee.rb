@@ -10,7 +10,7 @@ class Employee < ApplicationRecord
   belongs_to :role
   has_many :events, class_name: "Event", foreign_key: "employee_id_id"
   has_many :switch_days, class_name: "SwitchDay", foreign_key: "employee_id"
-  has_many :exams, through: :teams
+  has_many :exams
   has_many :results
   has_many :issues, class_name: "Issue", foreign_key: "creator_id"
   has_many :responses

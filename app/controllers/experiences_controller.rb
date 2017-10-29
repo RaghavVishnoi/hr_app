@@ -66,6 +66,21 @@ class ExperiencesController < ApplicationController
     end
   end
 
+  def report
+    employee_params = params.symbolize_keys
+    employee_id = employee_params[:experience]["employee_id"]
+    employee_data = Employee.find(employee_id)
+    html = EmployeesHelper.experience_template(employee_data,employee_data.experiences) 
+    kit = PDFKit.new(html)
+    kit.to_file("public/experience/experience-#{employee_id}.pdf")
+    result = employee_data.update(exp_report: true)
+    if result
+      render json: {status: 200,message: "Successfully generated experience report!"}
+    else
+      render json: {status: 500,error: result.errors.full_messages}
+    end 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_experience
