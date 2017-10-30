@@ -1,4 +1,5 @@
 require "pdfkit"
+require 'fileutils'
 
 class EmployeesController < ApplicationController
   include EmployeesHelper
@@ -80,9 +81,12 @@ class EmployeesController < ApplicationController
     coverage_data = Employee.find(coverage_id)
     termination_date = employee_params[:employee]["termination_date"]
     termination_comment = employee_params[:employee]["termination_comment"]
+    Dir.mkdir("public/termination/termination-#{employee_id}") unless File.exists?("public/termination/termination-#{employee_id}")
+    copy_disclosure_file(employee_data)
+    #copy_experience_file(employee_data)
     html = EmployeesHelper.termination_template(employee_data,coverage_data,termination_date,current_employee) 
     kit = PDFKit.new(html)
-    kit.to_file("public/termination/termination-#{employee_id}.pdf")
+    kit.to_file("public/termination/termination-#{employee_id}/archive.pdf")
     result = employee_data.update(status: "archive",comment: termination_comment)
     if result
       render json: {status: 200,message: "Successfully terminated and generated a report!"}
@@ -112,6 +116,20 @@ class EmployeesController < ApplicationController
   
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  def copy_disclosure_file(employee)
+    employee.disclosures.each do |disclosure|
+      src = "public/disclosures/#{employee.id}/#{disclosure.id}/#{disclosure.document_file_name}"
+      FileUtils.cp(src, "public/termination/termination-#{employee.id}")
+    end
+  end
+
+  def copy_experience_file(employee)
+    employee.documents.each do |document|
+      src = "public/documents/#{employee.id}/#{document.document_file_name}"
+      FileUtils.cp(src, "public/termination/termination-#{employee.id}")
+    end
   end
 
 end
