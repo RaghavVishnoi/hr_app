@@ -4,7 +4,11 @@ class PerfReviewsController < ApplicationController
   # GET /perf_reviews
   # GET /perf_reviews.json
   def index
-    @perf_reviews = PerfReview.all
+    if current_employee.hr?
+      @perf_reviews = PerfReview.all
+    else
+      @perf_reviews = current_employee.perf_reviews
+    end
     @perf_review = PerfReview.new
   end
 
