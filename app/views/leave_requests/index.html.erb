@@ -72,7 +72,7 @@
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
                       &nbsp;&nbsp;&nbsp;
-                      <%if (current_employee.user_role == "team_leader" && leave_request.status == "initial") || (current_employee.user_role == "team_manager" && leave_request.status == "lead_approved") || current_employee.user_role == "hr" || current_employee.user_role == "president"%>
+                      <%if LeaveRequest.is_approve_action_available(leave_request.status,current_employee)%>
                         <%if current_employee.user_role == "hr" || current_employee.user_role == "president"%>
                           <%= link_to edit_leave_request_path(leave_request) do%>
                             <i class="fa fa-pencil" aria-hidden="true"></i>

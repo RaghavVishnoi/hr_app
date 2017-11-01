@@ -16,7 +16,11 @@
                                     <ul class="nav nav-tabs">
                                         <li class="active"><a data-toggle="tab" href="#Basic" class="text-success"><i class="fa fa-indent"></i>Basic</a></li>
 
-                                        <li><a data-toggle="tab" href="#Detailed_Servay" class="text-success"><i class="fa fa-bookmark-o"></i>Detailed Servay</a></li>
+                                        <%if current_user.user_role == "hr" || current_user.user_role == "president"%>
+
+                                            <li><a data-toggle="tab" href="#Detailed_Servay" class="text-success"><i class="fa fa-bookmark-o"></i>Detailed Servay</a></li>
+
+                                        <%end%>    
 
                                         <li><a data-toggle="tab" href="#Reporting_Hierarchy" class="text-success"><i class="fa fa-home"></i> Reporting Hierarchy & Cover </a></li>
 

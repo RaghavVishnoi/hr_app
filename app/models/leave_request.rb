@@ -54,6 +54,19 @@ class LeaveRequest < ApplicationRecord
 		end
 	end
 
+	def self.is_approve_action_available(status,current_employee)
+		case current_employee.user_role
+		when 'team_leader'
+			["initial","cover_approved","cover_rejected","lead_approved","lead_rejected"].include? status
+		when 'team_manager'
+			["lead_approved","lead_rejected","manager_approved","manager_rejected"].include? status
+		when 'hr'
+			true
+		when 'president'
+			true
+		end
+	end
+
 	private
 		def default_values
 			self.status ||= "initial"
