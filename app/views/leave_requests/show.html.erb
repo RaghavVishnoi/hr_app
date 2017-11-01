@@ -24,7 +24,10 @@
 
                                         <li><a data-toggle="tab" href="#Reporting_Hierarchy" class="text-success"><i class="fa fa-home"></i> Reporting Hierarchy & Cover </a></li>
 
-                                        <li><a data-toggle="tab" href="#Other" class="text-success"><i class="fa fa-info"></i> Other</a></li>	
+                                        <%if current_employee.user_role == "hr" || current_employee.user_role == "president"%>
+                                            <li><a data-toggle="tab" href="#Other" class="text-success"><i class="fa fa-info"></i> Other</a></li>
+                                        <%end%>    
+
                                     </ul>
 
                                     <div class="tab-content">
