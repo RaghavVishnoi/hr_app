@@ -9,7 +9,7 @@
         <div class="panel-body">
           <div class="col-xs-12">
             <label class="form-label">Employee Reviewed</label>
-            <%= select_tag "reviewee_email", options_for_select(current_employee.reviews_pending_for, @perf_review.employee.email), class: "form-control", prompt: "Select the person to be reviewed" %>
+            <%= text_field_tag "", @perf_review.employee.email, class: "form-control" %>
 
           </div>
           <div class="col-xs-12">

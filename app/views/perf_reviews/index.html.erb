@@ -38,7 +38,13 @@
           No request pending for reviewing.
         <% end %>
       </div>
-      <h2>Your sent Reviewees</h2>
+      <h2>
+        <% if current_employee.hr? %>
+          All employee reviews
+        <% else %>
+          Your sent Reviewees
+        <% end %>
+      </h2>
       <div class="body table-responsive">
         <table class="table table-hover">
           <thead>
