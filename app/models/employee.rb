@@ -120,4 +120,8 @@ class Employee < ApplicationRecord
     arr.map { |id| Employee.find(id).email }
   end
 
+  def superuser?
+    ["hr","president"].include?(self.user_role)
+  end
+
 end
