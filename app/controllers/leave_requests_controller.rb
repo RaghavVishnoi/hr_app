@@ -11,9 +11,9 @@ class LeaveRequestsController < ApplicationController
       when "employee"
         @leave_requests = LeaveRequest.where('cover_id = ? OR employee_id = ?',current_employee.id,current_employee.id).uniq
       when "team_leader"
-        @leave_requests = (LeaveRequest.team_leader_leave_requests + LeaveRequest.where(cover_id:  current_employee.id)).uniq
+        @leave_requests = (LeaveRequest.team_leader_leave_requests + LeaveRequest.where('cover_id = ? OR reporting_manager_id = ?',current_employee.id, current_employee.id)).uniq
       when "team_manager"
-        @leave_requests = (LeaveRequest.team_manager_leave_requests + LeaveRequest.where(cover_id:  current_employee.id)).uniq
+        @leave_requests = (LeaveRequest.team_manager_leave_requests + LeaveRequest.where('cover_id = ? OR reporting_manager_id = ?',current_employee.id, current_employee.id)).uniq
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"
@@ -125,7 +125,7 @@ class LeaveRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def leave_request_params
-      params.require(:leave_request).permit(:from,:to,:subject,:description,:is_office_wide_meeting,:is_staff_meeting,:is_client_visit_day,:is_client_visit_week,:is_client_part,:is_special_approval_needed,:is_training_schedule,:coverage_plans,:vacation_hours,:sick_hours,:date_vacation_accrues,:date_requested_off,:purspose_timeoff,:is_make_up_or_sicktime,:leave_hour_type,:sick_hour_usage,:vocation_hour_usage,:make_up_time_usage,:employee_id,:cover_id,:team_lead_id,:team_manager_id)
+      params.require(:leave_request).permit(:from,:to,:subject,:description,:is_office_wide_meeting,:is_staff_meeting,:is_client_visit_day,:is_client_visit_week,:is_client_part,:is_special_approval_needed,:is_training_schedule,:coverage_plans,:vacation_hours,:sick_hours,:date_vacation_accrues,:date_requested_off,:purspose_timeoff,:is_make_up_or_sicktime,:leave_hour_type,:sick_hour_usage,:vocation_hour_usage,:make_up_time_usage,:employee_id,:cover_id,:team_lead_id,:team_manager_id,:escalation_user_id)
     end
 
     def leave_response_params

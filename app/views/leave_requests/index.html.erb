@@ -66,14 +66,14 @@
                         <%end%>  
                       <%end%> 
                     </td>
-                    <%else%> 
+                  <%else%> 
                     <td> 
                       <%= link_to leave_request_path(leave_request) do%>
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                       <%end%>
                       &nbsp;&nbsp;&nbsp;
                       <%if current_employee.id != leave_request.employee_id%>
-                        <%if LeaveRequest.is_approve_action_available(leave_request.status,current_employee)%>
+                        <%if LeaveRequest.is_approve_action_available(leave_request.status,current_employee) || leave_request.reporting_manager_id == current_employee.id%>
                           <%if current_employee.superuser?%>
                             <%= link_to edit_leave_request_path(leave_request) do%>
                               <i class="fa fa-pencil" aria-hidden="true"></i>
