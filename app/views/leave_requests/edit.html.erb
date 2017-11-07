@@ -250,6 +250,30 @@
 			    </div>
 			  </div>
 
+			 <%if current_employee.user_role == 'team_manager'%>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :person_who_will_be_covering_for_you_and_their_e_signature? %>
+			        <br />
+			        <%= f.select :cover_id, [["No Coverage",0]]+Employee.employees.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }, {:selected => 0}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			  <div class="col-sm-6 col-xs-12">
+			    <div class="form-group form-float">
+			      <div class="form-line">
+			        <%= f.label :team_leader_approval_and_e_signature? %>
+			        <br />
+			        <%= f.select :team_lead_id, [["No Teamleader",0]]+Employee.team_leaders.collect {|r| [ r.name, r.id ] }, {:selected => 0}, class: "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+
+			<%else%>
+
 			  <div class="col-sm-6 col-xs-12">
 			    <div class="form-group form-float">
 			      <div class="form-line">
@@ -269,6 +293,8 @@
 			      </div>
 			    </div>
 			  </div>
+
+			<%end%> 
 
 			  <div class="col-sm-6 col-xs-12">
 			    <div class="form-group form-float">

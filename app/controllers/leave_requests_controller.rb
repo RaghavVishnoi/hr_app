@@ -13,7 +13,7 @@ class LeaveRequestsController < ApplicationController
       when "team_leader"
         @leave_requests = (LeaveRequest.team_leader_leave_requests + LeaveRequest.where('cover_id = ? OR reporting_manager_id = ?',current_employee.id, current_employee.id)).uniq
       when "team_manager"
-        @leave_requests = (LeaveRequest.team_manager_leave_requests + LeaveRequest.where('cover_id = ? OR reporting_manager_id = ?',current_employee.id, current_employee.id)).uniq
+        @leave_requests = (LeaveRequest.team_manager_leave_requests(current_employee) + LeaveRequest.where(cover_id:  current_employee.id)).uniq
       when "hr"
         @leave_requests = LeaveRequest.hr_leave_requests
       when "president"
@@ -42,7 +42,10 @@ class LeaveRequestsController < ApplicationController
   # POST /leave_requests
   # POST /leave_requests.json
   def create
-    @leave_request = LeaveRequest.new(leave_request_params)
+    leave_request_p = leave_request_params
+    leave_request_p[:cover_id] = current_employee.id if String(leave_request_params[:cover_id]) == "0"
+    leave_request_p[:team_lead_id] = current_employee.id if String(leave_request_params[:team_lead_id]) == "0"
+    @leave_request = LeaveRequest.new(leave_request_p)
     respond_to do |format|
       if @leave_request.save!
         format.html { redirect_to @leave_request, notice: 'Leave request was successfully created.' }
