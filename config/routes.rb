@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   post '/employees/archive'
   post '/experience/report' => 'experiences#report'
 
+  resources :notifications,only: [:index]
+
   resources :employee_hours do 
     collection do
       post '/history' => "employee_hours#history"

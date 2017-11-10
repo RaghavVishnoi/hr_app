@@ -1,0 +1,39 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          Notifications
+          
+        </h2>
+      </div>
+      <% if @notifications.present? %>
+      <div class="body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Type</th>
+                <th>Sent On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @notifications.each do |notification| %>
+                <tr>
+                  <td><%= notification.title %></td>
+                  <td><%= notification.description %></td>
+                  <td><%= notification.notification_type.camelize %></td>
+                  <td><%= notification.created_at.strftime("%d %b,%Y")%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        You don't have any exam
+      <% end %>
+      <br/>
+    </div>
+  </div>
+</div>

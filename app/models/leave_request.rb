@@ -77,11 +77,11 @@ class LeaveRequest < ApplicationRecord
 		end
 
 		def notify_reporting_employee
-			case self.employee.role.role
+			case self.employee.user_role
 			when "employee"
 				@email = Employee.find_by_role_id(Role.find_by_role("team_leader"))
 			when "team_leader"
-				@email = Employee.find_by_role_id(Role.find_by_role("team_manager"))
+				@email = self.team_manager.email
 			when "team_manager"
 				@email = Employee.find_by_role_id(Role.find_by_role("hr"))
 			when "hr"
@@ -91,6 +91,7 @@ class LeaveRequest < ApplicationRecord
 		end
 
 		def notify_cover_employee
+			Notification.add("New Leave Request","","/leave_requests",self.cover.id,"leave_request") if self.cover.id != self.employee.id
 			#LeaveRequestMailer.leave_email(self.cover.email,self).deliver_now
 		end
 
@@ -107,5 +108,6 @@ class LeaveRequest < ApplicationRecord
 
 			end
 		end
+
 
 end

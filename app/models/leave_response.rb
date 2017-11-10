@@ -77,6 +77,7 @@ class LeaveResponse < ApplicationRecord
 				leave_request = self.leave_request.update(status: status,comment: self.comment,reporting_manager_id: reporting_manager_id)
 				if leave_request
 					#LeaveRequestMailer.update_status_email(self,reporting_email).deliver_now
+					Notification.create!(title: "Need Approval",description: "",redirect_uri: "/leave_requests",notification_type: "leave_request",employee_id: reporting_manager_id) if reporting_manager_id != self.leave_request.employee.id
 				end
 			end	
 		end

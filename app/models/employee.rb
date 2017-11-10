@@ -36,6 +36,7 @@ class Employee < ApplicationRecord
   has_many :perf_reviews, class_name: "PerfReview", foreign_key: "reviewer_id"
 
   has_one :employee_hour
+  has_many :notifications
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
@@ -51,7 +52,6 @@ class Employee < ApplicationRecord
 
   scope :members, -> { joins(:role).where("roles.role in (?)", ["employee", "team_manager", "team_leader"]) }
   
-
   def self.not_added()
     includes(:project_team_member).where(project_team_members: { employee_id: nil } )
   end
@@ -122,6 +122,14 @@ class Employee < ApplicationRecord
 
   def superuser?
     ["hr","president"].include?(self.user_role)
+  end
+
+  def notification_counts
+    Notification.where(employee_id: self.id,read: false).count
+  end
+
+  def notification_list
+    Notification.where(employee_id: self.id,read: false)
   end
 
 end

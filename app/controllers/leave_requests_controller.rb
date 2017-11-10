@@ -22,7 +22,8 @@ class LeaveRequestsController < ApplicationController
       if params[:status].present? && params[:status] != "All"
         @leave_requests = @leave_requests.where(status: LeaveRequest::LEAVE_REQUEST_STATUS[params[:status]])
       end
-    end  
+    end
+    Notification.where(employee_id: current_employee.id,notification_type: "leave_request").update(read: true)  
   end
 
   # GET /leave_requests/1

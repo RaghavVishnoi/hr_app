@@ -24,37 +24,38 @@
         <!-- #END# Call Search -->
         <!-- Notifications -->
         <li class="dropdown">
-          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-haspopup="true" aria-expanded="false" type="button">
-            <i class="material-icons">notifications</i>
-            <!-- <span class="label-count"></span> -->
+          <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
+              <i class="material-icons">notifications</i>
+              <%if current_employee.notification_counts > 0%>
+                <span class="label-count"><%=current_employee.notification_counts%></span>
+              <%end%>  
           </a>
           <ul class="dropdown-menu">
-            <li class="header">NOTIFICATIONS</li>
-            <li class="body">
-              <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto;"><ul class="menu" style="overflow: hidden; width: auto; ">
-                <% @messages.each do |msg| %>
-                  <li>
-                    <a href="javascript:void(0);" class=" waves-effect waves-block">
-                      <div class="menu-info">
-                        <h4><%= msg.message %></h4>
-                        <p>
-                          <i class="material-icons">access_time</i> 
-                          <%= time_ago_in_words(Message.last.created_at) +" ago"%>
-                        </p>
-                      </div>
-                    </a>
-                  </li>
-                <% end %>
-                
-                <div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.498039); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: block; border-radius: 0px; z-index: 99; right: 1px;">
+              <li class="header">NOTIFICATIONS</li>
+              <li class="body">
+                  <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 254px;"><ul class="menu" style="overflow: hidden; width: auto; height: 254px;">
+                    <%current_employee.notification_list.each do |notification|%>
+                      <li>
+                          <a href="<%=notification.redirect_uri%>" class=" waves-effect waves-block">
+                              <div class="icon-circle bg-light-green">
+                                  <i class="material-icons">alarm_add</i>
+                              </div>
+                                <div class="menu-info">
+                                    <h4><%=notification.title%></h4>
+                                    <p>
+                                        <i class="material-icons">access_time</i> <%=time_ago_in_words(notification.created_at)%> ago
+                                    </p>
+                                </div>
+                          </a>
+                      </li>
+                    <%end%>
+                  </ul>
+                  <div class="slimScrollBar" style="background: rgba(0, 0, 0, 0.5); width: 4px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 0px; z-index: 99; right: 1px; height: 130.073px;"></div><div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div>
                 </div>
-                <div class="slimScrollRail" style="width: 4px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 0px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
-                </div>
-              </div>
-            </li>
-            <li class="footer">
-              <%= link_to "View All Notifications", general_new_message_path, class: "waves-effect waves-block" %>
-            </li>
+              </li>
+              <li class="footer">
+                  <a href="/notifications" class=" waves-effect waves-block">View All Notifications</a>
+              </li>
           </ul>
         </li>
         <li class="pull-right">

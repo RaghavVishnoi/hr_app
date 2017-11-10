@@ -2,37 +2,6 @@
   <!-- Left Sidebar -->
   <aside id="leftsidebar" class="sidebar">
     <!-- User Info -->
-    <div class="user-info">
-     <!--  <div class="info-container">
-        <% if current_employee %>
-          <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= current_employee.name  %></div>
-          <div class="email"><%= current_employee.email %></div>
-        <% end %>
-        <div class="btn-group user-helper-dropdown">
-          <i class="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
-          <ul class="dropdown-menu pull-right">
-            <% if current_employee.user_role == "hr" || current_employee.user_role == "president" %>
-              <li>
-                <%= link_to edit_employee_path(current_employee), class: "waves-effect waves-block" do %>
-                <i class="material-icons">person</i> Profile
-                <% end %>
-              </li>
-            <% end %>
-            <li role="seperator" class="divider"></li>
-            <li>
-              <%= link_to employee_profile_path(current_employee), class: " waves-effect waves-block" do %>
-              <i class="material-icons">person_outline</i> Details
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_employee_session_path, method: :delete, class: " waves-effect waves-block" do %>
-              <i class="material-icons">power_settings_new</i> LogOut
-              <% end %>
-            </li>
-          </ul>
-        </div>
-      </div> -->
-    </div>
     <div class="menu">
       <% if params[:action] != 'start' %>
         <ul class="list" style="overflow: hidden; width: auto; height: 377px;">
@@ -56,10 +25,6 @@
                 <li>
                   <%= link_to 'Termination', class: " waves-effect waves-block" %>
                 </li>
-                <!-- <li>
-                  <a href="pages/forms/advanced-form-elements.html" class=" waves-effect waves-block">Advanced Form Elements</a>
-                </li>
-                -->
               </ul>
             </li>
           <% end %>
@@ -283,6 +248,12 @@
                 </li>
               <%end%>  
             </ul>
+          </li>
+          <li class="<%= 'active' if params[:controller] == 'employees' %>">
+            <a href="/notifications" class="waves-effect waves-block">
+              <i class="material-icons">event</i>
+              <span>Notifications</span>
+            </a>
           </li>
         </ul>
       <% end %>
