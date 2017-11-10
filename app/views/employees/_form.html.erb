@@ -82,15 +82,25 @@
       </div>
     </div>
   </div>
-
-  <div class="col-sm-6 col-xs-12">
-    <div class="form-group form-float">
-      <div class="form-line">
-        <%= f.label :role_id %>
-        <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control" %>
+  <%if current_employee.superuser? && current_employee.id != @employee.id%>
+    <div class="col-sm-6 col-xs-12">
+      <div class="form-group form-float">
+        <div class="form-line">
+          <%= f.label :role_id %>
+          <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control" %>
+        </div>
       </div>
     </div>
-  </div>
+  <%else%>
+    <div class="col-sm-6 col-xs-12">
+      <div class="form-group form-float">
+        <div class="form-line">
+          <%= f.label :role_id %>
+          <%= f.select :role_id, Role.all.collect {|r| [ r.role, r.id ] }, {}, class: "form-control",disabled: true %>
+        </div>
+      </div>
+    </div>
+  <%end%>  
 
   <div class="actions">
     <%= f.submit "Save Employee", class: "btn bg-blue waves-button-input" %>
