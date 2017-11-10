@@ -25,6 +25,7 @@ class LeaveRequest < ApplicationRecord
 
 	validates :from,presence: true
 	validates :to,presence: true
+	validates :subject,presence: true
 
 	def self.is_approve_disable(status,current_employee)
 		case current_employee.user_role

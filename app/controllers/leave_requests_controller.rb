@@ -46,14 +46,10 @@ class LeaveRequestsController < ApplicationController
     leave_request_p[:cover_id] = current_employee.id if String(leave_request_params[:cover_id]) == "0"
     leave_request_p[:team_lead_id] = current_employee.id if String(leave_request_params[:team_lead_id]) == "0"
     @leave_request = LeaveRequest.new(leave_request_p)
-    respond_to do |format|
-      if @leave_request.save!
-        format.html { redirect_to @leave_request, notice: 'Leave request was successfully created.' }
-        format.json { render :show, status: :created, location: @leave_request }
-      else
-        format.html { render :new }
-        format.json { render json: @leave_request.errors, status: :unprocessable_entity }
-      end
+    if @leave_request.save
+      render :json => {status: 200,message: "successfully submitted!"}
+    else
+      render :json => {status: 422,message: @leave_request.errors.full_messages}
     end
   end
 

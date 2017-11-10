@@ -1,3 +1,71 @@
+function submitLeaveRequest(){
+	coverId = $("#leave_request_cover_id").val();
+    teamleadId = $("#leave_request_team_lead_id").val();
+    datastring = $("#new_leave_request").serialize();
+    if(coverId == 0 || teamleadId == 0){
+      $("#escalationUser").modal('toggle');
+      $("#submitEscalatedUser").click(function(){
+      	escalationUserId = $("#leave_request_escalation_user_id").val();
+      	if(escalationUserId != null && escalationUserId.length != 0 && escalationUserId != 0 && escalationUserId != "0"){
+      		$.loader.open();
+      		$.ajax({
+	      	  	type: "POST",
+	            url: "/leave_requests",
+	            data: datastring,
+	            dataType: "JSON",
+	            complete: function(){
+	            	$.loader.close();
+	            },
+	            success: function(data) {
+	                if(data["status"] == 200){
+	                	alert(data["message"])
+	                	location.href = '/leave_requests'
+	                }else{
+	                	alert(data["message"])
+	                	$("#escalationUser").modal('toggle');
+	                	$("#leave_request_escalation_user_id").val("");
+	                	return false;
+	                }
+	            },
+	            error: function(error){
+	            	console.log("error "+JSON.parse(error))
+	            	alert(error)
+	            }
+	      	})
+      	}else{
+      		alert("Please select an escalation user!");
+      		$("#leave_request_escalation_user_id").val("0");
+      		return false;
+      	}
+      	  
+      });
+    }else{
+    	$.loader.open();
+    	$.ajax({
+      	  	type: "POST",
+            url: "/leave_requests",
+            data: datastring,
+            dataType: "JSON",
+            complete: function(){
+            	$.loader.close();
+            },
+            success: function(data) {
+                if(data["status"] == 200){
+                	alert(data["message"])
+                	location.href = '/leave_requests'
+                }else{
+                	alert(data["message"])
+                	return false;
+                }
+            },
+            error: function(error){
+            	console.log("error "+JSON.parse(error))
+            	alert(error)
+            }
+      	})
+    }
+}
+
 function showCloseReason(employee_id,employee_role,id,action){
 	$("#cancelReason").modal();
 	$("#submitCancelComment").click(function(){
