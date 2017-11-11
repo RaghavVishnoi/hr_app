@@ -37,7 +37,7 @@
               <div class="form-group form-float">
                 <div class="form-line">
                   <%= f.label :mobile %><br />
-                  <%= f.text_field :mobile, autofocus: true, class: "form-control" %>
+                  <%= f.text_field :mobile, autofocus: true, class: "form-control",:maxlength => 10 %>
                 </div>
               </div>
             </div>
@@ -83,17 +83,17 @@
 
             <div class="col-sm-6 col-xs-12">
               <div class="form-group form-float">
-                <div class="form-line">
+                <div class="form-line select_state_signup">
                   <%= f.label :state %><br />
-                  <%= f.text_field :state, autofocus: true, class: "form-control" %>
+                  <%= f.select :state, {},{}, class: "form-control",id: "state"%>
                 </div>
               </div>
             </div>
             <div class="col-sm-6 col-xs-12">
               <div class="form-group form-float">
-                <div class="form-line">
+                <div class="form-line select_country_signup">
                   <%= f.label :country %><br />
-                  <%= f.text_field :country, autofocus: true, class: "form-control" %>
+                  <%= f.select :country, {},{}, class: "form-control",id: "country",onchange: "print_state('state', this.selectedIndex);" %>
                 </div>
               </div>
             </div>
@@ -101,7 +101,7 @@
               <div class="form-group form-float">
                 <div class="form-line">
                   <%= f.label :zipcode %><br />
-                  <%= f.text_field :zipcode, autofocus: true, class: "form-control" %>
+                  <%= f.text_field :zipcode, autofocus: true, class: "form-control",:maxlength => 5 %>
                 </div>
               </div>
             </div>
@@ -119,3 +119,6 @@
     </div>
   </div>
 </div>
+<script>
+  print_country("country");
+</script>
