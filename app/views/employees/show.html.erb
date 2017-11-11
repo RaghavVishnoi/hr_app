@@ -134,7 +134,8 @@
                   <thead>
                     <tr>
                       <th>Title</th>
-                      <th>Description</th>
+                      <th style="width: 30%;">Description</th>
+                      <th style="width: 20%;">Note</th>
                       <th>From</th>
                       <th>To</th>
                       <th>Action</th>
@@ -145,8 +146,9 @@
                       <tr class="active">
                         <td><%= experience.title %></td>
                         <td><%= experience.description %></td>
-                        <td><%= experience.from_date %></td>
-                        <td><%= experience.to_date %></td>
+                        <td><%= experience.note %></td>
+                        <td><%= experience.from_date.strftime("%d %b,%Y") rescue nil %></td>
+                        <td><%= experience.to_date.strftime("%d %b,%Y") rescue nil %></td>
                         <td>
                           <%= link_to edit_experience_path(experience) do%>
                             <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -186,6 +188,16 @@
                         </div>
                         <div class="col-sm-5">
                           <%= f.text_area :description, class: "form-control", placeholder: "Job Description",:required => "true" %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-offset-2 col-sm-10 employee-experience-field">
+                      <div class="row">
+                        <div class="col-sm-5">
+                          <b>Note</b>
+                        </div>
+                        <div class="col-sm-5">
+                          <%= f.text_area :note, class: "form-control", placeholder: "Add a note",:required => "true" %>
                         </div>
                       </div>
                     </div>
