@@ -12,7 +12,11 @@ class EmployeesController < ApplicationController
     elsif current_employee.hr?
       @employees = Employee.where.not(role_id: Role.where(role: 'president').ids)
     elsif current_employee.team_leader?
+      @employees = Employee.where.not(role_id: Role.where(role: ['president', 'hr','tean_manager']).ids)
+    elsif current_employee.team_manager?
       @employees = Employee.where.not(role_id: Role.where(role: ['president', 'hr']).ids)
+    else
+      @employees = [current_employee]     
     end
     @employees = @employees.order(sort_column + " " + sort_direction)
   end
