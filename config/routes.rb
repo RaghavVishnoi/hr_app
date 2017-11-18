@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   post '/experience/report' => 'experiences#report'
   post '/experience/report_all' => 'experiences#report_all'
 
-  resources :notifications,only: [:index]
+  resources :notifications,only: [:index,:new,:create,:show]
 
   resources :employee_hours do 
     collection do

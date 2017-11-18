@@ -1,0 +1,19 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>New Notification</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <%= render 'form', notification: @notification %>
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', notifications_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,11 +1,23 @@
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card">
-      <div class="header">
-        <h2>
-          Notifications
-          
-        </h2>
+      <div class="header head-action">
+        <div class="col-sm-12">
+          <div class="col-sm-8">
+            <h2>
+              Notifications
+            </h2>
+          </div>
+          <%if current_employee.user_role == 'hr' || current_employee.user_role == 'president'%>
+            <div class="col-sm-4">
+              <div class="actions">
+                <a href = '/notifications/new'>
+                  <%=submit_tag "Create Notification", class: "btn bg-blue waves-button-input"%>
+                </a>  
+              </div>
+            </div>
+          <%end%>  
+        </div>
       </div>
       <% if @notifications.present? %>
       <div class="body table-responsive">
@@ -14,8 +26,9 @@
               <tr>
                 <th>Title</th>
                 <th>Description</th>
-                <th>Type</th>
+                <th>Subject</th>
                 <th>Sent On</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -25,6 +38,9 @@
                   <td><%= notification.description %></td>
                   <td><%= notification.notification_type.camelize %></td>
                   <td><%= notification.created_at.strftime("%d %b,%Y")%></td>
+                  <td><%= link_to notification_path(notification) do%>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <%end%></td>
                 </tr>
               <% end %>
             </tbody>

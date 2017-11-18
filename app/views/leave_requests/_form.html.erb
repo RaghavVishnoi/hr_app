@@ -287,16 +287,6 @@
     </div>
   </div>
 
-  <!-- <div class="col-sm-6 col-xs-12">
-    <div class="form-group form-float">
-      <div class="form-line">
-        <%= f.label :select_escalation_user %>
-        <br />
-        <%= f.select :escalation_user_id, [["Select Employee",0]]+Employee.all.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
-      </div>
-    </div>
-  </div> -->
-
   <%= f.hidden_field :employee_id,value: current_employee.id %>
   <div class="col-sm-12 col-xs-12">
     <div class="form-group form-float">
