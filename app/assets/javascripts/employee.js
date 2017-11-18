@@ -8,6 +8,29 @@ function archiveEmployeeCall(id){
 	});
 }
 
+function generateExperienceReport(){
+	$.loader.open();
+	$.ajax({
+		url: "/experience/report_all",
+		type: "POST",
+		data: {},
+		dataType: "JSON",
+
+		complete: function(){
+			$.loader.close();
+		},
+
+		success: function(data){
+			alert("Report successfully generated!")
+		},
+
+		error: function(err_data){
+			$.loader.close();
+			alert("Report successfully generated!")
+		}
+	})	
+}
+
 function experienceReportCall(id){
 	$.loader.open();
 	data = {

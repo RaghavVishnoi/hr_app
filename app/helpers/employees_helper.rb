@@ -235,7 +235,52 @@ module EmployeesHelper
 
 	# -------------------------------------------- Experience Template ------------------------------------------ #
 
-	def self.experience_template(employee,experience)
+	def self.experience_template(employee,experience,type)
+		if type == 0
+			experience_group
+		else
+			experience_individual(employee,experience)
+		end
+	end
+
+	def self.experience_group
+		html = ""
+		Employee.where(status: 'active').each do |employee|
+			experience = employee.experiences
+			if experience.present?
+				html = html + '<div class="row clearfix">
+				  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				   	<div class="card" style="height: 500px;">
+				   		<div class="custom-header" style="height: auto;border-bottom: 1px solid #000;padding-left:18%;">
+				   			<h1>Employee Experience Report</h1>
+				   		</div>
+				   		<div style="color: #000;">
+				   			<table class="table table-hover" style="font-size: 15px;width: 100%;">
+					            <thead>
+					              <tr>
+					                <th style="width: 33%;text-align: left;">Date of Joining</th>
+					                <th style="width: 33%;text-align: left;">First Name</th>
+					                <th style="width: 33%;text-align: left;">Last Name</th>
+					              </tr>
+					            </thead>
+					            <tbody>
+					            	<tr>
+					            		<td style="width: 33%;">'+String(employee.created_at.strftime("%d %b,%Y"))+'</td>
+					            		<td style="width: 33%">'+String(employee.first_name)+'</td>
+					            		<td style="width: 33%">'+String(employee.last_name)+'</td>
+					            	</tr>
+					            </tbody>
+					        </table>'+employee_experience(experience)+'
+				   		</div>
+				   	</div>
+				  </div>
+				</div><br>'
+			end	
+		end
+		html
+	end
+
+	def self.experience_individual(employee,experience)
 		'<div class="row clearfix">
 		  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		   	<div class="card" style="height: 500px;">

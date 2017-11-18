@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post '/leave_requests/forward'
   post '/employees/archive'
   post '/experience/report' => 'experiences#report'
+  post '/experience/report_all' => 'experiences#report_all'
 
   resources :notifications,only: [:index]
 

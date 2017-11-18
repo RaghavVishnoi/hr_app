@@ -17,6 +17,9 @@
     <%= render partial: "layouts/sidebar" %>
     <section class="content">
       <div class="container-fluid">
+        <%if notice%>
+          <p id="notice"><%= notice%></p>
+        <%end%>
         <%= yield %>
       </div>
     </section>

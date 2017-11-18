@@ -1,12 +1,24 @@
 class PerfReview < ApplicationRecord
-  belongs_to :employee
 
   belongs_to :employee
   belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
 
-  def employee
-    Employee.find(employee_id)
-  end
+  validates :employee_id,presence: true
+  validates :name,presence: true
+  validates :time_in_position,presence: true
+  validates :job_title,presence: true
+  validates :last_appraisal,presence: true
+  validates :team_leader,presence: true
+  validates :first_prepared,presence: true
+  validates :hiring_date,presence: true
+  validates :reviewer_id,presence: true
+  validates :prepared_by,presence: true
+  validates :request_id,presence: true
+
+
+  # def employee
+  #   Employee.find(employee_id)
+  # end
 
   def update_flag
     PerfReviewReviewer.find(request_id).update flag: 1
@@ -31,8 +43,12 @@ class PerfReview < ApplicationRecord
   end
 
   def update_average_point
-    total_avg = calculate_avg_point.values.sum/PerfReviewCatg.count
-    self.update avg: total_avg
+    if PerfReviewCatg.count > 0
+      total_avg = calculate_avg_point.values.sum/PerfReviewCatg.count
+      self.update avg: total_avg
+    else
+      0
+    end  
   end
 
 end

@@ -120,6 +120,10 @@ class Employee < ApplicationRecord
     arr.map { |id| Employee.find(id).email }
   end
 
+  def peding_reviews_employee
+    reviews_pending.map{|rp| [Employee.find(rp.perf_review_request.reviewee_id).email,rp.perf_review_request.reviewee_id]}
+  end
+
   def superuser?
     ["hr","president"].include?(self.user_role)
   end

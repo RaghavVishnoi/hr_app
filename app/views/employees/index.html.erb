@@ -1,12 +1,26 @@
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card">
-      <div class="header">
-        <h2>
-          Employees
-          <small>Show/Edit/Delete</small>
-          
-        </h2>
+      <div class="header" style="height: 80px;">
+        <div class="col-sm-12">
+          <div class="col-sm-8">
+            <h2>
+              Employees
+            </h2>
+          </div>
+          <%if current_employee.user_role == 'hr' || current_employee.user_role == 'president'%>
+            <div class="col-sm-4">
+              <div class="actions">
+                <a href = ''>
+                  <%=submit_tag "Generate Experience Report", class: "btn bg-blue waves-button-input",onclick: "generateExperienceReport()" %>
+                  <%if File.exist?("public/experience/group/experience-group.pdf")%>
+                    <a href="experience/group/experience-group.pdf"><i class="fa fa-download" aria-hidden="true"></i></a>
+                  <%end%>
+                </a>  
+              </div>
+            </div>
+          <%end%>  
+        </div>
       </div>
       <% if @employees.present? %>
       <div class="body table-responsive">
