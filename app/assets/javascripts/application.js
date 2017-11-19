@@ -139,6 +139,14 @@ $(document).ready(function(){
   // $(".form-date-select input[id^='leave_']").datetimepicker();
 });
 
+function notifyUser(text){
+  $(".container-fluid").append('<div data-notify="container" class="bootstrap-notify-container alert alert-dismissible bg-black p-r-35 animated fadeInDown" role="alert" data-notify-position="top-right" style="width: 300px;display: inline-block; margin: 0px auto; position: fixed; transition: all 0.5s ease-in-out; z-index: 1031; top: 20px; right: 20px;"><span data-notify="icon"></span> <span data-notify="title"></span> <span data-notify="message" >'+text+'</span><a href="#" target="_blank" data-notify="url"></a></div>')
+  $('.bootstrap-notify-container').delay(20000).fadeOut("slow", function () {
+      $(this).next().fadeIn("slow");
+  });
+}
+
+
 
 
 

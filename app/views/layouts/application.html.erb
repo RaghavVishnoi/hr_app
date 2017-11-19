@@ -37,6 +37,28 @@
       $('.datetimepicker').datetimepicker({
         format:'DD/MM/YYYY HH:mm:ss'
       });
+      setInterval(function(){
+        data = '<%=current_employee.id%>'
+        $.ajax({
+          type: "GET",
+          url: "/notification_list",
+          data: {employee_id: data},
+          dataType: "JSON",
+          complete: function(){
+            
+          },
+          success: function(data) {
+              for(i=0;i<data["result"].length;i++){
+                notifyUser(data["result"][i]["title"])
+              }
+              
+          },
+          error: function(error){
+            console.log("error "+JSON.parse(error))
+            alert(error)
+          }
+      })
+      }, 10000)
     </script>
   </body>
 </html>
