@@ -10,7 +10,7 @@
       <hr>
       <div class="modal-body">
         <p>Please select the employee you want to escalate to.</p>
-        <p><%= f.select :escalation_user_id, [["Select Employee",0]]+Employee.all.where.not(id: current_employee.id)}, {}, class: "form-control" %></p>
+        <p><%= f.select :escalation_user_id, [["Select Employee",0]]+Employee.all.where.not(id: current_employee.id), {}, class: "form-control" %></p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" id="submitEscalatedUser" style="margin-right: 11%;">Submit</button>
