@@ -91,3 +91,14 @@
     </div>
   </div>
 <% end %>
+
+<script>
+  $("#question_question_type").change(function(){
+    question_type = $(this).val();
+    if(question_type == "Choices"){
+      $("#choices").attr("style","display: block;")
+    }else{
+      $("#choices").attr("style","display: none;")
+    }
+  });
+</script>
