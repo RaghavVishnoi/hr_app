@@ -67,14 +67,13 @@
             <%= option.text_field :D, class: "form-control" %>
           </div>
         </div>
-      <% end %>
-    </div>
-
-    <div class="form-float form-group" id="choices-answer">
-      <div class="form-line">
-        <%= f.label :answer %>
-        <%= f.select :answer, options_for_select(['A', 'B', 'C', 'D']), {}, class: "form-control" %>
+        <div class="form-float form-group" id="choices-answer">
+        <div class="form-line">
+          <%= f.label :answer %>
+          <%= f.select :answer, options_for_select(['A', 'B', 'C', 'D']), {}, class: "form-control" %>
+        </div>
       </div>
+    <% end %>
     </div>
 
     <div class="form-float form-group" id="descriptive-answer" style="display: none;">
@@ -96,9 +95,11 @@
   $("#question_question_type").change(function(){
     question_type = $(this).val();
     if(question_type == "Choices"){
+      $("#descriptive-answer").attr("style","display: none");
       $("#choices").attr("style","display: block;")
     }else{
       $("#choices").attr("style","display: none;")
+      $("#descriptive-answer").attr("style","display: block");
     }
   });
 </script>
