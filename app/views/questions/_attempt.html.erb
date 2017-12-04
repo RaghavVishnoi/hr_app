@@ -13,7 +13,7 @@
         <% options = eval(question.options) %>
         <% options.each do |k, v| %>
           <div class="field">
-            <%= radio_button_tag :answer, k, false %> <label for="answer_<%= k %>">  <%= v %> </label>
+             <label for="answer_<%= k %>"><%= radio_button_tag :answer, k, false,style: "left: 35px;opacity: 10" %>  <%= v %> </label>
           </div>
         <% end %>
       <% else %>
