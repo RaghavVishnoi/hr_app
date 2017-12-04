@@ -17,6 +17,7 @@
     <%= render partial: "layouts/sidebar" %>
     <section class="content">
       <div class="container-fluid">
+        <%= render 'layouts/module_password' %>
         <%if notice%>
           <p id="notice"><%= notice%></p>
         <%end%>

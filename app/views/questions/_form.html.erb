@@ -43,34 +43,40 @@
 
     <div id="choices">
       <%= f.fields_for :options do |option| %>
+       <%if question.options != nil 
+          options = eval(question.options)
+         else
+          options = {"A" => "","B" => "","C" => "","D" => ""}
+         end 
+       %>
         <div class="form-float form-group">
           <div class="form-line">
             <%= label_tag "Options A", "Option A", class: "form-label" %>
-            <%= option.text_field :A, class: "form-control" %>
+            <%= option.text_field :A, class: "form-control",value: options["A"]%>
           </div>
         </div>
         <div class="form-float form-group">
           <div class="form-line">
             <%= label_tag "Options B", "Option B", class: "form-label" %>
-            <%= option.text_field :B, class: "form-control" %>
+            <%= option.text_field :B, class: "form-control",value: options["B"] %>
           </div>
         </div>
         <div class="form-float form-group">
           <div class="form-line">
             <%= label_tag "Options C", "Option C", class: "form-label" %>
-            <%= option.text_field :C, class: "form-control" %>
+            <%= option.text_field :C, class: "form-control",value: options["C"] %>
           </div>
         </div>
         <div class="form-float form-group">
           <div class="form-line">
             <%= label_tag "Options D", "Option D", class: "form-label" %>
-            <%= option.text_field :D, class: "form-control" %>
+            <%= option.text_field :D, class: "form-control",value: options["D"] %>
           </div>
         </div>
         <div class="form-float form-group" id="choices-answer">
         <div class="form-line">
           <%= f.label :answer %>
-          <%= f.select :answer, options_for_select(['A', 'B', 'C', 'D']), {}, class: "form-control" %>
+          <%= f.select :answer, options_for_select(['A', 'B', 'C', 'D'],question.answer), {}, class: "form-control" %>
         </div>
       </div>
     <% end %>
@@ -79,7 +85,7 @@
     <div class="form-float form-group" id="descriptive-answer" style="display: none;">
       <div class="form-line">
         <%= f.label :answer, class: "form-label" %>
-        <%= f.text_area :answer, class: "form-control"%>
+        <%= f.text_area :answer, class: "form-control",disabled: true%>
       </div>
     </div>
   </div>
@@ -96,10 +102,14 @@
     question_type = $(this).val();
     if(question_type == "Choices"){
       $("#descriptive-answer").attr("style","display: none");
+      $("#descriptive-answer textarea").attr("disabled","true");
       $("#choices").attr("style","display: block;")
+      $("#choices select").removeAttr("disabled");
     }else{
       $("#choices").attr("style","display: none;")
+      $("#choices select").attr("disabled","true");
       $("#descriptive-answer").attr("style","display: block");
+      $("#descriptive-answer textarea").removeAttr("disabled");
     }
   });
 </script>

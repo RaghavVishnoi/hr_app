@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171118132258) do
+ActiveRecord::Schema.define(version: 20171204202011) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,15 @@ ActiveRecord::Schema.define(version: 20171118132258) do
     t.inet     "last_sign_in_ip"
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.string   "answer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "questions_id"
+    t.index ["questions_id"], name: "index_answers_on_questions_id", using: :btree
   end
 
   create_table "disclosures", force: :cascade do |t|
@@ -227,6 +236,14 @@ ActiveRecord::Schema.define(version: 20171118132258) do
     t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "module_passwords", force: :cascade do |t|
+    t.string   "password"
+    t.integer  "employee_id"
+    t.string   "module"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -476,6 +493,7 @@ ActiveRecord::Schema.define(version: 20171118132258) do
   add_foreign_key "leave_requests", "employees", column: "team_manager_id"
   add_foreign_key "leave_responses", "employees"
   add_foreign_key "leave_responses", "leave_requests"
+  add_foreign_key "module_passwords", "employees"
   add_foreign_key "notifications", "employees"
   add_foreign_key "project_team_members", "employees"
   add_foreign_key "project_team_members", "project_teams"
