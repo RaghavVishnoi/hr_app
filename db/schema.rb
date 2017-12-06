@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206200445) do
+ActiveRecord::Schema.define(version: 20171206210116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -375,6 +375,13 @@ ActiveRecord::Schema.define(version: 20171206200445) do
     t.index ["question_id"], name: "index_responses_on_question_id", using: :btree
   end
 
+  create_table "result_receivers", force: :cascade do |t|
+    t.integer  "exam_id"
+    t.integer  "receiver_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "results", force: :cascade do |t|
     t.integer  "employee_id"
     t.integer  "exam_id"
@@ -515,6 +522,7 @@ ActiveRecord::Schema.define(version: 20171206200445) do
   add_foreign_key "questions", "exams"
   add_foreign_key "responses", "employees"
   add_foreign_key "responses", "questions"
+  add_foreign_key "result_receivers", "employees", column: "receiver_id"
   add_foreign_key "results", "employees"
   add_foreign_key "results", "exams"
   add_foreign_key "switch_days", "employees"

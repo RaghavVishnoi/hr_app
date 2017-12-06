@@ -7,6 +7,7 @@ class Exam < ApplicationRecord
   belongs_to :team
   belongs_to :employee
   has_many :results, dependent: :destroy
+  has_many :result_receivers
 
   def is_attemted_by(employee)
     results.where(employee_id: employee.id).present?

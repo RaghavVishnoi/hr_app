@@ -37,6 +37,7 @@ class Employee < ApplicationRecord
   has_one :employee_hour
   has_many :notifications
   has_many :module_permissions
+  has_many :result_receivers
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
