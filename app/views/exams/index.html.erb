@@ -14,7 +14,8 @@
                   <th>Marks</th>
                   <th>Time</th>
                   <th>State</th>
-                  <th colspan="<%= '3' if current_employee.user_role != 'employee' %>"></th>
+                  <th colspan="<%= '3' if current_employee.user_role != 'employee' %>">Status</th>
+                  <th>Share</th>
                 </tr>
               </thead>
               <tbody>
@@ -37,7 +38,17 @@
                           Started
                         <% else%>
                           Completed
+
                         <% end %>
+                      </td>
+                      <td>
+                        <% if result.present? && (result.completed_at.present? && result.completed_at <= DateTime.now) %>
+                          <%=form_tag '/result/share' do |f|%>
+                            <%=select_tag "receiver", options_for_select(Employee.employees.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }),multiple: true%>
+                            <%=hidden_field_tag 'result_id',result.id%>
+                            <button class="share-result-button"><i class="fa fa-share" aria-hidden="true"></i></button>
+                          <%end%>  
+                        <%end%>
                       </td>
                     <% end %>
                   </tr>

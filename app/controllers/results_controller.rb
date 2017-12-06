@@ -119,6 +119,21 @@ class ResultsController < ApplicationController
     end
   end
 
+  def share
+    if params[:receiver].present?
+      employees = Employee.where(id: params[:receiver])
+      if employees.present?
+        result = Result.find(params[:result_id])
+        ResultMailer.send_result(result,employees,current_employee).deliver_now
+        redirect_to exams_path,notice: "Successfully shared!"
+      else
+        redirect_to exams_path,notice: "Employee not found!"
+      end  
+     else
+      redirect_to exams_path,notice: "Please select receivers!"
+     end 
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_result
