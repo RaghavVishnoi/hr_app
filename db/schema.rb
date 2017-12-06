@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171206164653) do
+ActiveRecord::Schema.define(version: 20171206200445) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20171206164653) do
     t.datetime "updated_at",   null: false
     t.integer  "questions_id"
     t.index ["questions_id"], name: "index_answers_on_questions_id", using: :btree
+  end
+
+  create_table "default_modules", force: :cascade do |t|
+    t.integer  "menu_id"
+    t.integer  "role_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "disclosures", force: :cascade do |t|
@@ -483,6 +490,8 @@ ActiveRecord::Schema.define(version: 20171206164653) do
     t.index ["project_id"], name: "index_trackers_on_project_id", using: :btree
   end
 
+  add_foreign_key "default_modules", "menus"
+  add_foreign_key "default_modules", "roles"
   add_foreign_key "documents", "employees"
   add_foreign_key "employee_hour_histories", "employee_hours"
   add_foreign_key "employee_hours", "employees"

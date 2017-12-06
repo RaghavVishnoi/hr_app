@@ -19,7 +19,6 @@ class Employee < ApplicationRecord
   has_many :leave_requests
   has_one  :employee_hour
 
-  belongs_to :role
   has_many :teams, through: :team_members
   has_many :team_members
   has_many :documents, dependent: :destroy
@@ -139,7 +138,7 @@ class Employee < ApplicationRecord
 
   def is_module_permission(module_name)
     menu = Menu.find_by(name: module_name)
-    self.module_permissions.exists?(menu_id: menu.id)
+    self.module_permissions.exists?(menu_id: menu.id) || menu.default_modules.exists?(role_id: self.role.id)
   end
 
 end
