@@ -5,256 +5,323 @@
     <div class="menu">
       <% if params[:action] != 'start' %>
         <ul class="list" style="overflow: hidden; width: auto; height: 377px;">
-          <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
-            <%= link_to dashboard_path, class: "toggled waves-effect waves-block" do %>
-              <i class="material-icons">layers</i>
-              <span>Dashboard</span>
-            <% end %>
-          </li>
-
-          <% if current_employee.user_role != 'employee' %>
+          <%if current_employee.is_module_permission('Dashboard')%>
+            <li class="<%= 'active' if params[:controller] == 'dashboard' %>">
+              <%= link_to dashboard_path, class: "toggled waves-effect waves-block" do %>
+                <i class="material-icons">layers</i>
+                <span>Dashboard</span>
+              <% end %>
+            </li>
+          <%end%>  
+          <%if current_employee.is_module_permission('Employees')%>
             <li class="<%= 'active' if params[:controller] == 'employees' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
                 <i class="material-icons">supervisor_account</i>
                 <span>Employees</span>
               </a>
               <ul class="ml-menu">
-                <li>
-                  <%= link_to 'List Employees', employees_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Termination', class: " waves-effect waves-block" %>
+                <%if current_employee.is_module_permission('List Employees')%>
+                  <li>
+                    <%= link_to 'List Employees', employees_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Termination')%>  
+                  <li>
+                    <%= link_to 'Termination', class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>
+          <%if current_employee.is_module_permission('Employee Benefits')%>  
+            <li class="<%= 'active' if params[:controller] == 'employee_benefits' %>">
+              <%= link_to employee_benefits_path do %>
+                <i class="material-icons">assignment</i>
+                <span> Employee Benefits </span>
+              <% end %>
+            </li>
+          <%end%>  
+          <%if current_employee.is_module_permission('Exams')%> 
+            <li class="<%= 'active' if params[:controller] == 'exams' || params[:controller] == 'subjects' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Exams</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Subject List')%> 
+                  <li>
+                    <%= link_to 'Subject List', subjects_path %>
+                  </li>
+                <%end%> 
+                <%if current_employee.is_module_permission('Add Exam')%>  
+                  <li>
+                    <%= link_to 'Add Exam', new_exam_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%> 
+                <%if current_employee.is_module_permission('Exam List')%>   
+                  <li>
+                    <%= link_to 'Exam List', exams_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%> 
+                <%if current_employee.is_module_permission('Admin Result')%> 
+                  <li class="<%= 'active' if params[:controller] == 'result' %>">
+                    <%= link_to 'Results', results_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>    
+                <%if current_employee.is_module_permission('Employee Result')%>     
+                  <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
+                <% end %>
                 </li>
               </ul>
             </li>
-          <% end %>
-
-          <li class="<%= 'active' if params[:controller] == 'employee_benefits' %>">
-            <%= link_to employee_benefits_path do %>
-              <i class="material-icons">assignment</i>
-              <span> Employee Benefits </span>
-            <% end %>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'exams' || params[:controller] == 'subjects' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">assignment</i>
-              <span>Exams</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <%= link_to 'Subject List', subjects_path %>
-              </li>
-              <% if current_employee.user_role != 'employee' %>
-                <li>
-                  <%= link_to 'Add Exam', new_exam_path, class: " waves-effect waves-block" %>
-                </li>
-              <% end %>
-              <li>
-                <%= link_to 'Exam List', exams_path, class: " waves-effect waves-block" %>
-              </li>
-              <li class="<%= 'active' if params[:controller] == 'result' %>">
-                <% if current_employee.user_role != 'employee' %>
-                  <%= link_to 'Results', results_path, class: " waves-effect waves-block" %>
-                <% else %>
-                  <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
-                <% end %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'perf_review_templates' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">assignment</i>
-              <span>Performance Review</span>
-            </a>
-            <ul class="ml-menu">
-              <% if current_employee.hr? %>
-                <li>
-                  <%= link_to 'Templates', perf_review_catgs_path, class: "waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Send Requests', perf_review_requests_path, class: "waves-effect waves-block" %>
-                </li>
-              <% end %>
-                <li>
-                  <%= link_to 'Review an Employee', perf_reviews_path, class: "waves-effect waves-block" %>
-                </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'signatures' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">assignment</i>
-              <span>Disclosures</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <%= link_to 'Documents', disclosures_path %>
-              </li>
-              <li>
-                <%= link_to 'E-Signatures', user_signatures_path(current_employee) %>
-              </li>
-            </ul>
-          </li>
-
-          <% if current_employee.user_role != 'employee' && current_employee.user_role != 'team_leader' %>
+          <%end%>
+          <%if current_employee.is_module_permission('Performance Review')%>   
+            <li class="<%= 'active' if params[:controller] == 'perf_review_templates' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Performance Review</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Templates')%> 
+                  <li>
+                    <%= link_to 'Templates', perf_review_catgs_path, class: "waves-effect waves-block" %>
+                  </li>
+                <%end%> 
+                <%if current_employee.is_module_permission('Send Requests')%>  
+                  <li>
+                    <%= link_to 'Send Requests', perf_review_requests_path, class: "waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+                <%if current_employee.is_module_permission('Review Employee')%>
+                  <li>
+                    <%= link_to 'Review an Employee', perf_reviews_path, class: "waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>  
+          <%if current_employee.is_module_permission('Disclosures')%>
+            <li class="<%= 'active' if params[:controller] == 'signatures' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Disclosures</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Documents')%>
+                  <li>
+                    <%= link_to 'Documents', disclosures_path %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('E-Signatures')%>  
+                  <li>
+                    <%= link_to 'E-Signatures', user_signatures_path(current_employee) %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>
+          <%if current_employee.is_module_permission('Projects')%>
             <li class="<%= 'active' if params[:controller] == 'projects' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
                 <i class="material-icons">assignment</i>
                 <span>Projects</span>
               </a>
               <ul class="ml-menu">
-                <li>
-                  <% if current_employee.user_role != 'employee' %>
-                  <%= link_to 'Project Tracker', trackers_path, class: " waves-effect waves-block" %>
-                  <% else %>
-                  <%#= link_to '<i class="fa fa-graduation-cap" aria-hidden="true"></i> Project Tracker', employee_trackers_path  %>
-                  <% end %>
-                </li>
-                <% if current_employee.user_role == 'employee' || current_employee.user_role == 'team_leader' %>
-                <li class="<%= 'active' if params[:controller] == 'result' %>">
-                  <% if current_employee.user_role == 'employee' %>
-                  <%= link_to employee_projects_path, class: "toggled waves-effect waves-block" do %>
-                  My Project
-                  <% end %>
-                  <% else %>
-                  <%= link_to employee_result_path, class: "toggled waves-effect waves-block" do %>
-                  My Team Projects
-                  <% end %>
-                  <% end %>
-                </li>
-                <% end %>
-                <li>
-                  <%= link_to 'Add Project', new_project_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Project List', projects_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to "Add Project Team", new_project_team_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to "List Project Team", project_teams_path, class: " waves-effect waves-block" %>
-                </li>
-                <!-- <li> -->
-                <%#= link_to "<i class='fa fa-plus'></i> Add Team Member", new_project_team_path, class: " waves-effect waves-block" %>
-                <!-- </li> -->
-                <li>
-                  <%= link_to 'Org Team Chart', org_team_chart_path, class: " waves-effect waves-block" %>
-                </li>
+                <%if current_employee.is_module_permission('Project Tracker')%>
+                  <li>
+                    <%= link_to 'Project Tracker', trackers_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+                <%if current_employee.is_module_permission('My Project')%>
+                  <li class="<%= 'active' if params[:controller] == 'result' %>">
+                    <%= link_to employee_projects_path, class: "toggled waves-effect waves-block" do %>
+                    My Project
+                    <%end%>
+                  </li>
+                <%end%> 
+                <%if current_employee.is_module_permission('My Team Projects')%> 
+                  <li class="<%= 'active' if params[:controller] == 'result' %>">
+                    <%= link_to employee_result_path, class: "toggled waves-effect waves-block" do %>
+                    My Team Projects
+                    <%end%>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Add Project')%>  
+                  <li>
+                    <%= link_to 'Add Project', new_project_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Project List')%>  
+                  <li>
+                    <%= link_to 'Project List', projects_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Add Project Team')%>  
+                  <li>
+                    <%= link_to "Add Project Team", new_project_team_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('List Project Team')%>  
+                  <li>
+                    <%= link_to "List Project Team", project_teams_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Org Team Chart')%>  
+                  <li>
+                    <%= link_to 'Org Team Chart', org_team_chart_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
               </ul>
             </li>
+          <%end%>
+          <%if current_employee.is_module_permission('Exam Team')%>  
             <li class="<%= 'active' if params[:controller] == 'teams' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
                 <i class="material-icons">assignment</i>
                 <span>Exam Team</span>
               </a>
               <ul class="ml-menu">
-                <li>
-                  <%= link_to 'Add Team', new_team_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Teams', teams_path, class: " waves-effect waves-block" %>
-                </li>
+                <%if current_employee.is_module_permission('Add Team')%>
+                  <li>
+                    <%= link_to 'Add Team', new_team_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Teams')%>  
+                  <li>
+                    <%= link_to 'Teams', teams_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
               </ul>
             </li>
+          <%end%> 
+          <%if current_employee.is_module_permission('Reports')%> 
             <li class="<%= 'active' if params[:controller] == 'reports' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">
                 <i class="material-icons">assignment</i>
                 <span>Reports</span>
               </a>
               <ul class="ml-menu">
-                <li>
-                  <%= link_to 'Performance Review', employee_report_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to 'Passed Ratio', attemted_vs_passed_path, class: " waves-effect waves-block" %>
-                </li>
-                <li>
-                  <%= link_to "Employees With Exams", report_employee_list_path, class: " waves-effect waves-block" %>
-                </li>
+                <%if current_employee.is_module_permission('Performance Review')%>
+                  <li>
+                    <%= link_to 'Performance Review', employee_report_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+                <%if current_employee.is_module_permission('Highest Score Teams')%>
+                  <li>
+                    <%= link_to 'Highest score Teams', team_highest_score_path, "data-no-turbolink" => true, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Passed Ratio')%>  
+                  <li>
+                    <%= link_to 'Passed Ratio', attemted_vs_passed_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Employees With Exams')%>  
+                  <li>
+                    <%= link_to "Employees With Exams", report_employee_list_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
               </ul>
             </li>
           <% end %>
-          <li class="<%= 'active' if params[:controller] == 'issues' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">assignment</i>
-              <span>Iassues</span>
-            </a>
-            <ul class="ml-menu">
-              <% unless current_employee.president? %>
-              <li>
-                <%= link_to 'Add Issue', new_issue_path, class: " waves-effect waves-block" %>
-              </li>
-              <% end %>
-              <li>
-                <%= link_to 'Ticket Status', class: " waves-effect waves-block" %>
-              </li>
-              <li>
-                <%= link_to 'DCD Issues', new_issue_path, class: " waves-effect waves-block" %>
-              </li>
-              <li>
-                <%= link_to 'Issue List', issues_path, class: " waves-effect waves-block" %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'employee' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">assignment</i>
-              <span>Attandance</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <%= link_to 'Attendance Logs', attendance_logs_path ,class: " waves-effect waves-block"%>
-              </li>
-              <li>
-                <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'employees' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">event</i>
-              <span>Leave Requests</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <%= link_to 'List Leave Requests', leave_requests_path, class: " waves-effect waves-block" %>
-              </li>
-              <li>
-                <%= link_to 'Apply Leave', new_leave_request_path , class: " waves-effect waves-block" %>
-              </li>
-            </ul>
-          </li>
-
-          <li class="<%= 'active' if params[:controller] == 'employees' %>">
-            <a href="javascript:;" class="menu-toggle waves-effect waves-block">
-              <i class="material-icons">event</i>
-              <span>Leave Available Hours</span>
-            </a>
-            <ul class="ml-menu">
-              <li>
-                <%= link_to 'List Available Hours', employee_hours_path, class: " waves-effect waves-block" %>
-              </li>
-              <%if current_employee.user_role == 'hr' || current_employee.user_role == 'president'%>
-                <li>
-                  <%= link_to 'Add Available Hours', new_employee_hour_path , class: " waves-effect waves-block" %>
-                </li>
-              <%end%>  
-            </ul>
-          </li>
-          <li class="<%= 'active' if params[:controller] == 'employees' %>">
-            <a href="/notifications" class="waves-effect waves-block">
-              <i class="material-icons">event</i>
-              <span>Notifications</span>
-            </a>
-          </li>
+          <%if current_employee.is_module_permission('Issues')%>
+            <li class="<%= 'active' if params[:controller] == 'issues' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Issues</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Add Issue')%>
+                  <li>
+                    <%= link_to 'Add Issue', new_issue_path, class: " waves-effect waves-block" %>
+                  </li>
+                <% end %>
+                <%if current_employee.is_module_permission('Ticket Status')%>
+                  <li>
+                    <%= link_to 'Ticket Status', class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('DCD Issues')%>  
+                  <li>
+                    <%= link_to 'DCD Issues', new_issue_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Issue List')%>  
+                  <li>
+                    <%= link_to 'Issue List', issues_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>
+          <%if current_employee.is_module_permission('Attandance')%>
+            <li class="<%= 'active' if params[:controller] == 'employee' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">assignment</i>
+                <span>Attandance</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Attendance Logs')%>
+                  <li>
+                    <%= link_to 'Attendance Logs', attendance_logs_path ,class: " waves-effect waves-block"%>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Switch day')%>  
+                  <li>
+                    <%= link_to 'Switch day', switch_days_path,class: " waves-effect waves-block"%>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%> 
+          <%if current_employee.is_module_permission('Leave Requests')%> 
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Leave Requests</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('List Leave Requests')%>
+                  <li>
+                    <%= link_to 'List Leave Requests', leave_requests_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Apply Leave')%>  
+                  <li>
+                    <%= link_to 'Apply Leave', new_leave_request_path , class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%> 
+          <%if current_employee.is_module_permission('Leave Available Hours')%> 
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Leave Available Hours</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('List Available Hours')%>
+                  <li>
+                    <%= link_to 'List Available Hours', employee_hours_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+                <%if current_employee.is_module_permission('Add Available Hours')%>
+                  <li>
+                    <%= link_to 'Add Available Hours', new_employee_hour_path , class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>  
+          <%if current_employee.is_module_permission('Notifications')%>
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="/notifications" class="waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Notifications</span>
+              </a>
+            </li>
+          <%end%>  
         </ul>
       <% end %>
     </div>

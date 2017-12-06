@@ -13,5 +13,9 @@ module HrApp
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.middleware.use "PDFKit::Middleware", :print_media_type => true
+    config.session_store :cookie_store
+	config.middleware.use ActionDispatch::Cookies
+	config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+	config.middleware.use Rack::MethodOverride
   end
 end

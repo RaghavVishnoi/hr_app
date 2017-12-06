@@ -37,6 +37,7 @@ class Employee < ApplicationRecord
 
   has_one :employee_hour
   has_many :notifications
+  has_many :module_permissions
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
@@ -134,6 +135,11 @@ class Employee < ApplicationRecord
 
   def notification_list
     Notification.where(employee_id: self.id,read: false)
+  end
+
+  def is_module_permission(module_name)
+    menu = Menu.find_by(name: module_name)
+    self.module_permissions.exists?(menu_id: menu.id)
   end
 
 end

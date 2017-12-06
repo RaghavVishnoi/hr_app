@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171204202011) do
+ActiveRecord::Schema.define(version: 20171206164653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,18 +232,23 @@ ActiveRecord::Schema.define(version: 20171204202011) do
     t.text     "comment"
   end
 
+  create_table "menus", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "messages", force: :cascade do |t|
     t.string   "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "module_passwords", force: :cascade do |t|
-    t.string   "password"
+  create_table "module_permissions", force: :cascade do |t|
     t.integer  "employee_id"
-    t.string   "module"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "menu_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -493,7 +498,8 @@ ActiveRecord::Schema.define(version: 20171204202011) do
   add_foreign_key "leave_requests", "employees", column: "team_manager_id"
   add_foreign_key "leave_responses", "employees"
   add_foreign_key "leave_responses", "leave_requests"
-  add_foreign_key "module_passwords", "employees"
+  add_foreign_key "module_permissions", "employees"
+  add_foreign_key "module_permissions", "menus"
   add_foreign_key "notifications", "employees"
   add_foreign_key "project_team_members", "employees"
   add_foreign_key "project_team_members", "project_teams"
