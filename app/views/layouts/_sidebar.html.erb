@@ -68,8 +68,10 @@
                     <%= link_to 'Results', results_path, class: " waves-effect waves-block" %>
                   </li>
                 <%end%>    
-                <%if current_employee.is_module_permission('Employee Result')%>     
-                  <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
+                <%if current_employee.is_module_permission('Employee Result')%>  
+                  <li class="<%= 'active' if params[:controller] == 'result' %>">   
+                    <%= link_to 'Results', employee_result_path, class: " waves-effect waves-block" %>
+                  </li>  
                 <% end %>
                 </li>
               </ul>
