@@ -138,8 +138,12 @@ class Employee < ApplicationRecord
   end
 
   def is_module_permission(module_name)
-    menu = Menu.find_by(name: module_name)
-    self.module_permissions.exists?(menu_id: menu.id) || menu.default_modules.exists?(role_id: self.role.id)
+    menu = Menu.find_by("LOWER(replace(name,' ','')) = ?",module_name.downcase.split.join)
+    if menu.present?
+      self.module_permissions.exists?(menu_id: menu.id) || menu.default_modules.exists?(role_id: self.role.id)
+    else
+      false
+    end
   end
 
 end
