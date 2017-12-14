@@ -31,7 +31,12 @@ class PerfReviewRequestsController < ApplicationController
     # else
       request = PerfReviewRequest.create(
         reviewee_id: reviewee_id,
-        employee_id: current_employee.id
+        employee_id: current_employee.id,
+        job_title: params[:job_title],
+        time_in_position: params[:time_in_position],
+        last_appraisal: params[:last_appraisal],
+        first_prepared: params[:first_prepared],
+        hiring_date: params[:hiring_date]
       )
 
       params[:reviewer_id].each do |reviewer_id|
@@ -80,6 +85,6 @@ class PerfReviewRequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def perf_review_request_params
-      params.require(:perf_review_request).permit(:reviewee_id, :flag, :avg, :reviewer_id => [])
+      params.require(:perf_review_request).permit(:reviewee_id, :flag, :avg, :job_title,:time_in_position ,:last_appraisal, :first_prepared, :hiring_date, :reviewer_id => [])
     end
 end
