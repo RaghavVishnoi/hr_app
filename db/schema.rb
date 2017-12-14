@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171214203630) do
+ActiveRecord::Schema.define(version: 20171214212436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,9 +285,9 @@ ActiveRecord::Schema.define(version: 20171214203630) do
     t.boolean  "flag"
     t.string   "job_title"
     t.string   "time_in_position"
-    t.string   "last_appraisal"
     t.datetime "first_prepared"
     t.datetime "hiring_date"
+    t.date     "last_appraisal"
     t.index ["employee_id"], name: "index_perf_review_requests_on_employee_id", using: :btree
     t.index ["reviewee_id"], name: "index_perf_review_requests_on_reviewee_id", using: :btree
   end
