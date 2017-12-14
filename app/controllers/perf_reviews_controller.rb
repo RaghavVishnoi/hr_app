@@ -30,7 +30,7 @@ class PerfReviewsController < ApplicationController
   # POST /perf_reviews.json
   def create
     review = PerfReview.new(perf_review_params)
-    if review.save
+    if review.save(validate: false)
       if params[:answers].present?
         params[:answers].each do |answer|
           ques_id = answer.split("_")[1]

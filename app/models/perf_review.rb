@@ -36,7 +36,7 @@ class PerfReview < ApplicationRecord
         each_quest_points << question.answer(id)
       end
       sum_of_array = each_quest_points.map { |id| id.to_i }.sum
-      average_point = sum_of_array/each_quest_points.length
+      average_point = (Float(sum_of_array)/each_quest_points.length).round(2)
       category_wise_points[category.id] = average_point
     end
     category_wise_points
@@ -45,7 +45,8 @@ class PerfReview < ApplicationRecord
   def update_average_point
     if PerfReviewCatg.count > 0
       total_avg = calculate_avg_point.values.sum/PerfReviewCatg.count
-      self.update avg: total_avg
+      self.avg = total_avg
+      self.save(validate: false)
     else
       0
     end  
