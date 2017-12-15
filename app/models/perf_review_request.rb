@@ -10,6 +10,20 @@ class PerfReviewRequest < ApplicationRecord
     self.reviewers.pluck(:reviewer_id).map { | id | Employee.find(id).name }.to_sentence
   end
 
+  def self.notify_review_request
+      perf_review_requests = PerfReviewRequest.where('due_date >= ?  AND sent_reminder = ?',Date.today,false)
+      perf_review_requests.each do |perf_review_request|
+        if perf_review_request.due_date <= (Date.today + 1.day)
+          reviewers = perf_review_request.reviewers
+          reviewers.each do |reviewer|
+            reviewee = Employee.find(perf_review_request.reviewee_id)
+              ReviewRequestMailer.notify(reviewer.employee.email,reviewee,perf_review_request).deliver_now
+          end
+          perf_review_request.update(sent_reminder: true) 
+        end
+      end
+    end
+
   def reviewers
     PerfReviewReviewer.where(perf_review_request_id: self.id)
   end

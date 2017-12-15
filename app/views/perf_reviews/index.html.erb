@@ -22,9 +22,13 @@
                   <td><%= review_pending.employee.email %></td>
                   <td><%= review_pending.perf_review_request.reviewee.email %></td>
                   <td>
-                    <%= link_to give_review_path(review_pending) do %>
-                      Review
-                    <% end %>
+                    <%if review_pending.perf_review_request.due_date >= Date.today%>
+                      <%= link_to give_review_path(review_pending) do %>
+                        Review
+                      <% end %>
+                    <%else%>
+                      <a href="javascript:void(0)" class="review-expired">Review</a>
+                    <%end%>  
                   </td>
                 </tr>
               <% end %>
@@ -65,3 +69,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(".review-expired").click(function(){
+    alert("Review due date is exceeded!")
+  })
+</script>

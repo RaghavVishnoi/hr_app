@@ -14,3 +14,8 @@ scheduler = Rufus::Scheduler::singleton
 #   	end
 #   end
 # end
+
+	scheduler.every '1h' do
+	  PerfReviewRequest.notify_review_request
+	end
+

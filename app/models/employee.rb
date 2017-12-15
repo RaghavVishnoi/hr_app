@@ -134,7 +134,7 @@ class Employee < ApplicationRecord
   end
 
   def notification_list
-    Notification.where(employee_id: self.id,read: false)
+    Notification.where(employee_id: self.id).order('created_at desc').limit(5)
   end
 
   def is_module_permission(module_name)

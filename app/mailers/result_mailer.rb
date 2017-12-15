@@ -1,5 +1,5 @@
 class ResultMailer < ApplicationMailer
-	default from: "rihan4rails@gmail.com"
+  default from: "rihan4rails@gmail.com"
 
   def send_result(result,employees,participant)
    	 @result = result

@@ -36,7 +36,8 @@ class PerfReviewRequestsController < ApplicationController
         time_in_position: params[:time_in_position],
         last_appraisal: params[:last_appraisal],
         first_prepared: params[:first_prepared],
-        hiring_date: params[:hiring_date]
+        hiring_date: params[:hiring_date],
+        due_date: params[:due_date]
       )
 
       params[:reviewer_id].each do |reviewer_id|
