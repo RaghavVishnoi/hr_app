@@ -149,6 +149,60 @@
                   <% end %>
                 </div>
               </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "6" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 6, true %> <label for="answers_answer_<%= question.id %>_6"> 6 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 6 %> <label for="answers_answer_<%= question.id %>_6"> 6 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "7" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 7, true %> <label for="answers_answer_<%= question.id %>_7"> 7 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 7 %> <label for="answers_answer_<%= question.id %>_7"> 7 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "8" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 8, true %> <label for="answers_answer_<%= question.id %>_8"> 8 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 8 %> <label for="answers_answer_<%= question.id %>_8"> 8 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "9" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 9, true %> <label for="answers_answer_<%= question.id %>_9"> 9 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 9 %> <label for="answers_answer_<%= question.id %>_9"> 9 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "10" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 10, true %> <label for="answers_answer_<%= question.id %>_10"> 10 </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 10 %> <label for="answers_answer_<%= question.id %>_10"> 10 </label>
+                  <% end %>
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "0" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 0, true %> <label for="answers_answer_<%= question.id %>_0"> N/A </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 0 %> <label for="answers_answer_<%= question.id %>_0"> N/A </label>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
           </div>
           <div class="panel-footer">

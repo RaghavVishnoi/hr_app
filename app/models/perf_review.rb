@@ -33,7 +33,9 @@ class PerfReview < ApplicationRecord
     PerfReviewCatg.all.each do |category|
       each_quest_points = Array.new
       category.questions.each do |question|
-        each_quest_points << question.answer(id)
+        if question.answer(id) != "0"
+          each_quest_points << question.answer(id)
+        end  
       end
       sum_of_array = each_quest_points.map { |id| id.to_i }.sum
       average_point = (Float(sum_of_array)/each_quest_points.length).round(2)

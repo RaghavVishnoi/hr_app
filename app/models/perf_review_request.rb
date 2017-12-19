@@ -17,7 +17,7 @@ class PerfReviewRequest < ApplicationRecord
           reviewers = perf_review_request.reviewers
           reviewers.each do |reviewer|
             reviewee = Employee.find(perf_review_request.reviewee_id)
-              ReviewRequestMailer.notify(reviewer.employee.email,reviewee,perf_review_request).deliver_now
+            ReviewRequestMailer.notify(reviewer.employee.email,reviewee,perf_review_request).deliver_now
           end
           perf_review_request.update(sent_reminder: true) 
         end
