@@ -22,7 +22,7 @@
                   <td><%= review_pending.employee.email %></td>
                   <td><%= review_pending.perf_review_request.reviewee.email rescue ''%></td>
                   <td>
-                    <%if review_pending.perf_review_request.due_date.present? && review_pending.perf_review_request.due_date >= Date.today%>
+                    <%if review_pending.perf_review_request.try(:due_date).present? && review_pending.perf_review_request.due_date >= Date.today%>
                       <%= link_to give_review_path(review_pending) do %>
                         Review
                       <% end %>

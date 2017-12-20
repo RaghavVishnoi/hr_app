@@ -122,9 +122,7 @@ class Employee < ApplicationRecord
   end
 
   def peding_reviews_employee
-    if rp.perf_review_request.present?
-      reviews_pending.map{|rp| [Employee.find(rp.perf_review_request.reviewee_id).email,rp.perf_review_request.reviewee_id]}
-    end
+      reviews_pending.map{|rp| [Employee.find(rp.perf_review_request.reviewee_id).email,rp.perf_review_request.reviewee_id]} rescue []
   end
 
   def superuser?

@@ -1,6 +1,6 @@
 <tr>
-  <td><%= perf_review.request.perf_review_request.employee.email %></td>
-  <td><%= perf_review.request.perf_review_request.reviewee.email %></td>
+  <td><%= perf_review.request.perf_review_request.try(:employee).try(:email) %></td>
+  <td><%= perf_review.request.perf_review_request.try(:reviewee).try(:email) %></td>
   <td><%= perf_review.avg %>
   <td>
     <%= link_to perf_review_path(perf_review, format: :pdf) do %>
