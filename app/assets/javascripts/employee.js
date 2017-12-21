@@ -131,9 +131,11 @@ function submitSecurePassword(module_type){
 				}else if(response['status'] == 422){
 					alert("Sorry! wrong password");
 					$("#secure-reviews").attr("style","display: none");
+					$("#securePassword").modal('hide');
 				}else{
 					alert("Sorry! you don't have permission");
 					$("#secure-reviews").attr("style","display: none");	
+					$("#securePassword").modal('hide');
 				}
 			},
 			error: function(){

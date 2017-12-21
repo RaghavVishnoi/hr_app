@@ -29,7 +29,7 @@ class PerfReviewsController < ApplicationController
   def password
     password = params[:review_password]
     data_type = params[:data_module]
-    data_module = DataPassword.where(data_type: data_type,employee_id: current_employee.id)
+    data_module = DataPassword.where('data_type = ? AND employee_id = ? AND expiry_date >= ?',data_type, current_employee.id, Date.current)
     if data_module.present?
       if BCrypt::Password.new(data_module.last.password_digest) == password 
         render :json => {status: 200}
