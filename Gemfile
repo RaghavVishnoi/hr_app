@@ -55,3 +55,5 @@ gem 'rails_admin', '~> 1.2'
 gem 'rufus-scheduler'
 
 gem 'pdfkit'
+
+gem "bcrypt-ruby"

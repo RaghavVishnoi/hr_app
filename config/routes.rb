@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post '/experience/report' => 'experiences#report'
   post '/experience/report_all' => 'experiences#report_all'
   post '/result/share' => 'results#share'
+  post '/perf_review/password' => 'perf_reviews#password'
 
   resources :notifications,only: [:index,:new,:create,:show]
   get '/notification_list' => 'notifications#notification_list'

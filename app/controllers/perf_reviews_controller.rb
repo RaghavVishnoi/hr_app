@@ -26,6 +26,21 @@ class PerfReviewsController < ApplicationController
   def edit
   end
 
+  def password
+    password = params[:review_password]
+    data_type = params[:data_module]
+    data_module = DataPassword.where(data_type: data_type,employee_id: current_employee.id)
+    if data_module.present?
+      if BCrypt::Password.new(data_module.last.password_digest) == password 
+        render :json => {status: 200}
+      else
+        render :json => {status: 422}
+      end
+    else
+      render :json => {status: 401}
+    end
+  end
+
   # POST /perf_reviews
   # POST /perf_reviews.json
   def create

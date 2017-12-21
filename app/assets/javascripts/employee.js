@@ -101,3 +101,47 @@ function terminateEmployee(employeeId,coverageId,terminationDate,terminationComm
 		}
 	})
 }
+
+function secureReviewPassword(){
+	$("#review_password").val("");
+	$("#securePassword").modal('toggle');
+}
+
+function submitSecurePassword(module_type){
+	password = $("#review_password").val();
+	if(password != null && password.length != 0){
+		data_module = module_type
+		$.loader.open();
+		$.ajax({
+			url: "/perf_review/password",
+			type: "POST",
+			data: {
+				review_password: password,
+				data_module: module_type
+			},
+			dataType: "json",
+			complete: function(){
+				$.loader.close();
+			},
+			success: function(response){
+				console.log(response)
+				if(response['status'] == 200){
+					$("#secure-reviews").attr("style","display: block");
+					$("#securePassword").modal('hide');
+				}else if(response['status'] == 422){
+					alert("Sorry! wrong password");
+					$("#secure-reviews").attr("style","display: none");
+				}else{
+					alert("Sorry! you don't have permission");
+					$("#secure-reviews").attr("style","display: none");	
+				}
+			},
+			error: function(){
+
+			}
+		})
+	}else{
+		alert("Please enter password!")
+	}
+}
+
