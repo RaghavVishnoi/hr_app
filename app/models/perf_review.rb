@@ -38,8 +38,10 @@ class PerfReview < ApplicationRecord
         end  
       end
       sum_of_array = each_quest_points.map { |id| id.to_i }.sum
-      average_point = (Float(sum_of_array)/each_quest_points.length).round(2)
-      category_wise_points[category.id] = average_point
+      if sum_of_array > 0
+        average_point = (Float(sum_of_array)/each_quest_points.length).round(2)
+        category_wise_points[category.id] = average_point
+      end  
     end
     category_wise_points
   end

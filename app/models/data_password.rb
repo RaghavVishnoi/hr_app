@@ -11,7 +11,7 @@ class DataPassword < ApplicationRecord
 		end
 
 		def update_encrypt_password
-			self.password_digest ||= BCrypt::Password.create self.password_digest
+			self.password_digest = BCrypt::Password.create self.password_digest
 		end
 
 end

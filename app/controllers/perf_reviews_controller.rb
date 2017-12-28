@@ -1,6 +1,6 @@
 class PerfReviewsController < ApplicationController
   before_action :set_perf_review, only: [:show, :edit, :update, :destroy, :download_pdf]
-
+  skip_before_filter :verify_authenticity_token, only: [:password]
   # GET /perf_reviews
   # GET /perf_reviews.json
   def index
