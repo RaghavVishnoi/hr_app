@@ -163,6 +163,15 @@
                   <% end %>
                 </div>
               </div>
+              <div class="col-xs-12">
+                <div class="form-group form-float">
+                  <% if question.answer(@perf_review.id) == "0.0" %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 0.0, true %> <label for="answers_answer_<%= question.id %>_0.0"> Unknown </label>
+                  <% else %>
+                    <%= radio_button_tag "answers[answer_#{question.id}]", 0.0 %> <label for="answers_answer_<%= question.id %>_0.0"> Unknown </label>
+                  <% end %>
+                </div>
+              </div>
             <% end %>
             <div class="col-xs-12">
             <div class="form-group form-float">
