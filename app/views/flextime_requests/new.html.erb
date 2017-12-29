@@ -1,0 +1,19 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>New Flextime Request</h2>
+      </div>
+      <div class="body">
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <%= render 'form', flextime_request: @flextime_request %>
+          </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', flextime_requests_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

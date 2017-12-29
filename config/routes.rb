@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :leave_responses
   resources :leave_requests
+  resources :flextime_requests
   resources :perf_review_requests
   resources :perf_reviews
   resources :ques_answs

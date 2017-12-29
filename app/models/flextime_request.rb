@@ -1,0 +1,2 @@
+class FlextimeRequest < ApplicationRecord
+end

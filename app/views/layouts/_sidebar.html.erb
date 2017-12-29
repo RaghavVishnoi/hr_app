@@ -323,7 +323,27 @@
                 <span>Notifications</span>
               </a>
             </li>
-          <%end%>  
+          <%end%>
+          <%if current_employee.is_module_permission('Flextime Requests')%> 
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Flextime Requests</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('List Flextime Requests')%>
+                  <li>
+                    <%= link_to 'List Flextime Requests', flextime_requests_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('Apply Flextime Requests')%>  
+                  <li>
+                    <%= link_to 'Apply Flextime Requests', new_flextime_request_path , class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>   
         </ul>
       <% end %>
     </div>

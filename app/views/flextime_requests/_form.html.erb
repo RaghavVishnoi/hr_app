@@ -1,0 +1,269 @@
+<%= form_for(flextime_request,remote: true) do |f| %>
+  <% if flextime_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(flextime_request.errors.count, "error") %> prohibited this exam from being saved:</h2>
+
+      <ul>
+      <% flextime_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :to %>
+        <br />
+        <%= f.select :to, Employee.all.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :from %>
+        <br />
+        <%= f.select :from, Employee.all.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :date %>
+        <%= f.text_field :date, class: "form-control",required: true,value: "#{Date.current.strftime('%d-%m-%Y')}",readonly: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :beginning_date %>
+        <%= f.text_field :beginning_date, class: "form-control datetimepicker",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :ending_date %>
+        <%= f.text_field :ending_date, class: "form-control datetimepicker",required: true %>
+      </div>
+    </div>
+  </div>
+
+   <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :reason_for_request %>
+        <%= f.text_area :reason, class: "form-control"%>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-xs-12">
+    <div class="form-group form-float">
+        <span><b>Attestation: </b>I, <%=current_employee.name%> has received approval AND some matter asaas</span>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-xs-12">
+    <div class="form-group form-float">
+        <span>kkskjad akldnakd lakdnakdn alkdnlakd lakdlkad lakdnlakd </span>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :flexible_schedule_has_been_previously_revoked? %>
+        <br />
+        <%= f.select :is_schedule_revoked, [['Yes',true],['No',false]], {}, class: "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div id="flexible_schedule_revoked">
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :day_schedule_revoked %>
+	        <%= f.text_field :day_schedule_revoked, class: "form-control",required: true %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="col-sm-6 col-xs-12" style="margin-right: 40%">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :reason %>
+	        <%= f.text_area :reason_schedule_revoked, class: "form-control"%>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :have_all_issues_been_resolved? %>
+	        <br />
+	        <%= f.select :issues_resolved, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :date_resolved %>
+	        <%= f.text_field :issue_resolve_date, class: "form-control datetimepicker",required: true %>
+	      </div>
+	    </div>
+	  </div>
+  </div>
+
+
+  <div id="flexible_schedule_not_revoked">
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :employee %>
+	        <br />
+	        <%= f.select :to, Employee.all.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :team_leader_approval_and_e_signature? %>
+	        <br />
+	        <%= f.select :team_lead_id, Employee.team_leaders.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :team_manager_approval_and_e_signature? %>
+	        <br />
+	        <%= f.select :team_manager_id, Employee.team_managers.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>  
+
+  <div class="col-sm-12 col-xs-12">
+     <hr /> 
+  </div>
+
+  <%#if current_employee.superuser?%>
+  	<div class="col-sm-12 col-xs-12">
+	    <div class="form-group form-float">
+	        <b><u>ADMINISTRATIVE ONLY</u></b>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :are_there_any_performance_issues_last_year? %>
+	        <br />
+	        <%= f.select :issues_resolved, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :has_the_employee_been_on_time_during_last_90_days? %>
+	        <br />
+	        <%= f.select :is_employee_on_time, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :has_the_flexible_schedule_been_revoked_within_the_last_year? %>
+	        <br />
+	        <%= f.select :is_flexible_schedule_revoked, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :have_all_issues_been_resolved? %>
+	        <br />
+	        <%= f.select :is_admin_issues_resolved, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :hr_approval? %>
+	        <br />
+	        <%= f.select :is_hr_approval, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-6 col-xs-12">
+	    <div class="form-group form-float">
+	      <div class="form-line">
+	        <%= f.label :forwarded_person_approval? %>
+	        <br />
+	        <%= f.select :is_forward_person_approval, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	      </div>
+	    </div>
+	</div>
+
+	<div class="col-sm-12 col-xs-12">
+	    <hr /> 
+	</div>
+
+  <%#end%>
+
+  <div class="col-sm-12 col-xs-12">
+	    <div class="form-group form-float">
+	        <%= f.check_box :terms_and_condition, class: "form-control" %>
+	        <%= f.label :Agree_with_terms_and_condition? %>
+	    </div>
+  </div>
+
+  <div class="col-sm-12 col-xs-12">
+    <div class="form-group form-float">
+      <div class="actions">
+        <%= f.button "Submit", class: "btn bg-blue waves-button-input",id: "submit_leave_request",type: "button" %>
+      </div>
+    </div>
+  </div>
+ 
+<% end %>
+
+<script>
+	$("#flextime_request_is_schedule_revoked").change(function(){
+		result = $(this).val()
+		if(result == 'false'){
+			$("#flexible_schedule_not_revoked").attr("style","display: block;")
+			$("#flexible_schedule_revoked").attr("style","display: none;")
+		}else{
+			$("#flexible_schedule_not_revoked").attr("style","display: none;")
+			$("#flexible_schedule_revoked").attr("style","display: block;")
+		}
+	});
+</script>
