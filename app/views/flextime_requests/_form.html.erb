@@ -1,4 +1,4 @@
-<%= form_for(flextime_request,remote: true) do |f| %>
+<%= form_for(flextime_request) do |f| %>
   <% if flextime_request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(flextime_request.errors.count, "error") %> prohibited this exam from being saved:</h2>
@@ -177,7 +177,7 @@
 	      <div class="form-line">
 	        <%= f.label :are_there_any_performance_issues_last_year? %>
 	        <br />
-	        <%= f.select :issues_resolved, [['Yes',true],['No',false]], {}, class: "form-control" %>
+	        <%= f.select :is_permission_issue, [['Yes',true],['No',false]], {}, class: "form-control" %>
 	      </div>
 	    </div>
 	</div>
@@ -239,16 +239,14 @@
   <%end%>
 
   <div class="col-sm-12 col-xs-12">
-	    <div class="form-group form-float">
-	        <%= f.check_box :terms_and_condition, class: "form-control" %>
-	        <%= f.label :Agree_with_terms_and_condition? %>
-	    </div>
+        <%= f.check_box :terms_and_condition%>
+        <%= f.label :Agree_with_terms_and_condition? ,id: 'flextime_request_terms'%>
   </div>
 
   <div class="col-sm-12 col-xs-12">
     <div class="form-group form-float">
       <div class="actions">
-        <%= f.button "Submit", class: "btn bg-blue waves-button-input",id: "submit_leave_request",type: "button" %>
+        <%= f.button "Submit", class: "btn bg-blue waves-button-input",id: "submit_leave_request"%>
       </div>
     </div>
   </div>
@@ -265,5 +263,8 @@
 			$("#flexible_schedule_not_revoked").attr("style","display: none;")
 			$("#flexible_schedule_revoked").attr("style","display: block;")
 		}
+	});
+	$('#flextime_request_terms').click(function(){
+		$("#flextime_request_terms_and_condition").trigger("click");
 	});
 </script>

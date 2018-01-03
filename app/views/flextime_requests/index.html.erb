@@ -1,0 +1,56 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          Flextime Requests
+          
+        </h2>
+      </div>
+      <% if @flextime_requests.present? %>
+      <div class="body table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Status</th>
+                <th>Beginning Date</th>
+                <th>Ending Date</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @flextime_requests.each do |flextime_request| %>
+                <tr>
+                  <td><%= flextime_request.from_employee.name %></td>
+                  <td><%= flextime_request.to_employee.name %></td>
+                  <td><%= flextime_request.status %></td>
+                  <td><%= flextime_request.beginning_date.strftime('%d %b,%Y') %></td>
+                  <td><%= flextime_request.ending_date.strftime('%d %b,%Y') %></td>
+                  <td>
+                      <%= link_to flextime_request_path(flextime_request) do%>
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                      <%end%>
+                      <button name="color" type="button" class="btn btn-success" value="btn-danger" onclick="">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                      </button>
+                      <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="">
+                            <i class="fa fa-times" aria-hidden="true" ></i>
+                      </button>
+                      <button name="color" type="button" class="btn btn-danger" value="btn-danger">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                      </button>
+                  </td>       
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;You don't have any leave requests</p>
+      <% end %>
+      <br/>
+    </div>
+  </div>
+</div>

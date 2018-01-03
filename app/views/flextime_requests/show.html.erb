@@ -1,0 +1,238 @@
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="header">
+        <h2>Leave Request Details -  <%=@flextime_request.status.camelize rescue ''%></h2>
+      </div>
+      <div class="body">
+       	<div class="row panel panel-success">
+            <div class="panel-body">                                          
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+
+                            <div class="row">
+                                
+                                <div class="col-lg-12 col-md-12">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active"><a data-toggle="tab" href="#Basic" class="text-success"><i class="fa fa-indent"></i>Basic</a></li>
+
+
+                                         <li><a data-toggle="tab" href="#Detailed_Servay" class="text-success"><i class="fa fa-bookmark-o"></i>Detailed Servay</a></li>
+
+
+                                        <li><a data-toggle="tab" href="#Reporting_Hierarchy" class="text-success"><i class="fa fa-home"></i> Reporting Hierarchy & Cover </a></li>
+
+                                        <%if current_employee.superuser?%>
+                                        	<li><a data-toggle="tab" href="#Administrative" class="text-success"><i class="fa fa-user" aria-hidden="true"></i> Administrative </a></li>
+                                        <%end%>	
+                                    </ul>
+
+                                    <div class="tab-content">
+                                        <div id="Basic" class="tab-pane fade in active">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="text-success"> From</td>
+                                                            <td>
+                                                            	<%= @flextime_request.from_employee.name %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">To</td>
+                                                            <td>
+                                                            	<%= @flextime_request.to_employee.name %>       
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Date</td>
+                                                            <td>
+                                                               <%= @flextime_request.date.strftime('%d %b,%Y') %> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Beginning Date</td>
+                                                            <td>
+                                                            	<%= @flextime_request.beginning_date.strftime('%d %b,%Y') %> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Ending Date</td>
+                                                            <td>
+                                                            	<%= @flextime_request.ending_date.strftime('%d %b,%Y') %> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> Reason for request</td>
+                                                            <td>
+                                                            	<%= @flextime_request.reason %> 
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div id="Detailed_Servay" class="tab-pane fade">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>
+    									
+                                                        <tr>
+                                                            <td class="text-success"> 	Flexible schedule has been revoked? 
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.is_schedule_revoked ? 'Yes' : 'No' %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> 	Day schedule revoked  
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.day_schedule_revoked %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> 
+                                                            	Reason
+                                                            </td>
+                                                            <td>
+                                                               <%= @flextime_request.reason_schedule_revoked %>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> 	Have all issues been resolved? 
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.issues_resolved ? 'Yes' : 'No'%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success"> 	Date Resolved 
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.issue_resolve_date.strftime("%d %b,%Y") %>
+                                                            </td>
+                                                        </tr>                                                     
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>                                       
+
+                                        <div id="Reporting_Hierarchy" class="tab-pane fade">
+                                            <div class="table-responsive panel">
+                                                <table class="table">
+                                                    <tbody>   										
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Employee and their e signature? 
+                                                            </td>
+                                                            <td>
+                                                               <%= @flextime_request.employee.name %>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Team leader approval and e signature? 
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.team_lead.name %>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                           <td class="text-success"> 
+                                                                Supervising team manager approval and e signature?  
+                                                            </td>
+                                                            <td>
+                                                                <%= @flextime_request.team_manager.name %>
+                                                            </td>
+                                                        </tr>
+                                                                 										
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <%if current_employee.superuser?%>
+	                                         <div id="Administrative" class="tab-pane fade">
+	                                            <div class="table-responsive panel">
+	                                                <table class="table">
+	                                                    <tbody>   										
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                Are there any performance issue with in last year? 
+	                                                            </td>
+	                                                            <td>
+	                                                               <%= @flextime_request.is_permission_issue %>
+	                                                            </td>
+	                                                        </tr>
+
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                Has the employee been on time during last 90 days?
+	                                                            </td>
+	                                                            <td>
+	                                                                <%= @flextime_request.is_employee_on_time %>
+	                                                            </td>
+	                                                        </tr>
+
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                Has the flexible schedule been revoked within the last year?
+	                                                            </td>
+	                                                            <td>
+	                                                                <%= @flextime_request.is_flexible_schedule_revoked %>
+	                                                            </td>
+	                                                        </tr>
+
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                Has all issue been resolved?
+	                                                            </td>
+	                                                            <td>
+	                                                                <%= @flextime_request.is_admin_issues_resolved %>
+	                                                            </td>
+	                                                        </tr>
+
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                HR Approval
+	                                                            </td>
+	                                                            <td>
+	                                                                <%= @flextime_request.is_hr_approval %>  	
+	                                                            </td>
+	                                                        </tr>
+
+	                                                        <tr>
+	                                                           <td class="text-success"> 
+	                                                                Forwarded person approval
+	                                                            </td>
+	                                                            <td>
+	                                                                <%= @flextime_request.is_forward_person_approval %>
+	                                                            </td>
+	                                                        </tr>
+	                                                                 										
+	                                                    </tbody>
+	                                                </table>
+	                                            </div>
+	                                        </div>
+	                                    <%end%>    
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                <!-- /.table-responsive -->
+                
+            </div>
+        </div>
+        <div class="mt20">
+          <%= link_to 'Back', flextime_requests_path %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
