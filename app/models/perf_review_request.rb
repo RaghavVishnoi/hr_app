@@ -1,6 +1,6 @@
 class PerfReviewRequest < ApplicationRecord
   belongs_to :employee
-  has_many :reviewers, class_name: 'PerfReviewReviewer', foreign_key: 'perf_review_request_id'
+  has_many :perf_reviews, class_name: 'PerfReview', foreign_key: 'request_id'
 
   def reviewee
     Employee.find(reviewee_id)

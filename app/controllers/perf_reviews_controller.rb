@@ -5,11 +5,13 @@ class PerfReviewsController < ApplicationController
   # GET /perf_reviews.json
   def index
     if current_employee.hr?
-      @perf_reviews = PerfReview.all
+      @perf_review_employees = Employee.joins("LEFT JOIN perf_reviews ON perf_reviews.employee_id = employees.id").group('employees.id')
+      puts @perf_review_employees
+      @perf_review = PerfReview.new
     else
       @perf_reviews = current_employee.perf_reviews
+      @perf_review = PerfReview.new
     end
-    @perf_review = PerfReview.new
   end
 
   # GET /perf_reviews/1
@@ -39,6 +41,11 @@ class PerfReviewsController < ApplicationController
     else
       render :json => {status: 401}
     end
+  end
+
+  def employee_review
+    @perf_reviews = PerfReview.where(employee_id: params[:employee_id])
+    @employee = Employee.find(params[:employee_id])
   end
 
   # POST /perf_reviews

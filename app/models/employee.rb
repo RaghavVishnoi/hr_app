@@ -116,9 +116,9 @@ class Employee < ApplicationRecord
   def reviews_pending_for
     arr = Array.new
     reviews_pending.each do |review_pending|
-      arr << review_pending.perf_review_request.reviewee_id
+      arr << review_pending.perf_review_request.try(:reviewee_id)
     end
-    arr.map { |id| Employee.find(id).email }
+    arr.compact.map { |id| Employee.find(id).email }
   end
 
   def peding_reviews_employee

@@ -1,0 +1,33 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+         <%=@employee.name%>
+        </h2>
+      </div>
+      <div class="header">
+      	<div class="body table-responsive">
+		  <div class="body table-responsive">
+		    <table class="table table-hover">
+		      <thead>
+		        <tr>
+		          <th>Created by</th>
+		          <th>Reviewee</th>
+		          <th>Average Point</th>
+		          <th>Actions</th>
+		        </tr>
+		      </thead>
+
+		      <tbody>
+		        <%= render @perf_reviews %>
+		      </tbody>
+		    </table>
+		  </div>
+        </div>
+      </div>      
+    </div>
+    <div class="col-md-1 column">
+    </div>
+  </div>
+</div>

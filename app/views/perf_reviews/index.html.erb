@@ -51,44 +51,10 @@
         </h2>
       <div class="body table-responsive">
         
-          <%if current_employee.role.role == 'president'%>
-            <div class="body table-responsive">
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Created by</th>
-                    <th>Reviewee</th>
-                    <th>Average Point</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <%= render @perf_reviews %>
-                </tbody>
-              </table>
-            </div>
+          <%if current_employee.superuser?%>
+            <%= render 'admin_reviews' %>
           <%else%>
-
-            <button class="btn btn-success" onclick="secureReviewPassword()">Show Reviews</button>
-            <div id="secure-reviews">
-              <div class="body table-responsive">
-                <table class="table table-hover">
-                  <thead>
-                    <tr>
-                      <th>Created by</th>
-                      <th>Reviewee</th>
-                      <th>Average Point</th>
-                      <th>Actions</th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    <%= render @perf_reviews %>
-                  </tbody>
-                </table>
-              </div>
-            </div>  
+            <%= render 'user_reviews' %>
           <%end%>
         </div>
       </div>      
@@ -97,9 +63,3 @@
     </div>
   </div>
 </div>
-<%=render 'secure_password'%>
-<script>
-  $(".review-expired").click(function(){
-    alert("Review due date is exceeded!")
-  })
-</script>

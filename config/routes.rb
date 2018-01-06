@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
 
 
+  resources :perf_reviews do
+    collection do
+      get ':employee_id/employee' => 'perf_reviews#employee_review'
+    end
+  end
+
   resources :employee_hours
   post '/employee_hours/:id' => 'employee_hours#show'
   post '/leave_requests/update_status'
