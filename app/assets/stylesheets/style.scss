@@ -1610,3 +1610,13 @@ fc-today {
 #securePassword .modal-body{margin-top: -25px;}
 
 #securePassword .modal-footer button{margin-right: 87%;margin-top: -40px;}
+
+#avgCalculator .modal-content{
+  width: 60%;
+}
+
+.avgCalAction{margin-top: 5px;}
+
+.avgCalAction span{margin-right: 15px; cursor: pointer;}
+
+.calculator-values{max-height: 200px; overflow: auto;}

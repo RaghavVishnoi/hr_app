@@ -147,3 +147,35 @@ function submitSecurePassword(module_type){
 	}
 }
 
+function claculateAverage(){
+	$("#avgCalculator").modal('toggle');
+	$(".calculator-values p").not(':first').remove();
+	$("#avgCalculator input").val("");
+	$("#recordCount").val("");
+	$(".avgTotal").text("");
+}
+
+function addNewCalField(){
+	oldFieldsCount = $(".calculator-values p").length
+	fieldHtml = '<p><input type="text" id="cal-'+(oldFieldsCount+1)+'" class="avg-field-value"></p>'
+	$(".calculator-values").append(fieldHtml);
+}
+
+function removeNewCalField(){
+	if($(".calculator-values p").length > 1){
+		$(".calculator-values").children().last().remove()
+	}
+}
+
+function calculateFinalAvg(){
+	var totalValues = 0;
+	$(".avg-field-value").each(function(){
+		console.log("number "+$(this).val())
+		totalValues += Number($(this).val());
+	})
+	console.log("total val "+totalValues)
+	totalRecords = parseInt($("#recordCount").val());
+	totalAverage = (totalValues/totalRecords);
+	$(".avgTotal").text(totalAverage.toFixed(3));
+}
+

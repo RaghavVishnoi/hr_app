@@ -1,4 +1,11 @@
-<button class="btn btn-success" onclick="secureReviewPassword()">Show Reviews</button>
+<div class="col-sm-12">
+  <div class="col-sm-10">
+    <button class="btn btn-success" onclick="secureReviewPassword()">Show Reviews</button>
+  </div>  
+  <div class="col-sm-2">
+    <button class="btn btn-info" onclick="claculateAverage()">Calculate Average</button>
+  </div>  
+</div>  
 <div id="<%= 'secure-reviews' if params[:page].blank?%>">
   <div class="body table-responsive">
     <table class="table table-hover">
@@ -26,6 +33,7 @@
   </div>
 </div>
 <%=render 'secure_password'%>
+<%=render 'average_calculator'%>
 <script>
   $(".review-expired").click(function(){
     alert("Review due date is exceeded!")
