@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :perf_reviews do
     collection do
       get ':employee_id/employee' => 'perf_reviews#employee_review'
+      get ':employee_id/print' => 'perf_reviews#print_reviews', format: 'docx'
     end
   end
 

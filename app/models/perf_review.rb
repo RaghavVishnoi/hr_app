@@ -2,6 +2,7 @@ class PerfReview < ApplicationRecord
 
   belongs_to :employee
   belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
+  belongs_to :team_leader,class_name: 'Employee',foreign_key: 'team_leader'
 
   validates :employee_id,presence: true
   validates :name,presence: true

@@ -50,13 +50,8 @@
           <% end %>
         </h2>
       <div class="body table-responsive">
-        
-          <%if current_employee.superuser?%>
-            <%= render 'admin_reviews' %>
-          <%else%>
-            <%= render 'user_reviews' %>
-          <%end%>
-        </div>
+          <%= render 'admin_reviews' %>
+      </div>
       </div>      
     </div>
     <div class="col-md-1 column">

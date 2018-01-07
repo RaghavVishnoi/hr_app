@@ -1,0 +1,67 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          <%=Employee.find(params[:employee_id]).name%> - <%=PerfReview.where(employee_id: params[:employee_id]).average(:avg)%>       
+        </h2>
+      </div>
+      <div class="body">
+      	<%@perf_reviews.each do |perf_review|%>
+	      	<div style="border-bottom: 2px solid #ccc;margin-bottom: 20px;">
+	          <table class="table table-hover">
+	            <thead>
+	              <tr style="border: 0px">
+	                <th style="border: none;width: 25%;">Avg</th>
+	                <th style="border: none;width: 25%;">First Prepared</th>
+	                <th style="border: none;width: 25%;">Prepared By</th>
+	                <th style="border: none;width: 25%;">Reviewee</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td style="border: none;width: 25%;"><%=perf_review.avg%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.first_prepared.strftime("%d %b,%Y")%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.prepared_by%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.reviewer.name%></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <table class="table table-hover">
+	            <thead>
+	              <tr>
+	              	<th style="border: none;width: 25%;">Job Title</th>
+	                <th style="border: none;width: 25%;">Hiring Date</th>
+	                <th style="border: none;width: 25%;">Last Appraisal</th>
+	                <th style="border: none;width: 25%;">Team Leader</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	              	<td style="border: none;width: 25%;"><%=perf_review.job_title%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.hiring_date.strftime("%d %b,%Y")%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.last_appraisal%></td>
+	                <td style="border: none;width: 25%;"><%=perf_review.team_leader.name%></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	          <table class="table table-hover">
+	            <thead>
+	              <tr style="border: 0px">
+	                <th style="border: none;">Comment</th>
+	              </tr>
+	            </thead>
+	            <tbody>
+	              <tr>
+	                <td style="border: none;"><%=perf_review.comment%></td>
+	              </tr>
+	            </tbody>
+	          </table>
+	        </div>
+	        <hr />  
+          <br>
+        <%end%>  
+       </div>
+    </div>
+  </div>
+</div>

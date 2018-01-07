@@ -1,15 +1,17 @@
+require 'htmltoword'
 class PerfReviewsController < ApplicationController
+  respond_to :html, :js, :docx
+
   before_action :set_perf_review, only: [:show, :edit, :update, :destroy, :download_pdf]
   skip_before_filter :verify_authenticity_token, only: [:password]
   # GET /perf_reviews
   # GET /perf_reviews.json
   def index
     if current_employee.hr?
-      @perf_review_employees = Employee.joins("LEFT JOIN perf_reviews ON perf_reviews.employee_id = employees.id").group('employees.id')
-      puts @perf_review_employees
+      @perf_review_employees = Employee.joins("LEFT JOIN perf_reviews ON perf_reviews.employee_id = employees.id").group('employees.id').paginate(:page => params[:page], :per_page => 10)
       @perf_review = PerfReview.new
     else
-      @perf_reviews = current_employee.perf_reviews
+      @perf_review_employees = Employee.joins("LEFT JOIN perf_reviews ON perf_reviews.employee_id = employees.id where perf_reviews.reviewer_id=#{current_employee.id}").group('employees.id').paginate(:page => params[:page], :per_page => 10)
       @perf_review = PerfReview.new
     end
   end
@@ -46,6 +48,16 @@ class PerfReviewsController < ApplicationController
   def employee_review
     @perf_reviews = PerfReview.where(employee_id: params[:employee_id])
     @employee = Employee.find(params[:employee_id])
+  end
+
+  def print_reviews
+    employee = Employee.find(params[:employee_id])
+    @perf_reviews = PerfReview.where(employee_id: params[:employee_id])
+    respond_to do |format|
+      format.docx do
+        render docx: 'print_reviews', filename: "#{employee.name}-#{Date.today}.docx"
+      end
+    end
   end
 
   # POST /perf_reviews
