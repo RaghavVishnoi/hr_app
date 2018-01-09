@@ -179,3 +179,7 @@ function calculateFinalAvg(){
 	$(".avgTotal").text(totalAverage.toFixed(3));
 }
 
+function editPerfReviewPage(){
+	
+}
+
