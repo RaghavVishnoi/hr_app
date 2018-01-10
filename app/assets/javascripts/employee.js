@@ -178,8 +178,3 @@ function calculateFinalAvg(){
 	totalAverage = (totalValues/totalRecords);
 	$(".avgTotal").text(totalAverage.toFixed(3));
 }
-
-function editPerfReviewPage(){
-	
-}
-

@@ -23,8 +23,12 @@
             <td><%=PerfReview.where(employee_id: perf_review_employee.id).count%></td>
             <td><%=PerfReview.where(employee_id: perf_review_employee.id).average(:avg).round(3) rescue 0.0%></td>
             <td>
-              <a href='/perf_reviews/<%=perf_review_employee.id%>/employee'>Show</a>
-              <a href='/perf_reviews/<%=perf_review_employee.id%>/print'>Print</a>
+              <a href='/perf_reviews/<%=perf_review_employee.id%>/employee'>
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </a>&nbsp;&nbsp;&nbsp;
+              <a href='/perf_reviews/<%=perf_review_employee.id%>/print'>
+                <i class="fa fa-print" aria-hidden="true"></i>
+              </a>
             </td>
           </tr>
         <%end%>

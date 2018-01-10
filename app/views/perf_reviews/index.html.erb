@@ -12,6 +12,8 @@
               <tr>
                 <th>Created by</th>
                 <th>Reviewee</th>
+                <th>Reviewer</th>
+                <th>Due Date</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -21,13 +23,17 @@
                 <tr>
                   <td><%= review_pending.employee.email %></td>
                   <td><%= review_pending.perf_review_request.reviewee.email rescue ''%></td>
+                  <td><%= review_pending.perf_review_request.reviewers.map{|reviewer| reviewer.employee.name}.join(',') rescue ''%></td>
+                  <td><%= review_pending.perf_review_request.due_date.strftime("%d %b,%Y") rescue ''%></td>
                   <td>
                     <%if review_pending.perf_review_request.try(:due_date).present? && review_pending.perf_review_request.due_date >= Date.today%>
                       <%= link_to give_review_path(review_pending) do %>
-                        Review
+                        <i class="fa fa-commenting" aria-hidden="true" title="Review"></i>
                       <% end %>
                     <%else%>
-                      <a href="javascript:void(0)" class="review-expired">Review</a>
+                      <a href="javascript:void(0)" class="review-expired">
+                        <i class="fa fa-commenting" aria-hidden="true" title="Review"></i>
+                      </a>
                     <%end%>  
                   </td>
                 </tr>

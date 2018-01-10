@@ -97,7 +97,7 @@ class PerfReviewsController < ApplicationController
         )
       end
       @perf_review.update_average_point
-      redirect_to perf_reviews_path
+      redirect_to "/perf_reviews/#{@perf_review.employee.id}/employee"
     else
       redirect_to "/perf_reviews/#{params[:id]}/edit", notice: "Please check the values!"
     end  
