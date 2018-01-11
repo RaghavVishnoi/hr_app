@@ -1,0 +1,6 @@
+<p>Your review has been submitted successfully with following details:</p>
+<table style="width:60%;border: 1px;">
+	<tr><td><b>Review Date</b></td><td><%=@perf_review.created_at.strftime("%d %b,%Y")%></td></tr>
+	<tr><td><b>Reviewer Name</b></td><td><%=@perf_review.reviewer.name%></td></tr>
+	<tr><td><b>Average</b></td><td><%=@perf_review.avg%></td></tr>
+</table>

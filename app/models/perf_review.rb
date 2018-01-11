@@ -4,6 +4,8 @@ class PerfReview < ApplicationRecord
   belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
   belongs_to :team_lead,class_name: 'Employee',foreign_key: 'team_leader'
 
+  after_create :notify_reviewee
+
   validates :employee_id,presence: true
   validates :name,presence: true
   validates :time_in_position,presence: true
@@ -20,6 +22,10 @@ class PerfReview < ApplicationRecord
   # def employee
   #   Employee.find(employee_id)
   # end
+
+  def notify_reviewee
+    PerfReviewMailer.notify(self.employee.email,self).deliver_now
+  end
 
   def update_flag
     PerfReviewReviewer.find(request_id).update flag: 1
