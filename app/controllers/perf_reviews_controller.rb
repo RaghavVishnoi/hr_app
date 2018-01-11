@@ -24,12 +24,8 @@ class PerfReviewsController < ApplicationController
   # GET /perf_reviews/new
   def new
     @reviewer = PerfReviewReviewer.find(params[:reviewer_id])
-    @review_categories = PerfReviewCatg.all.paginate(:page => params[:page], :per_page => 1)
-    if params[:page].present? && @review_categories.length > 0
-      @progress_bar_per = (params[:page].to_f / PerfReviewCatg.all.length.to_f)
-    else 
-      @progress_bar_per = (1.0 / PerfReviewCatg.all.length.to_f)
-    end  
+    @review_categories = PerfReviewCatg.all
+    @progress_bar_per = (1.0 / PerfReviewCatg.all.length.to_f)
   end
 
   # GET /perf_reviews/1/edit
