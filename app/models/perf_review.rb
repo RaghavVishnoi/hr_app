@@ -24,7 +24,7 @@ class PerfReview < ApplicationRecord
   # end
 
   def notify_reviewee
-    PerfReviewMailer.notify(self.employee.email,self).deliver_now
+    #PerfReviewMailer.notify(self.employee.email,self).deliver_now
   end
 
   def update_flag

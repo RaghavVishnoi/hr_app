@@ -7,7 +7,7 @@ class PerfReviewsController < ApplicationController
   # GET /perf_reviews
   # GET /perf_reviews.json
   def index
-    if current_employee.hr?
+    if current_employee.superuser?
       @perf_review_employees = Employee.joins("LEFT JOIN perf_reviews ON perf_reviews.employee_id = employees.id").group('employees.id').paginate(:page => params[:page], :per_page => 10)
       @perf_review = PerfReview.new
     else

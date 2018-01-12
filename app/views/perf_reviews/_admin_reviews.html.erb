@@ -33,7 +33,7 @@
           </tr>
         <%end%>
     </table>
-    <%= will_paginate @perf_review_employees %>
+    <%= will_paginate @perf_review_employees, renderer: BootstrapPagination::Rails %>
   </div>
 </div>
 <%=render 'secure_password'%>

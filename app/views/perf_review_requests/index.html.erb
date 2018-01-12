@@ -6,27 +6,60 @@
           Performance Review Requests
         </h2>
       </div>
-      <div class="body">
-        <div id="add-review-request-form">
-          <%= render 'form', perf_review_request: @perf_review_request %>
-        </div>
-        <div class="clearfix"></div>
-        <h1>Requests</h1>
-        <div class="body table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Created by</th>
-                <th>Reviewee</th>
-                <th>Reviewer/Reviewers</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <%= render @perf_review_requests %>
-            </tbody>
-          </table>
-        </div>
+      <div class="body table-responsive"> 
+        <%@perf_review_requests.each do |perf_review_request|%>
+          <div class="card-child">
+            <div class="col-sm-9 col-xs-9">
+              <%= submit_tag "Edit", class: "btn btn-primary mat-top-10" %>
+            </div>
+            <div class="col-sm-3 col-xs-3 mat-top-10">
+              <%if perf_review_request.due_date.present? && perf_review_request.due_date > Time.now%>
+                <b><%= distance_of_time_in_words(Time.now, perf_review_request.due_date) %></b> to expire
+              <%else%>
+                <b>Expired</b>
+              <%end%>  
+            </div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Request Id</th>
+                  <th>Reviewee</th>
+                  <th>Due Date</th>
+                  <th>Created By</th>
+                  <th>Total Avg</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%=perf_review_request.id%></td>
+                  <td><%=perf_review_request.reviewee.name%></td>
+                  <td><%=perf_review_request.due_date.strftime("%d %b %Y") rescue nil%></td>
+                  <td><%=perf_review_request.employee.name%></td>
+                  <td>0.0</td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Reviewer</th>
+                  <th>Review Date</th>
+                  <th>Avg Review</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%perf_review_request.reviewers.each do |reviewer|%>
+                  <tr>
+                    <td><%=reviewer.employee.name%></td>
+                    <td><%=perf_review_request.reviews(reviewer.id)[:review_date]%></td>
+                    <td><%=perf_review_request.reviews(reviewer.id)[:review_avg]%></td>
+                  </tr>
+                <%end%>
+              </tbody>
+            </table>
+          </div>  
+        <%end%>  
+        <%= will_paginate @perf_review_requests, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
   </div>

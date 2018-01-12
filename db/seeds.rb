@@ -68,7 +68,8 @@ menus = [
 			{name: 'List Employees'},
 			{name: 'Flextime Requests'},
 			{name: 'List Flextime Requests'},
-			{name: 'Apply Flextime Requests'}
+			{name: 'Apply Flextime Requests'},
+			{name: 'List Review Requests'}
 		]
 
 menus.each do |menu|

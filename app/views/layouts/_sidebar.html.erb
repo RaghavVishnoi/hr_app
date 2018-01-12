@@ -89,9 +89,14 @@
                     <%= link_to 'Templates', perf_review_catgs_path, class: "waves-effect waves-block" %>
                   </li>
                 <%end%> 
+                <%if current_employee.is_module_permission('List Review Requests')%>  
+                  <li>
+                    <%= link_to 'List Requests', perf_review_requests_path, class: "waves-effect waves-block" %>
+                  </li>
+                <%end%>  
                 <%if current_employee.is_module_permission('Send Requests')%>  
                   <li>
-                    <%= link_to 'Send Requests', perf_review_requests_path, class: "waves-effect waves-block" %>
+                    <%= link_to 'Send Requests', new_perf_review_request_path, class: "waves-effect waves-block" %>
                   </li>
                 <%end%>  
                 <%if current_employee.is_module_permission('Review Employee')%>

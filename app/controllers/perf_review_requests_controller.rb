@@ -4,8 +4,7 @@ class PerfReviewRequestsController < ApplicationController
   # GET /perf_review_requests
   # GET /perf_review_requests.json
   def index
-    @perf_review_requests = PerfReviewRequest.all
-    @perf_review_request = PerfReviewRequest.new
+    @perf_review_requests = PerfReviewRequest.all.order('due_date asc').paginate(:page => params[:page], :per_page => 5)
   end
 
   # GET /perf_review_requests/1
@@ -15,7 +14,7 @@ class PerfReviewRequestsController < ApplicationController
 
   # GET /perf_review_requests/new
   def new
-
+    @perf_review_request = PerfReviewRequest.new
   end
 
   # GET /perf_review_requests/1/edit
