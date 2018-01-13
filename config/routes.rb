@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   post '/experience/report_all' => 'experiences#report_all'
   post '/result/share' => 'results#share'
   post '/perf_review/password' => 'perf_reviews#password'
+  get '/perf_review_requests/report' => 'perf_review_requests#report', format: 'docx'
+  post '/perf_review_requests/:id' => 'perf_review_requests#update'
 
   resources :notifications,only: [:index,:new,:create,:show]
   get '/notification_list' => 'notifications#notification_list'

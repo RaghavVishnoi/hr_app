@@ -1,16 +1,26 @@
 <div class="row clearfix">
   <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
     <div class="card">
-      <div class="header">
-        <h2>
-          Performance Review Requests
-        </h2>
+      <div class="header pad-bot-40">
+        <div class="col-sm-9">
+          <h2>
+            Performance Review Requests
+          </h2>
+        </div>
+        <div class="col-sm-3" style="margin-top: -8px;">
+          <%= link_to('/perf_review_requests/report', :class => "btn btn-success") do %>
+            Master Report 
+            <i class="fa fa-download mar-left-5"></i>
+          <% end %>
+        </div>
       </div>
       <div class="body table-responsive"> 
         <%@perf_review_requests.each do |perf_review_request|%>
           <div class="card-child">
             <div class="col-sm-9 col-xs-9">
-              <%= submit_tag "Edit", class: "btn btn-primary mat-top-10" %>
+              <a href="/perf_review_requests/<%=perf_review_request.id%>/edit">
+                <%= submit_tag "Edit", class: "btn btn-primary mat-top-10" %>
+              </a>
             </div>
             <div class="col-sm-3 col-xs-3 mat-top-10">
               <%if perf_review_request.due_date.present? && perf_review_request.due_date > Time.now%>
@@ -35,7 +45,7 @@
                   <td><%=perf_review_request.reviewee.name%></td>
                   <td><%=perf_review_request.due_date.strftime("%d %b %Y") rescue nil%></td>
                   <td><%=perf_review_request.employee.name%></td>
-                  <td>0.0</td>
+                  <td><%=perf_review_request.avg_on_category%></td>
                 </tr>
               </tbody>
             </table>
@@ -51,8 +61,8 @@
                 <%perf_review_request.reviewers.each do |reviewer|%>
                   <tr>
                     <td><%=reviewer.employee.name%></td>
-                    <td><%=perf_review_request.reviews(reviewer.id)[:review_date]%></td>
-                    <td><%=perf_review_request.reviews(reviewer.id)[:review_avg]%></td>
+                    <td><%=perf_review_request.reviews(reviewer)[:review_date]%></td>
+                    <td><%=perf_review_request.reviews(reviewer)[:review_avg]%></td>
                   </tr>
                 <%end%>
               </tbody>

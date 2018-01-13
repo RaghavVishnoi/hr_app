@@ -8,7 +8,7 @@
       </div>
       <div class="body">
         <div id="add-review-request-form">
-          <%= render 'form', perf_review_request: @perf_review_request %>
+          <%= render 'form', perf_review_request: @perf_review_request,action: 'Create',url: perf_review_requests_path %>
         </div>
         <div class="clearfix"></div>
       </div>

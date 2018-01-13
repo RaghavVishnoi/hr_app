@@ -3,6 +3,7 @@ class PerfReview < ApplicationRecord
   belongs_to :employee
   belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
   belongs_to :team_lead,class_name: 'Employee',foreign_key: 'team_leader'
+  has_many :ques_answs
 
   after_create :notify_reviewee
 
@@ -24,7 +25,7 @@ class PerfReview < ApplicationRecord
   # end
 
   def notify_reviewee
-    PerfReviewMailer.notify(self.employee.email,self).deliver_now
+    #PerfReviewMailer.notify(self.employee.email,self).deliver_now
   end
 
   def update_flag

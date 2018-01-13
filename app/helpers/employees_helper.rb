@@ -341,6 +341,62 @@ module EmployeesHelper
 		experience_html_template
 	end
 
+	def self.perf_request_report(perf_review_requests)
+		'<div class="row clearfix">
+		  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		    <div class="card">
+		      <div class="header">
+		        <h2>
+		          Reuest Id: 12     
+		        </h2>
+		      </div>
+		      <div class="body">
+			      	<div style="border-bottom: 2px solid #ccc;margin-bottom: 20px;">
+			          <table class="table table-striped table-inverse" style="font-size: 15px;width: 100%;" bgcolor="darkCyan">
+			            <thead>
+			              <tr style="border: 0px;height: 40px;">
+			                <th style="border: none;width: 25%;">Avg</th>
+			                <th style="border: none;width: 25%;">First Prepared</th>
+			                <th style="border: none;width: 25%;">Prepared By</th>
+			                <th style="border: none;width: 25%;">Reviewee</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			              <tr>
+			                <td style="border: none;width: 25%;">qwqw</td>
+			                <td style="border: none;width: 25%;">qwqw</td>
+			                <td style="border: none;width: 25%;">qwqwq</td>
+			                <td style="border: none;width: 25%;">asas</q></td>
+			              </tr>
+			            </tbody>
+			          </table>
+			          <table class="table table-striped table-inverse" style="font-size: 15px;width: 100%;">
+			            <thead>
+			              <tr style="border: 0px;height: 40px;">
+			              	<th style="border: none;width: 25%;">Job Title</th>
+			                <th style="border: none;width: 25%;">Hiring Date</th>
+			                <th style="border: none;width: 25%;">Last Appraisal</th>
+			                <th style="border: none;width: 25%;">Team Leader</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			              <tr>
+			              	<td style="border: none;width: 25%;">asas</td>
+			                <td style="border: none;width: 25%;">saas</td>
+			                <td style="border: none;width: 25%;">asas</td>
+			                <td style="border: none;width: 25%;">asasas</td>
+			              </tr>
+			            </tbody>
+			          </table>
+			        </div>
+			        <hr />  
+		          <br>
+		       </div>
+		    </div>
+		  </div>
+		</div>'
+	end
+
 
 	# ------------------------------------------------------------------------------------------------------------#
 

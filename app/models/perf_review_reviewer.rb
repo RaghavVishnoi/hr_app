@@ -11,11 +11,15 @@ class PerfReviewReviewer < ApplicationRecord
       Employee.find(reviewer_id)
     end
 
+    def perf_review
+        PerfReview.find_by(request_id: self.id)
+    end
+
     private
     def send_notification
         Notification.add("New Review Request","","/request/#{self.perf_review_request_id}/send_review",self.reviewer_id,"perf_review_request")
     	reviewee = Employee.find(self.perf_review_request.reviewee_id)
-    	ReviewRequestMailer.notify(self.employee.email,reviewee,self.perf_review_request).deliver_now
+    	#ReviewRequestMailer.notify(self.employee.email,reviewee,self.perf_review_request).deliver_now
     end
 
 

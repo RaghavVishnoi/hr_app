@@ -1,4 +1,7 @@
+require 'htmltoword'
 class PerfReviewRequestsController < ApplicationController
+  include EmployeesHelper
+  respond_to :html, :js, :docx
   before_action :set_perf_review_request, only: [:show, :edit, :update, :destroy]
 
   # GET /perf_review_requests
@@ -56,9 +59,20 @@ class PerfReviewRequestsController < ApplicationController
   # PATCH/PUT /perf_review_requests/1
   # PATCH/PUT /perf_review_requests/1.json
   def update
+    @perf_review_request = PerfReviewRequest.find(params[:id])
+    @perf_review_request.update_attributes(
+      reviewee_id: params[:reviewee_id],
+      employee_id: current_employee.id,
+      job_title: params[:job_title],
+      time_in_position: params[:time_in_position],
+      last_appraisal: params[:last_appraisal],
+      first_prepared: params[:first_prepared],
+      hiring_date: params[:hiring_date],
+      due_date: params[:due_date]
+    )
     respond_to do |format|
-      if @perf_review_request.update(perf_review_request_params)
-        format.html { redirect_to @perf_review_request, notice: 'Perf review request was successfully updated.' }
+      if @perf_review_request
+        format.html { redirect_to perf_review_requests_path, notice: 'Perf review request was successfully updated.' }
         format.json { render :show, status: :ok, location: @perf_review_request }
       else
         format.html { render :edit }
@@ -74,6 +88,13 @@ class PerfReviewRequestsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to perf_review_requests_url, notice: 'Perf review request was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def report
+    @perf_review_requests = PerfReviewRequest.all.order('due_date asc')
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests-#{DateTime.current.strftime('%d %b,%Y %T')}.docx\"" }
     end
   end
 

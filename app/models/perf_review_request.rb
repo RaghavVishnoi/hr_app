@@ -29,13 +29,13 @@ class PerfReviewRequest < ApplicationRecord
     PerfReviewReviewer.where(perf_review_request_id: self.id)
   end
   
-  def reviews(reviewer_id)
+  def reviews(reviewer)
     data = {}
-    if self.perf_reviews.present?
-      review = self.perf_reviews.find_by(reviewer_id: reviewer_id)
-      if review.present?
-        data[:review_date] = review.created_at.strftime("%d %b,%Y")
-        data[:review_avg] = review.avg
+    perf_review = PerfReview.find_by(request_id: reviewer.id)
+    if perf_review.present?
+      if perf_review.present?
+        data[:review_date] = perf_review.created_at.strftime("%d %b,%Y")
+        data[:review_avg] = perf_review.avg
       else
         data[:review_date] = 'Not Available'
         data[:review_avg] = 'Not Available'
@@ -45,6 +45,53 @@ class PerfReviewRequest < ApplicationRecord
       data[:review_avg] = 'Pending'
     end
     data
+  end
+
+  def avg_on_category
+    if self.reviewers.map{|reviewer| reviewer.perf_review}.compact.present?
+      category_wise_points = Hash.new
+      PerfReviewCatg.all.each do |category|
+        question_ids = category.questions.pluck(:id)
+        categories_points = QuesAnsw.where(review_id: self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?},question_id: question_ids).pluck(:answer)
+        if categories_points.length > 0
+          category_wise_points[category.id] = (categories_points.sum(&:to_f)/categories_points.length).round(2)
+        else
+          category_wise_points[category.id] = 0
+        end
+      end
+      total_avg_category = ((category_wise_points.values.sum)/category_wise_points.values.length).round(2)
+    else
+      'Awaiting..'
+    end
+  end
+
+  def master_request_avg
+    if self.reviewers.map{|reviewer| reviewer.perf_review}.compact.present?
+      category_wise_points = Hash.new
+      PerfReviewCatg.all.each do |category|
+        question_wise_points = Hash.new
+        category.questions.each do |question|
+          questions_points = QuesAnsw.where(review_id: self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?},question_id: question.id).pluck(:answer)
+          question_wise_points[question.id] = (questions_points.sum(&:to_f)/questions_points.length)
+        end
+        category_wise_points[category.id] = (question_wise_points.values.sum/question_wise_points.values.length)
+      end
+      total_avg_category = ((category_wise_points.values.sum)/category_wise_points.values.length).round(2)
+    else
+      'Pending'
+    end
+  end
+
+  def pending_reviewer
+    reviewers = self.reviewers
+    pending_revr = []
+    reviewers.each{|reviewer| pending_revr.push(reviewer.employee) if reviewer.perf_review.nil?}
+    # if pending_revr.length == 1
+    #   pending_revr.flatten
+    # else
+    #   pending_revr
+    # end
+    pending_revr
   end
 
 end
