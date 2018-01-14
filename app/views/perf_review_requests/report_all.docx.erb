@@ -1,0 +1,138 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="body">
+      	<div class="col-sm-3" style="margin-left: 200px">
+	      	<h4>
+	      		<u>Master PERFORMANCE review list</u>
+	      	</h4>
+      	</div>
+      	<br>
+      	<%@perf_review_requests.each do |perf_review_request|%>      	
+		    <table class="table table-borderless" width="650" border="1">
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>Name: </b><%=perf_review_request.reviewee.name%></td>
+		            <td style="border: 0px;"><b>Time in Position:</b>  <%=perf_review_request.time_in_position%> </td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>Job Title:</b>  <%=perf_review_request.job_title%></td>
+		            <td style="border: 0px;"><b>Last Appraisal: </b>  <%=perf_review_request.last_appraisal.strftime('%d %b,%Y')%></td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>Team Leader:</b>  <%=Employee.team_leaders.map{|emp| emp.name}.join(',')%></td>
+		            <td style="border: 0px;"><b>Date First Prepared: </b>  <%=perf_review_request.first_prepared.strftime('%d %b,%Y')%></td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>Date Hired: </b> <%=perf_review_request.hiring_date.strftime('%d %b,%Y')%></td>
+		            <td style="border: 0px;"><b>Prepared By: </b> <%=perf_review_request.reviewee.name%></td>
+		          </tr>
+		    </table>
+		    <br>
+		    <br>
+		    <%PerfReviewCatg.all.each_with_index do |category,index|%>
+			    <div class="col-sm-12">
+			      	<span><b><%=category.name%></b></span>
+		      	</div>
+		      	<hr />
+		      	<table class="table table-bordered" width="650" border="0" >
+			        <tbody>
+			          <%category.questions.each do |question|%>	
+				          <tr>
+				            <td style="width: 50px;"><%=category.questions_points(perf_review_request)[question.id]%>
+				            </td>
+				            <td><%=question.name%></td>
+				          </tr>
+				      <%end%>  
+				      <tr>
+				      	<td colspan="2">
+				      		<p><b>Overall Assesment:</b>  <%=category.categories_points(perf_review_request)[category.id]%></p>
+				      		<p><b>Comment: </b></p>
+				      		<p>
+				      			<%begin 
+				      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_reviews) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |comment|%>
+					      				<%=comment%>
+					      				<br>
+				      				<%end
+				      			rescue  
+				      			end%>
+				      		</p>
+				      		<p><b>Suggested Improvements, what is needed to obtain 5.00s: </b></p>
+				      		<p>
+				      			<%begin
+				      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_suggestions) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |suggestion|%>
+				      					<%=suggestion%>
+				      					<br>
+				      				<%end
+				      			rescue
+				      			end%>
+				      		</p>
+				      	</td>
+				      </tr>  
+			        </tbody>
+			    </table>
+			    <br><br>
+			<%end%> 
+			<table class="table table-bordered" width="650" border="2" >
+		        <tbody> 
+			      <tr>
+			      	<td colspan="2">
+			      		<p>
+			      			<%master_points = perf_review_request.total_points_master%>
+			      			<span style="margin-top: 20px;margin-left: 10px;"><b>Total Points:</b>  <%=master_points.values.sum.round(2) rescue 0.0%>  </span>
+			      			<label style="background-color: #fff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			      			<span><b>Items Rated:</b>  <%=master_points.values.length rescue 0%></span>
+			      			<label style="background-color: #fff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+			      			<span><b>Overall Rating</b> <%=(master_points.values.sum/master_points.values.length).round(2) rescue 0.0%></span>
+			      		</p>
+			      		<br><br>
+			      		<p>
+			      			<span><b>SUMMARY AND OVERALL COMMENTS:</b></span>
+			      		</p>
+			      		<p>
+			      			<%perf_review_request.reviewers.each do |reviewer|%>
+			      				<%if reviewer.perf_review.present?%>
+			      					<label><b><%=reviewer.employee.name%>: </b><%=reviewer.perf_review.comment%></label><br>
+			      				<%end%>
+			      			<%end%>
+			      		</p>	
+			      	</td>
+			      </tr>  
+		        </tbody>
+		    </table>
+		    <br><br><br>
+		    <p><b>FUTURE GOALS/ SUGGESTED IMPROVEMENTS:</b></p>
+		    <br><br>
+		    <p style="width: 650px; border-top: 1px solid">
+		    	<br>
+		    	<b>Approvals</b>
+		    </p> 
+		     <table class="table table-borderless" width="650" border="1">
+		          <tr>
+		            <td width="300px;" style="border: 0px;"><b>Employee: </b></td>
+		            <td width="350px;" style="border: 0px;"><b>Date:</b> <u style="width: 100px;"></u>  </td>
+		          </tr>
+		          <tr>
+		            <td width="300px;" style="border: 0px;"><b>Team Leader:</b>  </td>
+		            <td width="350px;" style="border: 0px;"><b>Date: </b>  </td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>HR:</b>  </td>
+		            <td style="border: 0px;"><b>Date: </b>  </td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>Superwising Team Manager: </b> </td>
+		            <td style="border: 0px;"><b>Date: </b></td>
+		          </tr>
+		          <tr>
+		            <td width="400px;" style="border: 0px;"><b>President: </b> </td>
+		            <td style="border: 0px;"><b>Date: </b></td>
+		          </tr>
+		    </table>
+		    <br><br><br><br><br><br><br>
+		    <hr><hr>
+		    <p style="page-break-after: always;">&nbsp;</p>
+		<%end%>    
+       </div>
+    </div>
+  </div>
+</div>

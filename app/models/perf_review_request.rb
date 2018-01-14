@@ -82,16 +82,35 @@ class PerfReviewRequest < ApplicationRecord
     end
   end
 
+  def total_points_master
+    if self.reviewers.map{|reviewer| reviewer.perf_review}.compact.present?
+      category_wise_points = Hash.new
+      PerfReviewCatg.all.each do |category|
+        question_wise_points = Hash.new
+        category.questions.each do |question|
+          questions_points = QuesAnsw.where(review_id: self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?},question_id: question.id).pluck(:answer)
+          question_wise_points[question.id] = (questions_points.sum(&:to_f)/questions_points.length)
+        end
+        category_wise_points[category.id] = (question_wise_points.values.sum/question_wise_points.values.length)
+      end
+      category_wise_points
+    else
+      'Pending'
+    end
+  end
+
   def pending_reviewer
     reviewers = self.reviewers
     pending_revr = []
     reviewers.each{|reviewer| pending_revr.push(reviewer.employee) if reviewer.perf_review.nil?}
-    # if pending_revr.length == 1
-    #   pending_revr.flatten
-    # else
-    #   pending_revr
-    # end
     pending_revr
+  end
+
+  def reviewed_reviewers
+    reviewers = self.reviewers
+    reviewed_revr = []
+    reviewers.each{|reviewer| reviewed_revr.push(reviewer.employee) if reviewer.perf_review.present?}
+    reviewed_revr
   end
 
 end

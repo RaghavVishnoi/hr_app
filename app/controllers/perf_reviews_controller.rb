@@ -130,6 +130,6 @@ class PerfReviewsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def perf_review_params
-      params.require(:perf_review).permit(:employee_id,:name,:time_in_position,:job_title,:last_appraisal,:team_leader,:first_prepared,:hiring_date,:reviewer_id,:prepared_by,:request_id,:comment,:catg_reviews)
+      params.require(:perf_review).permit(:employee_id,:name,:time_in_position,:job_title,:last_appraisal,:team_leader,:first_prepared,:hiring_date,:reviewer_id,:prepared_by,:request_id,:comment,{:catg_reviews => []},{:catg_suggestions => []})
     end
 end

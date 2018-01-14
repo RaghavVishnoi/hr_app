@@ -1639,3 +1639,7 @@ fc-today {
 .pad-bot-40{padding-bottom: 40px !important;}
 
 .mar-left-5{margin-left: 5px;}
+
+.table-borderless > tbody > tr > td{
+    border: 0px !important;
+}

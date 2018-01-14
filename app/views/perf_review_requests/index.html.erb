@@ -8,7 +8,7 @@
           </h2>
         </div>
         <div class="col-sm-3" style="margin-top: -8px;">
-          <%= link_to('/perf_review_requests/report', :class => "btn btn-success") do %>
+          <%= link_to('/perf_review_requests/report_all', :class => "btn btn-success") do %>
             Master Report 
             <i class="fa fa-download mar-left-5"></i>
           <% end %>
@@ -18,9 +18,14 @@
         <%@perf_review_requests.each do |perf_review_request|%>
           <div class="card-child">
             <div class="col-sm-9 col-xs-9">
-              <a href="/perf_review_requests/<%=perf_review_request.id%>/edit">
-                <%= submit_tag "Edit", class: "btn btn-primary mat-top-10" %>
-              </a>
+              <%= link_to('/perf_review_requests/'+String(perf_review_request.id)+'/edit', :class => "btn btn-primary mat-top-10") do %>
+                Edit 
+                <i class="fa fa-pencil mar-left-5"></i>
+              <% end %>
+              <%= link_to('/perf_review_requests/'+String(perf_review_request.id)+'/report', :class => "btn btn-success mat-top-10") do %>
+                Report 
+                <i class="fa fa-download mar-left-5"></i>
+              <% end %>
             </div>
             <div class="col-sm-3 col-xs-3 mat-top-10">
               <%if perf_review_request.due_date.present? && perf_review_request.due_date > Time.now%>

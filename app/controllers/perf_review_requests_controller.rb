@@ -91,8 +91,15 @@ class PerfReviewRequestsController < ApplicationController
     end
   end
 
-  def report
+  def report_all
     @perf_review_requests = PerfReviewRequest.all.order('due_date asc')
+    respond_to do |format|
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests All-#{DateTime.current.strftime('%d %b,%Y %T')}.docx\"" }
+    end
+  end
+
+  def report
+    @perf_review_request = set_perf_review_request
     respond_to do |format|
       format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests-#{DateTime.current.strftime('%d %b,%Y %T')}.docx\"" }
     end
