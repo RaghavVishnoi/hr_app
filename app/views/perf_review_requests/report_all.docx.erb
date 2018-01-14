@@ -34,17 +34,17 @@
 			      	<span><b><%=category.name%></b></span>
 		      	</div>
 		      	<hr />
-		      	<table class="table table-bordered" width="650" border="0" >
+		      	<table class="table table-bordered" width="650" border="1" >
 			        <tbody>
 			          <%category.questions.each do |question|%>	
 				          <tr>
-				            <td style="width: 50px;"><%=category.questions_points(perf_review_request)[question.id]%>
+				            <td style="width: 50px;border: 1px solid"><%=category.questions_points(perf_review_request)[question.id]%>
 				            </td>
-				            <td><%=question.name%></td>
+				            <td style="border: 1px solid"><%=question.name%></td>
 				          </tr>
 				      <%end%>  
 				      <tr>
-				      	<td colspan="2">
+				      	<td colspan="2" style="border: 1px solid">
 				      		<p><b>Overall Assesment:</b>  <%=category.categories_points(perf_review_request)[category.id]%></p>
 				      		<p><b>Comment: </b></p>
 				      		<p>
