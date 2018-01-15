@@ -3,6 +3,8 @@ class PerfReviewRequest < ApplicationRecord
   has_many :perf_reviews, class_name: 'PerfReview', foreign_key: 'request_id'
   has_many :reviewers, class_name: 'PerfReviewReviewer', foreign_key: 'reviewer_id'
 
+  after_create :default_values
+
   def reviewee
     Employee.find(reviewee_id)
   end
@@ -112,6 +114,11 @@ class PerfReviewRequest < ApplicationRecord
     reviewers.each{|reviewer| reviewed_revr.push(reviewer.employee) if reviewer.perf_review.present?}
     reviewed_revr
   end
+
+  private
+    def default_values
+      self.created_at ||= DateTime.current
+    end
 
 end
 
