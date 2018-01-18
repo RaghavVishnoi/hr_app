@@ -51,7 +51,9 @@
         </div>
       </div>
    </div>
-  <%perf_review_catg_comments = JSON.parse(@perf_review.catg_reviews) if @perf_review.catg_reviews.present?%>
+  <%perf_review_catg_comments = JSON.parse(@perf_review.catg_reviews) if @perf_review.catg_reviews.present?
+    perf_review_catg_suggestions = JSON.parse(@perf_review.catg_suggestions) if @perf_review.catg_suggestions.present?
+  %>
   <% PerfReviewCatg.all.each_with_index do |category,index| %>
     <div class="card">
       <div class="panel panel-primary">
@@ -178,6 +180,14 @@
             <div class="form-group form-float">
               <div class="form-line">
                 <%= text_area_tag "perf_review[catg_reviews]", "#{perf_review_catg_comments[index] rescue nil}", class: "form-control" %>
+                <label class="form-label">Category Comment</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12">
+            <div class="form-group form-float">
+              <div class="form-line">
+                <%= text_area_tag "perf_review[catg_suggestions]", "#{perf_review_catg_suggestions[index] rescue nil}", class: "form-control" %>
                 <label class="form-label">Category Comment</label>
               </div>
             </div>
