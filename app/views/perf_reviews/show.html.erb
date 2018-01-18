@@ -51,8 +51,8 @@
         </div>
       </div>
    </div>
-  <%perf_review_catg_comments = JSON.parse(@perf_review.catg_reviews) if @perf_review.catg_reviews.present?
-    perf_review_catg_suggestions = JSON.parse(@perf_review.catg_suggestions) if @perf_review.catg_suggestions.present?
+  <%perf_review_catg_comments = JSON.parse(@perf_review.catg_reviews) if @perf_review.catg_reviews.present? rescue [@perf_review.catg_reviews]
+    perf_review_catg_suggestions = JSON.parse(@perf_review.catg_suggestions) if @perf_review.catg_suggestions.present? rescue [@perf_review.catg_suggestions]
   %>
   <% PerfReviewCatg.all.each_with_index do |category,index| %>
     <div class="card">
