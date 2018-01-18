@@ -94,14 +94,14 @@ class PerfReviewRequestsController < ApplicationController
   def report_all
     @perf_review_requests = PerfReviewRequest.all.order('due_date asc')
     respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests All-#{DateTime.current.strftime('%d %b,%Y %T')}.docx\"" }
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests All-#{DateTime.current.strftime('%d %b,%Y %T')}.doc\"" }
     end
   end
 
   def report
     @perf_review_request = set_perf_review_request
     respond_to do |format|
-      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests-#{DateTime.current.strftime('%d %b,%Y %T')}.docx\"" }
+      format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Requests-#{DateTime.current.strftime('%d %b,%Y %T')}.doc\"" }
     end
   end
 

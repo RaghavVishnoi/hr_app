@@ -54,7 +54,7 @@ class PerfReviewRequest < ApplicationRecord
       category_wise_points = Hash.new
       PerfReviewCatg.all.each do |category|
         question_ids = category.questions.pluck(:id)
-        categories_points = QuesAnsw.where(review_id: self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?},question_id: question_ids).pluck(:answer)
+        categories_points = QuesAnsw.where('review_id IN (?) AND question_id IN (?) AND answer > 0', self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?}.compact,question_ids).pluck(:answer)
         if categories_points.length > 0
           category_wise_points[category.id] = (categories_points.sum(&:to_f)/categories_points.length).round(2)
         else
@@ -73,7 +73,7 @@ class PerfReviewRequest < ApplicationRecord
       PerfReviewCatg.all.each do |category|
         question_wise_points = Hash.new
         category.questions.each do |question|
-          questions_points = QuesAnsw.where(review_id: self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?},question_id: question.id).pluck(:answer)
+          questions_points = QuesAnsw.where('review_id IN (?) AND question_id = ? AND answer > 0', self.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?}.compact, question.id).pluck(:answer)
           question_wise_points[question.id] = (questions_points.sum(&:to_f)/questions_points.length)
         end
         category_wise_points[category.id] = (question_wise_points.values.sum/question_wise_points.values.length)
