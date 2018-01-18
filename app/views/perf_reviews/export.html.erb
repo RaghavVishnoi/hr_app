@@ -7,23 +7,17 @@
               <h3 class="panel-title">
                   General Informations
               </h3>
-            </div>
-            <div class="col-xs-3">
-              <%= link_to('/perf_reviews/'+String(@perf_review.id)+'/export.pdf', :class => "btn btn-success perf-review-pdf-action") do %>
-                Generate Pdf 
-                <i class="fa fa-download mar-left-5"></i>
-              <% end %>
-            </div>  
+            </div> 
           </div>  
         </div>
         <div class="panel-body">
           <div class="col-xs-12">
-            <label class="form-label">Employee Reviewed</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Employee Reviewed</label>
             <%= text_field_tag "", @perf_review.employee.email, class: "form-control" %>
 
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Name</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Name</label>
             <%= text_field_tag "perf_review[name]", @perf_review.name, class: "form-control" %>
           </div>
           <div class="col-xs-12">
@@ -31,36 +25,37 @@
             <%= text_field_tag "perf_review[time_in_position]", @perf_review.time_in_position, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Job Title</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Job Title</label>
             <%= text_field_tag "perf_review[job_title]", @perf_review.job_title, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Last Appraisal</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Last Appraisal</label>
             <%= text_field_tag "perf_review[last_appraisal]", @perf_review.last_appraisal, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Team Leader</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Team Leader</label>
             <%= text_field_tag "perf_review[team_leader]", @perf_review.team_leader, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Date First Prepared</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Date First Prepared</label>
             <%= text_field_tag "perf_review[first_prepared]", @perf_review.first_prepared,  class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Hiring Date</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Hiring Date</label>
             <%= text_field_tag  "perf_review[hiring_date]", @perf_review.hiring_date, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Prepared by</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Prepared by</label>
             <%= text_field_tag "perf_review[prepared_by]", @perf_review.prepared_by, class: "form-control" %>
           </div>
           <div class="col-xs-12">
-            <label class="form-label">Comment</label>
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Comment</label>
             <%= text_field_tag "perf_review[prepared_by]", @perf_review.comment, class: "form-control" %>
           </div>
         </div>
       </div>
    </div>
+   <p style="page-break-after: always;">&nbsp;</p>
   <%perf_review_catg_comments = JSON.parse(@perf_review.catg_reviews) if @perf_review.catg_reviews.present? rescue [@perf_review.catg_reviews]
     perf_review_catg_suggestions = JSON.parse(@perf_review.catg_suggestions) if @perf_review.catg_suggestions.present? rescue [@perf_review.catg_suggestions]
   %>
@@ -188,22 +183,24 @@
             <% end %>
             <div class="col-xs-12">
             <div class="form-group form-float">
+              <label class="form-label" style="width: 100%;margin-top: 5px;">Category Comment</label>	
               <div class="form-line">
-                <%= text_area_tag "perf_review[catg_reviews]", "#{perf_review_catg_comments[index] rescue nil}", class: "form-control" %>
-                <label class="form-label">Category Comment</label>
+                <%= text_area_tag "perf_review[catg_reviews]", "#{perf_review_catg_comments[index] rescue nil}", class: "form-control" , style: 'margin-top: 10px;'%>
               </div>
             </div>
           </div>
           <div class="col-xs-12">
             <div class="form-group form-float">
+            <label class="form-label" style="width: 100%;margin-top: 5px;">Category Suggestion</label>
               <div class="form-line">
                 <%= text_area_tag "perf_review[catg_suggestions]", "#{perf_review_catg_suggestions[index] rescue nil}", class: "form-control" %>
-                <label class="form-label">Category Suggestion</label>
               </div>
             </div>
           </div>
-          <div class="panel-footer">
+          <div class="col-xs-12">
+            <div class="form-group form-float">
             Average points: <%= @perf_review.calculate_avg_point[category.id] %>
+            </div>
           </div>
         </div>
      </div>

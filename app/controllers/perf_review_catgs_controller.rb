@@ -1,6 +1,6 @@
 class PerfReviewCatgsController < ApplicationController
   before_action :set_perf_review_catg, only: [:show, :edit, :update, :destroy]
-
+  respond_to :html, :js, :docx
   # GET /perf_review_catgs
   # GET /perf_review_catgs.json
   def index
@@ -60,6 +60,13 @@ class PerfReviewCatgsController < ApplicationController
       format.html { redirect_to perf_review_catgs_url, notice: 'Perf review catg was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def export_all
+    @perf_review_catgs = PerfReviewCatg.all
+    # respond_to do |format|
+    #   format.docx { headers["Content-Disposition"] = "attachment; filename=\"Review Template-#{DateTime.current.strftime('%d %b,%Y %T')}.doc\"" }
+    # end
   end
 
   private

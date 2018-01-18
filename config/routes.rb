@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get '/perf_review_requests/report_all' => 'perf_review_requests#report_all', format: 'docx'
   get '/perf_review_requests/:id/report' => 'perf_review_requests#report', format: 'docx'
   post '/perf_review_requests/:id' => 'perf_review_requests#update'
+  get '/perf_reviews/:id/export' => 'perf_reviews#export'
 
   resources :notifications,only: [:index,:new,:create,:show]
   get '/notification_list' => 'notifications#notification_list'
@@ -30,6 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/perf_review_catgs/export_all' => 'perf_review_catgs#export_all'#, format: 'docx'
   resources :leave_responses
   resources :leave_requests
   resources :flextime_requests

@@ -34,6 +34,7 @@ gem "google_visualr", ">= 2.5"
 
 gem 'pdfkit'
 gem 'wkhtmltopdf-binary'
+gem 'render_anywhere'
 
 group :development, :test do
   gem 'pry', platform: :mri
