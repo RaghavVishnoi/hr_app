@@ -2,9 +2,9 @@
   <td><%= perf_review.reviewer.name %></td>
   <td><%= perf_review.request.perf_review_request.try(:reviewee).try(:name) %></td>
   <td><%= perf_review.created_at.strftime("%d %b,%Y") %></td>
-  <td><%= perf_review.avg %>
+  <td><%= perf_review.avg.round(3) rescue 0.0 %>
   <td>
-    <%= link_to perf_review_path(perf_review, format: :pdf) do %>
+    <%= link_to perf_review_path(perf_review) do %>
       <i class="fa fa-info-circle" aria-hidden="true"></i>
     <% end %>&nbsp;&nbsp;&nbsp;
     <%= link_to edit_perf_review_path(perf_review) do %>
