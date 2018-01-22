@@ -1,5 +1,8 @@
 <div class="col-xs-12 <%= 'hidden' if index != 0 %>" id="question_<%= question.id %>_<%= question.exam_id %>">
   <div class="body">
+    <%= progress_bar ((index.to_f+1) / @questions.length).round(1), alternative: 'info', striped: true  %>
+    <label style="margin-left: 50%;"><%=index+1%>/<%=@questions.length%></label>
+    <br>
     <h3>Q. <%= question.question %></h3>
     <br/>
     <div class="<%= question.description.present? ? 'col-xs-6' : 'col-xs-12' %>">

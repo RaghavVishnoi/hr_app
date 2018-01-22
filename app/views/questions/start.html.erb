@@ -7,7 +7,7 @@
   <div class="col-sm-12">
     <div class="card">
       <div class="row">
-        <div class="col-sm-8 col-xs-12">
+        <div class="col-sm-12 col-xs-12">
           <% @questions.each_with_index do |question, index| %>
             <%= render partial: "questions/attempt", locals: { question: question, index: index } %>
           <% end %>
