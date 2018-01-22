@@ -3,7 +3,7 @@ class PerfReview < ApplicationRecord
   belongs_to :employee
   belongs_to :reviewer,class_name: 'Employee',foreign_key: 'reviewer_id'
   belongs_to :team_lead,class_name: 'Employee',foreign_key: 'team_leader'
-  has_many :ques_answs
+  has_many :ques_answs,class_name: 'QuesAnsw',foreign_key: 'review_id'
 
   after_create :notify_reviewee
 
