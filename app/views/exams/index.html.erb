@@ -52,7 +52,7 @@
                       </td>
                     <%end%>  
                       <td>
-                        <% if result.present? && (result.completed_at.present? && Time.zone.parse(String(result.completed_at)).utc <= Time.zone.parse(String(DateTime.now)).utc) %>
+                        <% if result.present? && result.completed_at.present? %>
                           <%=form_tag '/result/share' do |f|%>
                             <%=select_tag "receiver", options_for_select(Employee.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }),multiple: true%>
                             <%=hidden_field_tag 'result_id',result.id%>
