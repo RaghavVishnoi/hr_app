@@ -3,14 +3,19 @@
     #wrapper { padding: 0 !important; }
   </style>
 <% end %>
-
-<div class="row">
-  <div class="col-sm-8 col-xs-12">
-    <% @questions.each_with_index do |question, index| %>
-      <%= render partial: "questions/attempt", locals: { question: question, index: index } %>
-    <% end %>
-  </div>
-</div>
+<div class="row clearfix">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="row">
+        <div class="col-sm-8 col-xs-12">
+          <% @questions.each_with_index do |question, index| %>
+            <%= render partial: "questions/attempt", locals: { question: question, index: index } %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>    
 <%= hidden_field_tag :time, @result.completed_at - DateTime.now %>
 <%= hidden_field_tag :start_time, @result.started_at%>
 <%= hidden_field_tag :end_time, @result.completed_at %>

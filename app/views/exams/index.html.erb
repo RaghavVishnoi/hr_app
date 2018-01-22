@@ -14,7 +14,7 @@
                   <th>Marks</th>
                   <th>Time</th>
                   <th>State</th>
-                  <th colspan="<%= '3' if current_employee.user_role != 'employee' %>">Status</th>
+                  <th>Status</th>
                   <th>Share</th>
                 </tr>
               </thead>
@@ -26,31 +26,42 @@
                     <td><%= exam.time %></td>
                     <td><%= exam.state.nil? ? 'Not Enabled' : exam.state ? 'Enabled' : 'Up Coming' %></td>
                     <% if current_employee.user_role != 'employee' %>
-                      <td><%= link_to 'Show', exam %></td>
-                      <td><%= link_to 'Edit', edit_exam_path(exam) %></td>
-                      <td><%= link_to 'Destroy', exam, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                      <td>
+                        <%= link_to '/exams/'+String(exam.id)+'/edit', :class => "mat-top-10" do %>
+                          <i class="fa fa-pencil mar-left-5"></i>
+                        <% end %>
+                        &nbsp;&nbsp;&nbsp;
+                        <%= link_to '/exams/'+String(exam.id), :class => "mat-top-10" do %>
+                          <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        <% end %>
+                        &nbsp;&nbsp;&nbsp;
+                        <%= link_to exam, method: :delete, data: { confirm: 'Are you sure?' } do%>
+                              <i class="fa fa-trash" aria-hidden="true"></i>
+                        <%end%>
+                      </td>
                     <% else %>
                       <td>
-                        <%- result = exam.results.find_by(employee: current_employee) %>
-                        <% if (result.nil? || (result.completed_at.present? && result.completed_at > DateTime.now)) && result.nil? %>
-                          <%= link_to "Start", exam_start_path(exam) if exam.state %>
-                        <% elsif result.present? && (result.completed_at.present? && result.completed_at > DateTime.now) %>
+                        <% result = exam.results.find_by(employee: current_employee) %>
+                        <% if result.nil? %>
+                          <%= link_to "Start", exam_start_path(exam) %>
+                        <% elsif result.present? && (result.completed_at.nil? && result.completed_at > DateTime.now) %>
                           Started
                         <% else%>
                           Completed
-
                         <% end %>
                       </td>
+                    <%end%>  
                       <td>
-                        <% if result.present? && (result.completed_at.present? && result.completed_at <= DateTime.now) %>
+                        <% if result.present? && (result.completed_at.present? && Time.zone.parse(String(result.completed_at)).utc <= Time.zone.parse(String(DateTime.now)).utc) %>
                           <%=form_tag '/result/share' do |f|%>
-                            <%=select_tag "receiver", options_for_select(Employee.employees.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }),multiple: true%>
+                            <%=select_tag "receiver", options_for_select(Employee.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] }),multiple: true%>
                             <%=hidden_field_tag 'result_id',result.id%>
                             <button class="share-result-button"><i class="fa fa-share" aria-hidden="true"></i></button>
                           <%end%>  
+                        <%else%>
+                          Pending..
                         <%end%>
                       </td>
-                    <% end %>
                   </tr>
                 <% end %>
               </tbody>

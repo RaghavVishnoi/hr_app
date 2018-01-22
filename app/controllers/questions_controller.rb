@@ -44,7 +44,7 @@ class QuestionsController < ApplicationController
   def complete
     @exam = Exam.find(params[:exam_id])
     @result = @exam.results.find_by(employee: current_employee)
-    @result_update = @result.update_attributes(completed_at: DateTime.now)
+    @result_update = @result.update_attributes(completed_at: Time.zone.parse(String(DateTime.now)))
     result_receivers = @result.exam.result_receivers
     if result_receivers.present?
       receivers = Employee.where(id: result_receivers.pluck(:receiver_id))

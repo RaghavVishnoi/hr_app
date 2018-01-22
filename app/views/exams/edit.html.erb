@@ -1,6 +1,12 @@
-<h1>Editing Exam</h1>
-
-<%= render 'form', exam: @exam %>
-
-<%= link_to 'Show', @exam %> |
-<%= link_to 'Back', exams_path %>
+<div class="card">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+              Edit Exam
+          </h3>
+        </div>
+        <div class="panel-body">
+        	<%= render 'form', exam: @exam, action: 'Edit Exam' %>
+    	</div>
+	</div>
+</div>	        	

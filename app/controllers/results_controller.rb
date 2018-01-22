@@ -16,7 +16,7 @@ class ResultsController < ApplicationController
     if current_employee.user_role == 'employee'
       @results = current_employee.results.where(status: true)
     else
-      @results = employee.find(params[:employee_id]).results
+      @results = Employee.all.map{|employee| employee.results.where(status: true)}.flatten!
     end
   end
 
