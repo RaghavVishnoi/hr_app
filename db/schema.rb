@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118105640) do
+ActiveRecord::Schema.define(version: 20180123132001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -405,9 +405,10 @@ ActiveRecord::Schema.define(version: 20180118105640) do
     t.integer  "question_id"
     t.string   "answer"
     t.integer  "employee_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.boolean  "correct_ans"
+    t.integer  "status",      default: 1
     t.index ["employee_id"], name: "index_responses_on_employee_id", using: :btree
     t.index ["question_id"], name: "index_responses_on_question_id", using: :btree
   end
@@ -425,11 +426,12 @@ ActiveRecord::Schema.define(version: 20180118105640) do
     t.integer  "obtained_marks"
     t.integer  "correct_ans"
     t.integer  "incorrect_ans"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.boolean  "status"
     t.datetime "completed_at"
     t.datetime "started_at"
+    t.integer  "state",          default: 0
     t.index ["employee_id"], name: "index_results_on_employee_id", using: :btree
     t.index ["exam_id"], name: "index_results_on_exam_id", using: :btree
   end

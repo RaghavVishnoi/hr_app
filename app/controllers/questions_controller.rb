@@ -24,14 +24,17 @@ class QuestionsController < ApplicationController
 
   def start
     @exam = Exam.find(params[:exam_id])
-    if current_employee.results.find_by(exam: @exam) 
+    if current_employee.results.find_by(exam: @exam,state: 1) 
       return redirect_to exams_path
+    elsif current_employee.results.find_by(exam: @exam,state: 2) 
+      Response.where(question_id: @exam.questions.pluck(:id),employee_id: current_employee.id).update_all(status: 2)
     end
     
     @result = current_employee.results.build(exam: @exam)
     if @result.started_at.nil?
       @result.started_at = DateTime.now
       @result.completed_at = @result.started_at + @exam.time.minute 
+      @result.state = 1
     end
     @result.save!
     @questions = @exam.questions
@@ -44,7 +47,7 @@ class QuestionsController < ApplicationController
   def complete
     @exam = Exam.find(params[:exam_id])
     @result = @exam.results.find_by(employee: current_employee)
-    @result_update = @result.update_attributes(completed_at: Time.zone.parse(String(DateTime.now)).utc)
+    @result_update = @result.update_attributes(completed_at: DateTime.now,state: 2)
     result_receivers = @result.exam.result_receivers
     if result_receivers.present?
       receivers = Employee.where(id: result_receivers.pluck(:receiver_id))
@@ -59,7 +62,7 @@ class QuestionsController < ApplicationController
     @sr.update!(correct_ans: true)
     response = Response.where(question_id: @question.id, employee_id: params[:employee_id])
     @exam = @question.exam
-    @result = @exam.results.find_by(employee: params[:employee_id]).update(correct_ans: response.select {|ans| ans.correct_ans }.count, incorrect_ans: response.select {|ans| !ans.correct_ans }.count )
+    @result = @exam.results.find_by(employee: params[:employee_id]).update(correct_ans: response.select {|ans| ans.correct_ans }.count, incorrect_ans: response.select {|ans| !ans.correct_ans }.count, status: true, obtained_marks: (@exam.marks*response.select {|ans| ans.correct_ans }.count)/@exam.questions.length )
     
     respond_to do |format|
       format.js
@@ -68,14 +71,15 @@ class QuestionsController < ApplicationController
 
   def save_ans
     @question = Question.find(params[:q_id])
-    sr = Response.find_or_create_by(employee: current_employee, question_id: @question.id)
+    sr = Response.find_or_create_by(employee: current_employee, question_id: @question.id, status: 1)
     sr.update!(correct_ans: (@question.answer == params[:answer]), answer: params[:answer])
 
     @exam = @question.exam
 
     if @exam.questions.last.id == @question.id
-      response = current_employee.responses.joins(question: :exam).where("exam_id = ?", @exam)
-      Result.find_by(employee_id: current_employee.id, exam_id: @exam.id).update(correct_ans: response.select {|ans| ans.correct_ans }.count, incorrect_ans: response.select {|ans| !ans.correct_ans }.count )
+      response = current_employee.responses.where(status: 1).joins(question: :exam).where("exam_id = ?", @exam)
+      Result.where(employee_id: current_employee.id, exam_id: @exam.id, state: 1).last.update(correct_ans: response.select {|ans| ans.correct_ans }.count, incorrect_ans: response.select {|ans| !ans.correct_ans }.count, status: true, obtained_marks: (@exam.marks*response.select {|ans| ans.correct_ans }.count)/@exam.questions.length )
+      response.update_all(status: 2)
       @redirect = 'dashboard'
     end
 
@@ -92,7 +96,7 @@ class QuestionsController < ApplicationController
     @questions = @question.exam.questions
     respond_to do |format|
       if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
+        format.html { redirect_to request.referrer, notice: 'Question was successfully created.' }
         format.js 
         format.json { render :show, status: :created, location: @question }
       else

@@ -1,4 +1,5 @@
-<table style="width:60%;border: 1px;" border="1">
+<div style="width: 100px; border-bottom: 2px solid #000;">
+	<table style="width:60%;border: 1px;" border="1">
 	<tr><td><b>Shared By</b></td><td><%=@participant.name%></td></tr>
 	<tr><td><b>Exam Name</b></td><td><%=@result.exam.title%></td></tr>
 	<tr><td><b>Started At</b></td><td><%=@result.started_at%></td></tr>
@@ -6,27 +7,28 @@
 	<tr><td><b>Obtained Marks</b></td><td><%=@result.obtained_marks%></td></tr>
 	<tr><td><b>Correct Answer</b></td><td><%=@result.correct_ans%></td></tr>
 	<tr><td><b>Incorrect Answer</b></td><td><%=@result.incorrect_ans%></td></tr>
-</table>
-<br>
-<table style="width:60%;border: 1px;" border="1">
-	<thead>
-		<tr>
-			<th colspan="4">Questions with wrong answer:</th>
-		</tr>
-		<tr>
-			<th colspan="2">Question</th>
-			<th>Attempted Option</th>
-			<th>Correct Option</th>
-		</tr>	
-	</thead>
-	<tbody>
-		<%wrong_response = Response.where(question_id: @result.exam.questions.pluck(:id),correct_ans: false)%>
-			<%wrong_response.each do |response|%>
-				<tr>
-					<td colspan="2" align="center"><%=response.question.question%></td>
-					<td align="center"><%=response.answer%></td>
-					<td align="center"><%=response.question.answer%></td>
-				</tr>
-			<%end%>	
-	</tbody>
-</table>
+	</table>
+	<br>
+	<table style="width:60%;border: 1px;" border="1">
+		<thead>
+			<tr>
+				<th colspan="4">Questions with wrong answer:</th>
+			</tr>
+			<tr>
+				<th colspan="2">Question</th>
+				<th>Attempted Option</th>
+				<th>Correct Option</th>
+			</tr>	
+		</thead>
+		<tbody>
+			<%wrong_response = Response.where(question_id: @result.exam.questions.pluck(:id),correct_ans: false)%>
+				<%wrong_response.each do |response|%>
+					<tr>
+						<td colspan="2" align="center"><%=response.question.question%></td>
+						<td align="center"><%=response.answer%></td>
+						<td align="center"><%=response.question.answer%></td>
+					</tr>
+				<%end%>	
+		</tbody>
+	</table>
+<div>

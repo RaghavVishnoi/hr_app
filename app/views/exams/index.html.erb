@@ -42,12 +42,15 @@
                     <% else %>
                       <td>
                         <% result = exam.results.find_by(employee: current_employee) %>
-                        <% if result.nil? %>
+                        <% if result.nil?%>
                           <%= link_to "Start", exam_start_path(exam) %>
-                        <% elsif result.present? && (result.completed_at.nil? && result.completed_at > DateTime.now) %>
+                        <% elsif result.present? && (result.completed_at.nil? && result.completed_at > DateTime.now) || result.state == 1%>
                           Started
                         <% else%>
                           Completed
+                          <p>
+                            <%= link_to "Reattempt", exam_start_path(exam) %>
+                          </p>  
                         <% end %>
                       </td>
                     <%end%>  
