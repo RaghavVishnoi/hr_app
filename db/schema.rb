@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20180123132001) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.integer  "question_id"
+    t.string   "answer"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "questions_id"
+    t.index ["questions_id"], name: "index_answers_on_questions_id", using: :btree
+  end
+
   create_table "data_passwords", force: :cascade do |t|
     t.string   "data_type"
     t.integer  "employee_id"
