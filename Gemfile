@@ -39,6 +39,7 @@ gem 'render_anywhere'
 group :development, :test do
   gem 'pry', platform: :mri
   gem 'byebug'
+  gem 'dotenv-rails'
 end
 
 group :development do

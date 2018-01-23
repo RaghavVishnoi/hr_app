@@ -41,6 +41,7 @@
                   <th>Reviewee</th>
                   <th>Due Date</th>
                   <th>Created By</th>
+                  <th>Created On</th>
                   <th>Total Avg</th>
                 </tr>
               </thead>
@@ -50,6 +51,7 @@
                   <td><%=perf_review_request.reviewee.name%></td>
                   <td><%=perf_review_request.due_date.strftime("%d %b %Y") rescue nil%></td>
                   <td><%=perf_review_request.employee.name%></td>
+                  <td><%=perf_review_request.created_at.strftime("%d %b,%Y") rescue nil%></td>
                   <td><%=perf_review_request.avg_on_category%></td>
                 </tr>
               </tbody>
@@ -67,7 +69,7 @@
                   <tr>
                     <td><%=reviewer.employee.name%></td>
                     <td><%=perf_review_request.reviews(reviewer)[:review_date]%></td>
-                    <td><%=perf_review_request.reviews(reviewer)[:review_avg]%></td>
+                    <td><%=perf_review_request.reviews(reviewer)[:review_avg].round(2) rescue 0.0%></td>
                   </tr>
                 <%end%>
               </tbody>

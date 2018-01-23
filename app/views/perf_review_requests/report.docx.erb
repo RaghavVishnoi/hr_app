@@ -72,8 +72,8 @@
 						      				<%=comment%>
 						      				<br>
 					      				<%end
-					      			rescue  
-					      			end%>
+					      			rescue
+                        end%>
 					      		</p>
 					      		<p><b style="color: #228B22">Suggested Improvements, what is needed to obtain 5.00s: </b></p>
 					      		<p>
@@ -99,22 +99,22 @@
 					      	<td style="color: #228B22;border: 1px solid" align="center"><b>Overall Rating</b></td>
 					      	<td style="border: 1px solid;" align="center"><%=(master_points.values.sum/master_points.values.length).round(2) rescue 0.0%></td>
 					      </tr> 
-					      <tr>
-					      	<td colspan="6" style="background-color: #eee9e9;color: #228B22;border: 1px solid" align="center"><b>SUMMARY AND OVERALL COMMENTS</b></td>
-					      </tr> 
-					      <%@perf_review_request.reviewers.each do |reviewer|%>
-			      				<%if reviewer.perf_review.present?%>
-			      					<tr>
-								      	<td colspan="2" style="color: #228B22;border: 1px solid">
-								      		<%=reviewer.employee.name%>
-								      	</td>
-								      	<td colspan="4" style="border: 1px solid">
-								      		<%=reviewer.perf_review.comment%>
-								      	</td>
-								    </tr> 
-			      				<%end%>
-			      		  <%end%> 
 				<%end%> 
+         <tr>
+          <td colspan="6" style="background-color: #eee9e9;color: #228B22;border: 1px solid" align="center"><b>SUMMARY AND OVERALL COMMENTS</b></td>
+        </tr> 
+        <%@perf_review_request.reviewers.each do |reviewer|%>
+            <%if reviewer.perf_review.present?%>
+              <tr>
+                <td colspan="2" style="color: #228B22;border: 1px solid">
+                  <%=reviewer.employee.name%>
+                </td>
+                <td colspan="4" style="border: 1px solid">
+                  <%=reviewer.perf_review.comment%>
+                </td>
+            </tr> 
+            <%end%>
+          <%end%> 
 		  </table>		
 		
 	    <br><br><br>
