@@ -1,0 +1,44 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header pad-bot-40">
+        <div class="col-sm-9">
+          <h2>
+            List Files
+          </h2>
+        </div>
+        <div class="col-sm-3" style="margin-top: -8px;">
+          <%= link_to('/file_uploads/new', :class => "btn btn-success") do %>
+            Upload&nbsp;&nbsp;
+            <i class="fa fa-upload" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      </div>
+      <div class="body table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+              <th>File Name</th>
+              <th>Uploaded On</th>
+              <th>Uploaded by</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%@file_uploads.each do |file_upload|%> 
+              <tr>
+                <td><%=file_upload.title%></td>
+                <td><%=file_upload.description%></td>
+                <td><%=file_upload.file.as_json[:file]["url"].split("/").last rescue nil%></td>
+                <td><%=file_upload.created_at.strftime("%d %b,%Y")%></td>
+                <td><%=file_upload.employee.name%></td>
+              </tr>
+            <%end%>
+          </tbody>
+        </table>
+        <%= will_paginate @perf_review_requests, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>    
+  </div>
+</div>

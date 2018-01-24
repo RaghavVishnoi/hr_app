@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :file_uploads
   resources :perf_reviews do
     collection do
       get ':employee_id/employee' => 'perf_reviews#employee_review'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180123132001) do
+ActiveRecord::Schema.define(version: 20180124183505) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -191,6 +191,16 @@ ActiveRecord::Schema.define(version: 20180123132001) do
     t.datetime "updated_at",  null: false
     t.string   "note"
     t.index ["employee_id"], name: "index_experiences_on_employee_id", using: :btree
+  end
+
+  create_table "file_uploads", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "file"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "employee_id"
+    t.index ["employee_id"], name: "index_file_uploads_on_employee_id", using: :btree
   end
 
   create_table "flextime_requests", force: :cascade do |t|
@@ -453,6 +463,14 @@ ActiveRecord::Schema.define(version: 20180123132001) do
     t.index ["category_id"], name: "index_review_catg_quests_on_category_id", using: :btree
   end
 
+  create_table "review_documents", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "document"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "role"
     t.datetime "created_at", null: false
@@ -557,6 +575,7 @@ ActiveRecord::Schema.define(version: 20180123132001) do
   add_foreign_key "exams", "subjects"
   add_foreign_key "exams", "teams"
   add_foreign_key "experiences", "employees"
+  add_foreign_key "file_uploads", "employees"
   add_foreign_key "flextime_requests", "employees"
   add_foreign_key "flextime_requests", "employees", column: "from"
   add_foreign_key "flextime_requests", "employees", column: "team_lead_id"

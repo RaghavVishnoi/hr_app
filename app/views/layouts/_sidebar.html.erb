@@ -329,6 +329,21 @@
               </a>
             </li>
           <%end%>
+          <%if current_employee.is_module_permission('Files')%> 
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Files</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('Upload File')%>
+                  <li>
+                    <%= link_to 'Upload', new_file_upload_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+              </ul>
+            </li>
+          <%end%> 
           <%if current_employee.is_module_permission('Flextime Requests')%> 
             <li class="<%= 'active' if params[:controller] == 'employees' %>">
               <a href="javascript:;" class="menu-toggle waves-effect waves-block">

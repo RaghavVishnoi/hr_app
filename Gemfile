@@ -69,3 +69,6 @@ gem 'htmltoword'
 gem 'will_paginate-bootstrap'
 
 gem 'bootstrap_progressbar'
+
+gem 'carrierwave', '~> 0.10.0'
+gem 'mini_magick', '~> 4.3'
