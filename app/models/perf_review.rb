@@ -44,7 +44,7 @@ class PerfReview < ApplicationRecord
     PerfReviewCatg.all.each do |category|
       each_quest_points = Array.new
       category.questions.each do |question|
-        if question.answer(id) != "0" && question.answer(id) != "0.0"
+        if question.answer(id) > 0
           each_quest_points << question.answer(id)
         end  
       end
