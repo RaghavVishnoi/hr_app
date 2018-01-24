@@ -71,7 +71,8 @@ menus = [
 			{name: 'Apply Flextime Requests'},
 			{name: 'List Review Requests'},
 			{name: 'Files'},
-			{name: 'Upload File'}
+			{name: 'Upload File'},
+			{name: 'List Files'}
 		]
 
 menus.each do |menu|

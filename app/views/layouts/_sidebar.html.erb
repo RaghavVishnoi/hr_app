@@ -341,6 +341,11 @@
                     <%= link_to 'Upload', new_file_upload_path, class: " waves-effect waves-block" %>
                   </li>
                 <%end%>
+                <%if current_employee.is_module_permission('List Files')%>
+                  <li>
+                    <%= link_to 'List Files', file_uploads_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
               </ul>
             </li>
           <%end%> 
