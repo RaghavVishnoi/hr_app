@@ -38,6 +38,33 @@
     </div>
   </div>
 
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :multiplier_sick_hours %>
+        <%= f.number_field :sick_hours_multiplier, class: "form-control",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :available_vocation_hours %>
+        <%= f.number_field :vocation_hours_multiplier, class: "form-control",required: true %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-xs-12">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <%= f.label :start_date %>
+        <%= f.text_field :start_date, class: "form-control datepicker",required: true %>
+      </div>
+    </div>
+  </div>
+
   <div class="col-sm-12 col-xs-12">
     <div class="form-group form-float">
         <div class="actions">

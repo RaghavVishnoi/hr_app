@@ -89,6 +89,6 @@ class EmployeeHoursController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def employee_hour_params
-      params.require(:employee_hour).permit(:employee_id,:initial_sick_hours,:available_sick_hours,:initial_vocation_hours,:available_vocation_hours)
+      params.require(:employee_hour).permit(:employee_id,:initial_sick_hours,:available_sick_hours,:initial_vocation_hours,:available_vocation_hours,:sick_hours_multiplier,:vocation_hours_multiplier,:start_date)
     end
 end

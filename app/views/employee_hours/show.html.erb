@@ -51,6 +51,24 @@
                                                                 <%=@employee_hour.available_vocation_hours%>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td class="text-success">Multiplier Sick Hours</td>
+                                                            <td>
+                                                                <%=@employee_hour.sick_hours_multiplier%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Multiplier Vocation Hours</td>
+                                                            <td>
+                                                                <%=@employee_hour.vocation_hours_multiplier%>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="text-success">Start Date</td>
+                                                            <td>
+                                                                <%=@employee_hour.start_date.strftime("%d %b,%Y") rescue nil%>
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>

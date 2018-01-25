@@ -25,10 +25,10 @@
             <thead>
               <tr>
                 <th>Employee Name</th>
-                <th>Initial Sick Hours</th>
                 <th>Available Sick Hours</th>
-                <th>Initial Vocation Hours</th>
                 <th>Available Vocation Hours</th>
+                <th>Multiplier Vocation Hours</th>
+                <th>Multiplier Vocation Hours</th>
                 <th colspan="3"></th>
               </tr>
             </thead>
@@ -36,10 +36,11 @@
               <% @employee_hours.each do |employee_hour| %>
                 <tr>
                   <td><%= employee_hour.employee.name %></td>
-                  <td><%= employee_hour.initial_sick_hours %></td>
                   <td><%= employee_hour.available_sick_hours %></td>
-                  <td><%= employee_hour.initial_vocation_hours %></td>
                   <td><%= employee_hour.available_vocation_hours %></td>
+                  <td><%= employee_hour.sick_hours_multiplier%></td>
+                  <td><%= employee_hour.vocation_hours_multiplier%></td>
+                  <td><%= employee_hour.start_date.strftime("%d %b,%Y") rescue nil%></td>
                   <td>
                       <%= link_to employee_hour_path(employee_hour) do%>
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
