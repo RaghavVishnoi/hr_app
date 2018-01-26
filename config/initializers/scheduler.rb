@@ -3,7 +3,7 @@ require 'rufus-scheduler'
 scheduler = Rufus::Scheduler::singleton
 
 
-	scheduler.every '5 0 * * *' do
+	scheduler.at '5 0 * * *' do
 	  EmployeeHour.all.each do |employee_hour|
 	  	begin
 	  		start_date = employee_hour.start_date
