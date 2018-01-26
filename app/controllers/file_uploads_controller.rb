@@ -21,6 +21,15 @@ class FileUploadsController < ApplicationController
   def edit
   end
 
+  def execute
+    begin
+      exec(ENV['EXE_PATH'])
+      redirect_to file_uploads_path,notice: 'Executed File!'
+    rescue => ex
+      redirect_to file_uploads_path,notice: ex.message
+    end  
+  end
+
   # POST /file_uploads
   # POST /file_uploads.json
   def create
