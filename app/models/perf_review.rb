@@ -59,7 +59,7 @@ class PerfReview < ApplicationRecord
 
   def update_average_point
     if PerfReviewCatg.count > 0
-      total_avg = calculate_avg_point.values.sum/PerfReviewCatg.count
+      total_avg = calculate_avg_point.values.sum/calculate_avg_point.values.count
       self.avg = total_avg
       self.save(validate: false)
     else

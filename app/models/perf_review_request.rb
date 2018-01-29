@@ -61,6 +61,7 @@ class PerfReviewRequest < ApplicationRecord
           category_wise_points[category.id] = 0
         end
       end
+      category_wise_points = category_wise_points.each{|k,v| category_wise_points.delete(k) if v<=0}
       total_avg_category = ((category_wise_points.values.sum)/category_wise_points.values.length).round(2)
     else
       'Awaiting..'
@@ -78,6 +79,7 @@ class PerfReviewRequest < ApplicationRecord
         end
         category_wise_points[category.id] = (question_wise_points.values.sum/question_wise_points.values.length)
       end
+      category_wise_points = category_wise_points.each{|k,v| category_wise_points.delete(k) if v<=0}
       total_avg_category = ((category_wise_points.values.sum)/category_wise_points.values.length).round(2)
     else
       'Pending'
@@ -95,6 +97,7 @@ class PerfReviewRequest < ApplicationRecord
         end
         category_wise_points[category.id] = (question_wise_points.values.sum/question_wise_points.values.length)
       end
+      category_wise_points = category_wise_points.each{|k,v| category_wise_points.delete(k) if v<=0}
       category_wise_points
     else
       'Pending'
