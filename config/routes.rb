@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :reward_recommendations
   get '/file_upload/execute' => 'file_uploads#execute'
   resources :file_uploads
   resources :perf_reviews do

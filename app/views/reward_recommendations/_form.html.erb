@@ -1,0 +1,34 @@
+<%= form_for reward_recommendation do |f|%>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label> Emplyee for Recommendation </label>
+      <%= f.select :recommended_employee_id, [["Select employee",""]]+Employee.where.not(id: current_employee.id).collect {|r| [ r.name, r.id ] },{},required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label>Select month for recommendation</label>
+      <%= f.select :recommendation_month, Date::MONTHNAMES.last(12),{},required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label>Select year for recommendation</label>
+         <%= f.select :recommendation_year, (Date.today.year..Date.today.year+10),{},required: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-xs-12">
+      <label>Add your comment</label>
+      <%= f.text_area :comment, class: "form-control",required: true %>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="actions">
+      <%= submit_tag "#{action}", class: "btn btn-success" %>
+    </div>
+  </div>
+<% end %>

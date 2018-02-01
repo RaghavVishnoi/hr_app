@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125172245) do
+ActiveRecord::Schema.define(version: 20180201123200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,15 +30,6 @@ ActiveRecord::Schema.define(version: 20180125172245) do
     t.inet     "last_sign_in_ip"
     t.index ["email"], name: "index_admins_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
-  end
-
-  create_table "answers", force: :cascade do |t|
-    t.integer  "question_id"
-    t.string   "answer"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.integer  "questions_id"
-    t.index ["questions_id"], name: "index_answers_on_questions_id", using: :btree
   end
 
   create_table "data_passwords", force: :cascade do |t|
@@ -466,12 +457,17 @@ ActiveRecord::Schema.define(version: 20180125172245) do
     t.index ["category_id"], name: "index_review_catg_quests_on_category_id", using: :btree
   end
 
-  create_table "review_documents", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "document"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+  create_table "reward_recommendations", force: :cascade do |t|
+    t.integer  "recommended_employee_id"
+    t.integer  "employee_id"
+    t.text     "comment"
+    t.string   "recommendation_month"
+    t.string   "recommendation_year"
+    t.string   "previous_awarded_month"
+    t.string   "previous_awarded_year"
+    t.string   "status"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "roles", force: :cascade do |t|
@@ -601,6 +597,8 @@ ActiveRecord::Schema.define(version: 20180125172245) do
   add_foreign_key "result_receivers", "employees", column: "receiver_id"
   add_foreign_key "results", "employees"
   add_foreign_key "results", "exams"
+  add_foreign_key "reward_recommendations", "employees"
+  add_foreign_key "reward_recommendations", "employees", column: "recommended_employee_id"
   add_foreign_key "switch_days", "employees"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
