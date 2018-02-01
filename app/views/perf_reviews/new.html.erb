@@ -14,7 +14,7 @@
                             <ul class="nav nav-tabs">
                               <li class="<%='active' if params[:page].blank?%>"><a data-toggle="tab" href="#Basic" class="text-success"><i class="fa fa-indent"></i>Basic</a></li>
 
-                              <li class="<%='active' if params[:page].present?%>"><a data-toggle="tab" href="#Categories" class="text-success"><i class="fa fa-home"></i> Categories </a></li>    
+                              <li class="<%='active' if params[:page].present?%>"><a data-toggle="tab" href="#Categories" class="text-success" id="perf-review-cat-tab"><i class="fa fa-home"></i> Categories </a></li>    
                             </ul>
                             <%= form_tag create_perf_reviews_path(@reviewer) do %>
                               <div class="tab-content">
@@ -245,8 +245,17 @@
         $(".perf-review-page").attr('style','display: none;')
         $("#page-no-"+pageNumber).attr('style',"display: block;");
         widthPercentage = (pageNumber*100)/parseInt(totalRecords);
-        $(".progress-bar-info").attr('style','width: '+widthPercentage+'%')
+        $(".progress-bar-info").attr('style','width: '+widthPercentage+'%');
       }
+  });
+
+  $("#perf-review-cat-tab").click(function(){
+    perf_review_comment = $("#perf_review_comment").val();
+    console.log("iininnin "+perf_review_comment);
+    if(perf_review_comment == null || perf_review_comment == "" || perf_review_comment.length == 0){
+      alert("Please add your comment!");
+      return false;
+    }
   });
 
 function unique(list) {
