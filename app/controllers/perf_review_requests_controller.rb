@@ -70,6 +70,11 @@ class PerfReviewRequestsController < ApplicationController
       hiring_date: params[:hiring_date],
       due_date: params[:due_date]
     )
+    initial_reviewers = @perf_review_request.reviewers.pluck(:reviewer_id) rescue []
+    reviewed_reviewers = @perf_review_request.reviewed_reviewers.pluck(:id) rescue []
+    reviewer_retain = params[:reviewer_id].map{|ri| Integer(ri)} rescue []
+    reviewer_to_delete = initial_reviewers - (reviewed_reviewers + reviewer_retain) rescue []
+    PerfReviewReviewer.where(reviewer_id: reviewer_to_delete).destroy_all rescue nil
     respond_to do |format|
       if @perf_review_request
         format.html { redirect_to perf_review_requests_path, notice: 'Perf review request was successfully updated.' }
