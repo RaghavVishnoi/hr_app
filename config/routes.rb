@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get '/perf_review_requests/report_all' => 'perf_review_requests#report_all', format: 'docx'
   get '/perf_review_requests/:id/report' => 'perf_review_requests#report', format: 'docx'
   post '/perf_review_requests/:id' => 'perf_review_requests#update'
+  get '/perf_review_requests/:id/resend' => 'perf_review_requests#resend'
   get '/perf_reviews/:id/export' => 'perf_reviews#export'
 
   resources :notifications,only: [:index,:new,:create,:show]

@@ -26,6 +26,10 @@
                 Master Report 
                 <i class="fa fa-download mar-left-5"></i>
               <% end %>
+              <%= link_to('/perf_review_requests/'+String(perf_review_request.id)+'/resend', :class => "btn btn-warning mat-top-10") do %>
+                Resend
+                <i class="fa fa-share-square mar-left-5"></i>
+              <% end %>
             </div>
             <div class="col-sm-3 col-xs-3 mat-top-10">
               <%if perf_review_request.due_date.present? && perf_review_request.due_date > Time.now%>

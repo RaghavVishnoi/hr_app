@@ -86,6 +86,25 @@ class PerfReviewRequestsController < ApplicationController
     end
   end
 
+  def resend
+    begin
+      @perf_review_request = PerfReviewRequest.find(params[:id])
+      @perf_reviews = PerfReview.where(request_id: @perf_review_request.reviewers.pluck(:id))
+      if @perf_reviews.destroy_all
+        @perf_review_reviewers = @perf_review_request.reviewers.update_all(flag: false)
+        if @perf_review_reviewers
+          redirect_to request.referrer,notice: 'Request successfully reinitiate!'
+        else
+          redirect_to request.referrer,notice: @@perf_review_reviewers.errors.full_messages
+        end
+      else
+        redirect_to request.referrer,notice: @perf_reviews.errors.full_messages
+      end
+    rescue => e
+      redirect_to request.referrer,notice: e.message
+    end  
+  end
+
   # DELETE /perf_review_requests/1
   # DELETE /perf_review_requests/1.json
   def destroy
