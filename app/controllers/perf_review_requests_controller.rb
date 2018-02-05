@@ -86,14 +86,22 @@ class PerfReviewRequestsController < ApplicationController
     end
   end
 
+  def details
+    @perf_review_request = PerfReviewRequest.find(params[:id]) 
+  end
+
   def resend
     begin
       @perf_review_request = PerfReviewRequest.find(params[:id])
-      @perf_reviews = PerfReview.where(request_id: @perf_review_request.reviewers.pluck(:id))
+      if params[:reviewer_id].present?
+        @perf_review_reviewers = @perf_review_request.reviewers.where(reviewer_id: params[:reviewer_id])
+      else
+        @perf_review_reviewers = @perf_review_request.reviewers
+      end  
+      @perf_reviews = PerfReview.where(request_id: @perf_review_reviewers.pluck(:id))
       if @perf_reviews.destroy_all
-        @perf_review_reviewers = @perf_review_request.reviewers.update_all(flag: false)
-        if @perf_review_reviewers
-          redirect_to request.referrer,notice: 'Request successfully reinitiate!'
+        if @perf_review_reviewers.update_all(flag: false)
+          redirect_to perf_review_requests_path,notice: 'Request successfully reinitiate!'
         else
           redirect_to request.referrer,notice: @@perf_review_reviewers.errors.full_messages
         end

@@ -207,10 +207,9 @@
                                     <div class="col-xs-10">
                                       <div id="perf-review-paginate">
 
-                                      </div>
-                                      <%#= will_paginate @review_categories, renderer: BootstrapPagination::Rails %>  
+                                      </div>  
                                     </div>
-                                    <div class="col-xs-2">
+                                    <div class="col-xs-2 perf_review-button">
                                       <div class="actions perf-review-action">
                                         <div class="col-xs-1">
                                           <%= submit_tag "Create", class: "btn btn-success" %>
@@ -237,6 +236,7 @@
   newUrl = href.substring(0, href.indexOf('#'))
   window.history.replaceState({}, '', newUrl);
   totalRecords = $("#total-records-perf-review").val();
+  $(".perf_review-button").attr("style","display: none;")
   $("#perf-review-paginate").pagination({
       items: parseInt(totalRecords),
       itemsOnPage: 1,
@@ -246,6 +246,13 @@
         $("#page-no-"+pageNumber).attr('style',"display: block;");
         widthPercentage = (pageNumber*100)/parseInt(totalRecords);
         $(".progress-bar-info").attr('style','width: '+widthPercentage+'%');
+        console.log("pageNumber "+pageNumber+"  totalRecords "+totalRecords);
+        console.log(pageNumber == totalRecords)
+        if(parseInt(pageNumber) == parseInt(totalRecords)){
+          $(".perf_review-button").attr("style","display: block;");
+        }else{
+          $(".perf_review-button").attr("style","display: none;");
+        }
       }
   });
 

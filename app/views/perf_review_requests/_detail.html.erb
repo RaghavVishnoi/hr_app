@@ -1,0 +1,77 @@
+<%= form_tag url_for(:controller => 'perf_review_requests', :action => 'resend') do %>
+  <%= hidden_field_tag "id", "#{perf_review_request.id}", class: "form-control" %>
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label> Emplyee to be Revieweed </label>
+      <%= select_tag "reviewee_id", options_for_select(Employee.all.collect { |emp| [emp.email, emp.id] },perf_review_request.reviewee_id), class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label>Select multiple reviewers</label>
+        <%= select_tag "reviewer_id", options_for_select(Employee.all.map{|employee| [employee.name,employee.id]},perf_review_request.reviewed_reviewers.map{|employee| employee.id}), multiple: true, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>Job title</label>
+        <%= text_field_tag "job_title", "#{perf_review_request.job_title}", class: "form-control" %>
+      </div>
+    </div>  
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>Time in position</label>
+        <%= text_field_tag "time_in_position", "#{perf_review_request.time_in_position}", class: "form-control" %>
+      </div>
+    </div>  
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>Last appraisal</label>
+        <%= text_field_tag "last_appraisal", "#{perf_review_request.last_appraisal.strftime('%A %d %B %Y') rescue nil}", class: "form-control datepicker" %>
+      </div>
+    </div>  
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>First prepared</label>
+        <%= text_field_tag "first_prepared", "#{perf_review_request.first_prepared.strftime('%A %d %B %Y') rescue nil}", class: "form-control datepicker",required: true %>
+      </div>
+    </div>  
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>Hiring date</label>
+        <%= text_field_tag "hiring_date", "#{perf_review_request.hiring_date.strftime('%A %d %B %Y') rescue nil}", class: "form-control datepicker",required: true %>
+      </div>
+    </div>  
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <div class="form-line">
+        <label>Due date</label>
+        <%= text_field_tag "due_date", "#{perf_review_request.due_date.strftime('%A %d %B %Y') rescue nil}", class: "form-control datepicker",required: true %>
+      </div>
+    </div>  
+  </div>
+
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="actions">
+      <%= submit_tag "#{action}", class: "btn btn-primary waves-effect" %>
+    </div>
+  </div>
+<% end %>

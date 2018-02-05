@@ -1,0 +1,17 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header">
+        <h2>
+          Resend Performance Review Requests
+        </h2>
+      </div>
+      <div class="body">
+        <div id="add-review-request-form">
+          <%= render 'detail', perf_review_request: @perf_review_request,action: 'Resend',url: '/perf_review_requests/'+String(@perf_review_request.id)+'/resend' %>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
