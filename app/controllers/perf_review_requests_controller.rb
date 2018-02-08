@@ -73,6 +73,12 @@ class PerfReviewRequestsController < ApplicationController
     initial_reviewers = @perf_review_request.reviewers.pluck(:reviewer_id) rescue []
     reviewed_reviewers = @perf_review_request.reviewed_reviewers.pluck(:id) rescue []
     reviewer_retain = params[:reviewer_id].map{|ri| Integer(ri)} rescue []
+    new_reviewers = reviewer_retain - initial_reviewers
+    if new_reviewers.present?
+      new_reviewers.each do |new_reviewer|
+        PerfReviewReviewer.create(perf_review_request_id: @perf_review_request.id,reviewer_id: new_reviewer,flag: false)
+      end
+    end
     reviewer_to_delete = initial_reviewers - (reviewed_reviewers + reviewer_retain) rescue []
     PerfReviewReviewer.where(reviewer_id: reviewer_to_delete).destroy_all rescue nil
     respond_to do |format|

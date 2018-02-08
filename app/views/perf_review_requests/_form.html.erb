@@ -11,7 +11,7 @@
     <div class="form-group form-float">
       <label>Select multiple reviewers</label>
       <%if action == 'Update'%>
-        <%= select_tag "reviewer_id", options_for_select(perf_review_request.pending_reviewer.map{|employee| [employee.name,employee.id]},perf_review_request.pending_reviewer.map{|employee| employee.id}), multiple: true, class: "form-control",required: true %>
+        <%= select_tag "reviewer_id", options_for_select(Employee.all.map{|employee| [employee.name,employee.id]},perf_review_request.pending_reviewer.map{|employee| employee.id}), multiple: true, class: "form-control",required: true %>
       <%else%>
          <%= select_tag "reviewer_id", options_for_select(Employee.all.where.not(id: current_employee.id).collect { |emp| [emp.email, emp.id] }), multiple: true, class: "form-control",required: true %>
       <%end%>  
