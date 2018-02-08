@@ -63,31 +63,33 @@
 					            <td colspan="4" style="border: 1px solid;color: #228B22;""><%=question.name%></td>
 					          </tr>
 					      <%end%>  
-					      <tr>
-					      	<td colspan="6" style="border: 1px solid">
-					      		<p><b style="color: #228B22">Overall Assesment:</b>  <%=category.categories_points(perf_review_request)[category.id]%></p>
-					      		<p><b style="color: #228B22">Comment: </b></p>
-					      		<p>
-					      			<%begin 
-					      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_reviews) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |comment|%>
-						      				<%=comment%>
-						      				<br>
-					      				<%end
-					      			rescue  
-					      			end%>
-					      		</p>
-					      		<p><b style="color: #228B22">Suggested Improvements, what is needed to obtain 5.00s: </b></p>
-					      		<p>
-					      			<%begin
-					      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_suggestions) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |suggestion|%>
-					      					<%=suggestion%>
-					      					<br>
-					      				<%end
-					      			rescue
-					      			end%>
-					      		</p>
-					      	</td>
-					      </tr>
+					      <%if perf_review_request.reviewers.present? && perf_review_request.reviewers.pluck(:flag).uniq.count == 1 && perf_review_request.reviewers.pluck(:flag).uniq.first == true%> 
+						      <tr>
+						      	<td colspan="6" style="border: 1px solid">
+						      		<p><b style="color: #228B22">Overall Assesment:</b>  <%=category.categories_points(perf_review_request)[category.id]%></p>
+						      		<p><b style="color: #228B22">Comment: </b></p>
+						      		<p>
+						      			<%begin 
+						      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_reviews) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |comment|%>
+							      				<%=comment%>
+							      				<br>
+						      				<%end
+						      			rescue  
+						      			end%>
+						      		</p>
+						      		<p><b style="color: #228B22">Suggested Improvements, what is needed to obtain 5.00s: </b></p>
+						      		<p>
+						      			<%begin
+						      				perf_review_request.reviewers.map{|reviewer| JSON.parse(reviewer.perf_review.catg_suggestions) if reviewer.perf_review.present?}.map{|com| com[index]}.each do |suggestion|%>
+						      					<%=suggestion%>
+						      					<br>
+						      				<%end
+						      			rescue
+						      			end%>
+						      		</p>
+						      	</td>
+						      </tr>
+						    <%end%>  
 					      <tr>
 					      	<td colspan="6" style="background-color: #eee9e9;color: #228B22;border: 1px solid" align="center"><b>Overall Performance</b></td>
 					      	<%master_points = perf_review_request.total_points_master%>

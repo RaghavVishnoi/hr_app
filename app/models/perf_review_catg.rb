@@ -10,7 +10,7 @@ class PerfReviewCatg < ApplicationRecord
         end
         question_wise_points
     else
-      'Pending'
+      []
     end
   end
 
