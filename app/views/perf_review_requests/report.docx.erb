@@ -117,6 +117,20 @@
             </tr> 
             <%end%>
           <%end%> 
+          <tr>
+            <td align="center" colspan="6" style="background-color: #fff;color: #FFFFFF;border: 1px solid;padding-top: 5px;"></td>
+          </tr>
+          <tr>
+            <td align="center" colspan="6" style="background-color: #228B22;color: #FFFFFF;border: 1px solid;padding-top: 5px;"><b>OVERALL RATING</b></td>
+          </tr> 
+          <tr>
+            <td style="color: #228B22;border: 1px solid" align="center"><b>Total Points</b></td>
+            <td align="center" style="border: 1px solid;"><%=@perf_review_request.total_points rescue 0.0%></td>
+            <td  style="color: #228B22;border: 1px solid" align="center"><b>Item Rated</b></td>
+            <td align="center" style="border: 1px solid;"><%=@perf_review_request.item_rated rescue 0%></td>
+            <td style="color: #228B22;border: 1px solid" align="center"><b>Overall Rating</b></td>
+            <td style="border: 1px solid;" align="center"><%=(@perf_review_request.total_points/@perf_review_request.item_rated).round(2) rescue 0.0%></td>
+          </tr>
 		  </table>		
 		
 	    <br><br><br>

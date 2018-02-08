@@ -126,6 +126,18 @@ class PerfReviewRequest < ApplicationRecord
     reviewed_revr
   end
 
+  def total_points
+    QuesAnsw.where(review_id: perf_review_ids(self)).sum(:answer)
+  end
+
+  def item_rated
+    QuesAnsw.where(review_id: perf_review_ids(self)).length
+  end
+
+  def perf_review_ids(perf_review_request)
+    perf_review_request.reviewers.map{|reviewer| reviewer.perf_review.id if reviewer.perf_review.present?}.compact
+  end
+
   private
     def default_values
       self.created_at ||= DateTime.current
