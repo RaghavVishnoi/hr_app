@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   resources :reward_recommendations
+  post '/reward_recommendation/:id/update_status' => 'reward_recommendations#update_status'
   get '/file_upload/execute' => 'file_uploads#execute'
   resources :file_uploads
   resources :perf_reviews do

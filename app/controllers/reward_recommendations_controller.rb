@@ -4,7 +4,18 @@ class RewardRecommendationsController < ApplicationController
   # GET /reward_recommendations
   # GET /reward_recommendations.json
   def index
-    @reward_recommendations = RewardRecommendation.all
+    case current_employee.role.role
+    when 'employee'
+      @reward_recommendations = []
+    when 'team_leader'
+      @reward_recommendations = RewardRecommendation.team_leader_reward_recommendation(current_employee).order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    when 'team_manager'
+      @reward_recommendations = RewardRecommendation.team_manager_reward_recommendation(current_employee).order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    when 'hr'
+      @reward_recommendations = RewardRecommendation.all.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    when 'president'
+      @reward_recommendations = RewardRecommendation.all.order('created_at desc').paginate(:page => params[:page], :per_page => 5)
+    end
   end
 
   # GET /reward_recommendations/1
@@ -54,6 +65,13 @@ class RewardRecommendationsController < ApplicationController
     end
   end
 
+  def update_status
+    reward_recommendation = RewardRecommendation.find(params[:id])
+    result = RewardRecommendation.update_status(reward_recommendation, params['reward_recommendation']['status'], current_employee) 
+    render :json => result
+
+  end
+
   # DELETE /reward_recommendations/1
   # DELETE /reward_recommendations/1.json
   def destroy
@@ -72,7 +90,7 @@ class RewardRecommendationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reward_recommendation_params
-      params.require(:reward_recommendation).permit(:recommended_employee_id,:recommendation_month,:recommendation_year,:comment)
+      params.require(:reward_recommendation).permit(:recommended_employee_id,:recommendation_month,:recommendation_year,:comment,:team_leader_id,:team_manager_id)
     end
 
     def employee_last_awarded

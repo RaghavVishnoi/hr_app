@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180201123200) do
+ActiveRecord::Schema.define(version: 20180214053307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -468,6 +468,8 @@ ActiveRecord::Schema.define(version: 20180201123200) do
     t.string   "status"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "team_lead_id"
+    t.integer  "team_manager_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -599,6 +601,8 @@ ActiveRecord::Schema.define(version: 20180201123200) do
   add_foreign_key "results", "exams"
   add_foreign_key "reward_recommendations", "employees"
   add_foreign_key "reward_recommendations", "employees", column: "recommended_employee_id"
+  add_foreign_key "reward_recommendations", "employees", column: "team_lead_id"
+  add_foreign_key "reward_recommendations", "employees", column: "team_manager_id"
   add_foreign_key "switch_days", "employees"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"

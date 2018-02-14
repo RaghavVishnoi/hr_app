@@ -18,13 +18,15 @@
         <%@reward_recommendations.each do |reward_recommendation|%>
           <div class="card-child">
             <div class="col-sm-9 col-xs-9">
-              <%= link_to('/perf_review_requests/'+String(reward_recommendation.id)+'/edit', :class => "btn btn-primary mat-top-10") do %>
-                Edit 
-                <i class="fa fa-pencil mar-left-5"></i>
-              <% end %>
+              <%if current_employee.superuser?%>
+                <%= link_to('/perf_review_requests/'+String(reward_recommendation.id)+'/edit', :class => "btn btn-primary mat-top-10") do %>
+                  Edit 
+                  <i class="fa fa-pencil mar-left-5"></i>
+                <% end %>
+              <%end%>  
             </div>
             <div class="col-sm-3 col-xs-3 mat-top-10">
-                Status: <b><%=reward_recommendation.status%></b>
+                Status: <b><%=reward_recommendation.status.camelize%></b>
             </div>
             <table class="table table-hover">
               <thead>
@@ -52,15 +54,33 @@
                     <td><%=reward_recommendation.previous_awarded_month%></td>
                     <td><%=reward_recommendation.previous_awarded_year%></td>
                     <td>
-                      <button name="color" type="button" class="btn btn-success" value="btn-danger" onclick="">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                      </button>
-                      <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="">
-                            <i class="fa fa-times" aria-hidden="true" ></i>
-                      </button>
-                      <button name="color" type="button" class="btn btn-danger" value="btn-danger">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                      </button>
+                      <%if reward_recommendation.can_approve(current_employee)%>
+                        <button name="color" type="button" class="btn btn-success" value="btn-danger" onclick="updateStatus('approve','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                      <%else%>
+                        <button name="color" type="button" class="btn btn-success" value="btn-danger" disabled>
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>  
+                      <%end%> 
+                      <%if reward_recommendation.can_reject(current_employee)%> 
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="updateStatus('reject','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-times" aria-hidden="true" ></i>
+                        </button>
+                      <%else%>  
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" disabled>
+                              <i class="fa fa-times" aria-hidden="true" ></i>
+                        </button>
+                      <%end%>
+                      <%if reward_recommendation.can_cancel(current_employee)%>  
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="updateStatus('cancel','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-ban" aria-hidden="true"></i>
+                        </button>
+                      <%else%>
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" disabled>
+                              <i class="fa fa-ban" aria-hidden="true"></i>
+                        </button>  
+                      <%end%>  
                     </td>
                   </tr>
                 </tr>
@@ -74,6 +94,7 @@
             </table>
           </div>  
         <%end%>  
+        <%= will_paginate @reward_recommendations, renderer: BootstrapPagination::Rails %>
       </div>
     </div>
   </div>

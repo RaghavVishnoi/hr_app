@@ -21,6 +21,20 @@
     </div>
   </div>
 
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label>Select Team Leader</label>
+        <%= f.select :team_lead_id, Employee.team_leaders.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-sm-4 col-xs-4">
+    <div class="form-group form-float">
+      <label>Select Team Manager</label>
+        <%= f.select :team_manager_id, Employee.team_managers.collect {|r| [ r.name, r.id ] }, {}, class: "form-control" %>
+    </div>
+  </div>
+
   <div class="col-sm-12 col-xs-12">
       <label>Add your comment</label>
       <%= f.text_area :comment, class: "form-control",required: true %>
