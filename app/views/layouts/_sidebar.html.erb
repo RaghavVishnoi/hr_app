@@ -369,6 +369,26 @@
               </ul>
             </li>
           <%end%>   
+          <%if current_employee.is_module_permission('Reward Recommendation')%> 
+            <li class="<%= 'active' if params[:controller] == 'employees' %>">
+              <a href="javascript:;" class="menu-toggle waves-effect waves-block">
+                <i class="material-icons">event</i>
+                <span>Reward Recommendations</span>
+              </a>
+              <ul class="ml-menu">
+                <%if current_employee.is_module_permission('List Reward Recommendations')%>
+                  <li>
+                    <%= link_to 'List Reward Recommendations', reward_recommendations_path, class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>
+                <%if current_employee.is_module_permission('New Reward Recommendation')%>  
+                  <li>
+                    <%= link_to 'New Reward Recommendation', new_reward_recommendation_path , class: " waves-effect waves-block" %>
+                  </li>
+                <%end%>  
+              </ul>
+            </li>
+          <%end%>   
         </ul>
       <% end %>
     </div>

@@ -1,0 +1,101 @@
+<div class="row clearfix">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="card">
+      <div class="header pad-bot-40">
+        <div class="col-sm-9">
+          <h2>
+            Reward Recommendations
+          </h2>
+        </div>
+        <div class="col-sm-3" style="margin-top: -8px;">
+          <%#= link_to('/perf_review_requests/report_all', :class => "btn btn-success") do %>
+           <!--  Report All
+            <i class="fa fa-download mar-left-5"></i> -->
+          <%# end %>
+        </div>
+      </div>
+      <div class="body table-responsive"> 
+        <%@reward_recommendations.each do |reward_recommendation|%>
+          <div class="card-child">
+            <div class="col-sm-9 col-xs-9">
+              <%if current_employee.superuser?%>
+                <%= link_to('/perf_review_requests/'+String(reward_recommendation.id)+'/edit', :class => "btn btn-primary mat-top-10") do %>
+                  Edit 
+                  <i class="fa fa-pencil mar-left-5"></i>
+                <% end %>
+              <%end%>  
+            </div>
+            <div class="col-sm-3 col-xs-3 mat-top-10">
+                Status: <b><%=reward_recommendation.status.camelize%></b>
+            </div>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th rowspan="2" style="align-text: center;padding-bottom: 35px;">Name</th>
+                  <th rowspan="2" style="align-text: center;padding-bottom: 35px;">Recommended By</th>
+                  <th colspan="2">Recommended For</th>
+                  <th colspan="2">Last Awarded</th>
+                  <th rowspan="2" style="align-text: center;padding-bottom: 35px;">Action</th>
+                </tr>
+                <tr>
+                  <th>Month</th>
+                  <th>Year</th>
+                  <th>Month</th>
+                  <th>Year</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <tr>
+                    <td><%=reward_recommendation.recommended_employee.name%></td>
+                    <td><%=reward_recommendation.employee.name%></td>
+                    <td><%=reward_recommendation.recommendation_month%></td>
+                    <td><%=reward_recommendation.recommendation_year%></td>
+                    <td><%=reward_recommendation.previous_awarded_month%></td>
+                    <td><%=reward_recommendation.previous_awarded_year%></td>
+                    <td>
+                      <%if reward_recommendation.can_approve(current_employee)%>
+                        <button name="color" type="button" class="btn btn-success" value="btn-danger" onclick="updateStatus('approve','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>
+                      <%else%>
+                        <button name="color" type="button" class="btn btn-success" value="btn-danger" disabled>
+                              <i class="fa fa-check" aria-hidden="true"></i>
+                        </button>  
+                      <%end%> 
+                      <%if reward_recommendation.can_reject(current_employee)%> 
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="updateStatus('reject','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-times" aria-hidden="true" ></i>
+                        </button>
+                      <%else%>  
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" disabled>
+                              <i class="fa fa-times" aria-hidden="true" ></i>
+                        </button>
+                      <%end%>
+                      <%if reward_recommendation.can_cancel(current_employee)%>  
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" onclick="updateStatus('cancel','<%=reward_recommendation.id%>')">
+                              <i class="fa fa-ban" aria-hidden="true"></i>
+                        </button>
+                      <%else%>
+                        <button name="color" type="button" class="btn btn-danger" value="btn-danger" disabled>
+                              <i class="fa fa-ban" aria-hidden="true"></i>
+                        </button>  
+                      <%end%>  
+                    </td>
+                  </tr>
+                </tr>
+                <tr>
+                  <td><b>Comment: </b></td>
+                  <td colspam="6">
+                    <%=reward_recommendation.comment%>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>  
+        <%end%>  
+        <%= will_paginate @reward_recommendations, renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+  </div>
+</div>

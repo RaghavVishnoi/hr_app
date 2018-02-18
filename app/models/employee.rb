@@ -38,6 +38,7 @@ class Employee < ApplicationRecord
   has_many :notifications
   has_many :module_permissions
   has_many :result_receivers
+  has_many :reward_recommendations,class_name: 'RewardRecommendation',foreign_key: :recommended_employee_id
 
   # has_one :project_team, through: :project_team_members
   # has_many :project_team_members
@@ -91,6 +92,19 @@ class Employee < ApplicationRecord
 
   def covers
     Employee.where("role_id = ?", self.role.id)
+  end
+
+  def last_awarded
+    data = {}
+    recommendations = self.reward_recommendations.where(status: 'Awarded')
+    if recommendations.present?
+      data[:month] = recommendations.last.recommendation_month
+      data[:year] = recommendations.last.recommendation_year
+    else
+      data[:month] = "N/A"
+      data[:year] = "N/A"
+    end
+    data
   end
 
   def self.to_csv

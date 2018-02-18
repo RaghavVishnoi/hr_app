@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125172245) do
+ActiveRecord::Schema.define(version: 20180218051204) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -474,6 +474,21 @@ ActiveRecord::Schema.define(version: 20180125172245) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "reward_recommendations", force: :cascade do |t|
+    t.integer  "recommended_employee_id"
+    t.integer  "employee_id"
+    t.text     "comment"
+    t.string   "recommendation_month"
+    t.string   "recommendation_year"
+    t.string   "previous_awarded_month"
+    t.string   "previous_awarded_year"
+    t.string   "status"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "team_lead_id"
+    t.integer  "team_manager_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string   "role"
     t.datetime "created_at", null: false
@@ -601,6 +616,10 @@ ActiveRecord::Schema.define(version: 20180125172245) do
   add_foreign_key "result_receivers", "employees", column: "receiver_id"
   add_foreign_key "results", "employees"
   add_foreign_key "results", "exams"
+  add_foreign_key "reward_recommendations", "employees"
+  add_foreign_key "reward_recommendations", "employees", column: "recommended_employee_id"
+  add_foreign_key "reward_recommendations", "employees", column: "team_lead_id"
+  add_foreign_key "reward_recommendations", "employees", column: "team_manager_id"
   add_foreign_key "switch_days", "employees"
   add_foreign_key "team_members", "employees"
   add_foreign_key "team_members", "teams"
