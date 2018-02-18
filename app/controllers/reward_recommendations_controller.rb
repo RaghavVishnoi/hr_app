@@ -90,7 +90,7 @@ class RewardRecommendationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reward_recommendation_params
-      params.require(:reward_recommendation).permit(:recommended_employee_id,:recommendation_month,:recommendation_year,:comment,:team_leader_id,:team_manager_id)
+      params.require(:reward_recommendation).permit(:recommended_employee_id,:recommendation_month,:recommendation_year,:comment,:team_lead_id,:team_manager_id)
     end
 
     def employee_last_awarded

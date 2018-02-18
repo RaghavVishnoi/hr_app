@@ -72,7 +72,10 @@ menus = [
 			{name: 'List Review Requests'},
 			{name: 'Files'},
 			{name: 'Upload File'},
-			{name: 'List Files'}
+			{name: 'List Files'},
+			{name: 'Reward Recommendation'},
+			{name: 'List Reward Recommendations'},
+			{name: 'New Reward Recommendation'}
 		]
 
 menus.each do |menu|
