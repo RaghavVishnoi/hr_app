@@ -9,7 +9,7 @@ class RewardRecommendation < ApplicationRecord
 
 	scope :team_leader_reward_recommendation, -> (current_employee) {joins(:employee).where(team_lead_id: current_employee.id)}
 
-	scope :team_manager_reward_recommendation, -> (current_employee) {where(status: ["lead_approved","manager_approved","hr_approved","president_approved","manager_rejected","hr_rejected","president_rejected","lead_cancelled","manager_cancelled","hr_cancelled","president_cancelled"],team_manager_id: current_employee.id).joins(:employee).where("employees.role_id in (?)", Role.where(role: ["employee","team_leader"]).pluck(:id))}
+	scope :team_manager_reward_recommendation, -> (current_employee) {where(status: ["lead_approved","manager_approved","hr_approved","president_approved","manager_rejected","hr_rejected","president_rejected","lead_cancelled","manager_cancelled","hr_cancelled","president_cancelled"],team_manager_id: current_employee.id)}
 
 	
 	def can_approve(current_employee)
